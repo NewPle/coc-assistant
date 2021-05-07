@@ -1,0 +1,7 @@
+{
+  "name": "coc-assistant",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
