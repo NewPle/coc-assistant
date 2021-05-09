@@ -16,9 +16,6 @@ const Roll: VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Roll</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.room.roll} />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

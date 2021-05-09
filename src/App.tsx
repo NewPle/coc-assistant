@@ -32,8 +32,12 @@ import CreateSheet from "./pages/CreateSheet";
 import RoomTabs from "./components/RoomTabs";
 import AuthGuard from "./components/AuthGuard";
 import { VFC } from "react";
+import { useAuth } from "./hooks/auth";
+import { auth } from "./lib/firebase";
 
 const App: VFC = () => {
+  useAuth();
+  auth.signInAnonymously();
   return (
     <IonApp>
       <IonReactRouter>

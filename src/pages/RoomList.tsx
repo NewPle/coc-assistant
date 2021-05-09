@@ -17,7 +17,7 @@ const RoomList: VFC = () => {
         <IonToolbar>
           <IonTitle>RoomList</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.roomList} />
+            <IonBackButton defaultHref={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

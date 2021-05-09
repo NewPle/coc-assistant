@@ -16,9 +16,6 @@ const Story: VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Story</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.room.story} />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

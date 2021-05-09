@@ -16,9 +16,6 @@ const MemberList: VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>MemberList</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.room.memberList} />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

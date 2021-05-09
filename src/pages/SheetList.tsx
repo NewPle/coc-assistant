@@ -17,7 +17,7 @@ const SheetList: VFC = () => {
         <IonToolbar>
           <IonTitle>SheetList</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.sheetList} />
+            <IonBackButton defaultHref={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

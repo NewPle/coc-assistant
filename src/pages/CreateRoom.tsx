@@ -17,7 +17,7 @@ const CreateRoom: VFC = () => {
         <IonToolbar>
           <IonTitle>CreateRoom</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.createRoom} />
+            <IonBackButton defaultHref={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

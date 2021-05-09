@@ -16,9 +16,6 @@ const Chat: VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Chat</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.room.chat} />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

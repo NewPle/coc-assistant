@@ -23,7 +23,7 @@ const Component: VFC<ComponentProps> = ({ isSignedIn, children }) => {
   if (isSignedIn) {
     return <>{children}</>;
   }
-  return <Redirect to={routes.root} />;
+  return <div>Not Found</div>;
 };
 
 export default AuthGuard;
