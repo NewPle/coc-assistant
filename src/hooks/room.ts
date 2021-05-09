@@ -21,19 +21,19 @@ interface FirebaseSheetsData {
 
 export const useRoom = () => {
   const dispatch = useAppDispatch();
-  const { roomInfo, messages, sheets } = useAppSelector(({ room }) => room);
+  const { info, messages, sheets } = useAppSelector(({ room }) => room);
 
   useEffect(() => {
-    if (!roomInfo) {
+    if (!info) {
       return;
     }
 
-    if (roomInfo.roomId.includes("/")) {
+    if (info.roomId.includes("/")) {
       alert("invalid id");
       return;
     }
 
-    const roomRef = rtdb.ref("rooms").child(roomInfo.roomId);
+    const roomRef = rtdb.ref("rooms").child(info.roomId);
     const roomInfoRef = roomRef.child("info");
 
     roomInfoRef.on("value", (snapshot) => {
@@ -44,16 +44,16 @@ export const useRoom = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!roomInfo) {
+    if (!info) {
       return;
     }
 
-    if (roomInfo.roomId.includes("/")) {
+    if (info.roomId.includes("/")) {
       alert("invalid id");
       return;
     }
 
-    const roomRef = rtdb.ref("rooms").child(roomInfo.roomId);
+    const roomRef = rtdb.ref("rooms").child(info.roomId);
     const messagesRef = roomRef.child("messages");
 
     messagesRef.on("value", (snapshot) => {
@@ -65,19 +65,19 @@ export const useRoom = () => {
         dispatch(updateMessages(newMessages));
       }
     });
-  }, [dispatch, roomInfo]);
+  }, [dispatch, info]);
 
   useEffect(() => {
-    if (!roomInfo) {
+    if (!info) {
       return;
     }
 
-    if (roomInfo.roomId.includes("/")) {
+    if (info.roomId.includes("/")) {
       alert("invalid id");
       return;
     }
 
-    const roomRef = rtdb.ref("rooms").child(roomInfo.roomId);
+    const roomRef = rtdb.ref("rooms").child(info.roomId);
     const sheetsRef = roomRef.child("sheets");
 
     sheetsRef.on("value", (snapshot) => {
@@ -89,10 +89,10 @@ export const useRoom = () => {
         dispatch(updateSheets(newSheets));
       }
     });
-  }, [dispatch, roomInfo]);
+  }, [dispatch, info]);
 
   return {
-    roomInfo,
+    info,
     messages,
     sheets,
   };
