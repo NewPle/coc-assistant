@@ -7,6 +7,14 @@ export const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ user }) => user);
 
+  const signIn = (email: string, password: string) => {
+    auth.signInWithEmailAndPassword(email, password);
+  };
+
+  const signOut = () => {
+    auth.signOut();
+  };
+
   useEffect(() => {
     if (user.uid !== null) {
       return;
@@ -21,5 +29,5 @@ export const useAuth = () => {
     });
   }, []);
 
-  return { user };
+  return { user, signIn, signOut };
 };
