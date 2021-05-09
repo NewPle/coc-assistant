@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
@@ -30,23 +30,29 @@ import JoinRoom from "./pages/JoinRoom";
 import RoomList from "./pages/RoomList";
 import CreateSheet from "./pages/CreateSheet";
 import RoomTabs from "./components/RoomTabs";
+import AuthGuard from "./components/AuthGuard";
+import { VFC } from "react";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path={routes.root} component={Home} />
-        <Route exact path={routes.signin} component={SignIn} />
-        <Route exact path={routes.signup} component={SignUp} />
-        <Route exact path={routes.sheetList} component={SheetList} />
-        <Route exact path={routes.createRoom} component={CreateRoom} />
-        <Route exact path={routes.joinRoom} component={JoinRoom} />
-        <Route exact path={routes.roomList} component={RoomList} />
-        <Route exact path={routes.createSheet} component={CreateSheet} />
-        <Route path={routes.room.root} component={RoomTabs} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: VFC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path={routes.root} component={Home} />
+          <Route exact path={routes.signin} component={SignIn} />
+          <Route exact path={routes.signup} component={SignUp} />
+          <AuthGuard>
+            <Route exact path={routes.sheetList} component={SheetList} />
+            <Route exact path={routes.createRoom} component={CreateRoom} />
+            <Route exact path={routes.joinRoom} component={JoinRoom} />
+            <Route exact path={routes.roomList} component={RoomList} />
+            <Route exact path={routes.createSheet} component={CreateSheet} />
+            <Route path={routes.room.root} component={RoomTabs} />
+          </AuthGuard>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
