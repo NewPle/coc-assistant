@@ -43,7 +43,7 @@ const App: React.FC = () => (
         <Route exact path={routes.joinRoom} component={JoinRoom} />
         <Route exact path={routes.roomList} component={RoomList} />
         <Route exact path={routes.createSheet} component={CreateSheet} />
-        <Route path={routes.room} component={RoomTabs} />
+        <Route path={routes.room.root} component={RoomTabs} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
