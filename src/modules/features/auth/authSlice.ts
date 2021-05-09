@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface AuthState {
-  uid: string | undefined;
+  uid: string | null;
 }
 
 const initialState: AuthState = {
-  uid: void 0,
+  uid: null,
 };
 
 export const authSlice = createSlice({
@@ -16,7 +16,7 @@ export const authSlice = createSlice({
       state.uid = action.payload;
     },
     signout: (state) => {
-      state.uid = void 0;
+      state.uid = null;
     },
   },
 });
