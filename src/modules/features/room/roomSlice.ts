@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface RoomState {
-  roomInfo: RoomInfo | null;
+  info: RoomInfo | null;
   messages: Messages | null;
   sheets: Sheets | null;
 }
@@ -59,7 +59,7 @@ export interface Message {
 }
 
 const initialState: RoomState = {
-  roomInfo: null,
+  info: null,
   messages: null,
   sheets: null,
 };
@@ -69,7 +69,7 @@ export const roomSlice = createSlice({
   initialState,
   reducers: {
     updateRoomInfo: (state, action: PayloadAction<RoomInfo>) => {
-      state.roomInfo = action.payload;
+      state.info = action.payload;
     },
     updateMessages: (state, action: PayloadAction<Messages>) => {
       state.messages = action.payload;
