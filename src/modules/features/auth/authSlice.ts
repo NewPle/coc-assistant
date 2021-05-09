@@ -5,7 +5,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  uid: undefined,
+  uid: void 0,
 };
 
 export const authSlice = createSlice({
