@@ -26,3 +26,10 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+# env files
+.env
+
+database-debug.log
+firebase-debug.log
+ui-debug.log
