@@ -29,3 +29,7 @@ yarn-error.log*
 
 # env files
 .env
+
+database-debug.log
+firebase-debug.log
+ui-debug.log
