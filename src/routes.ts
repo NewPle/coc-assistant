@@ -14,7 +14,7 @@ const routes = {
   createSheet: "/create-sheet",
   room: {
     root: room(),
-    member: room("member"),
+    memberList: room("member-list"),
     chat: room("chat"),
     roll: room("roll"),
     story: room("story"),
