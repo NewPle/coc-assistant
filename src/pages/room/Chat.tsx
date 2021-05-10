@@ -3,14 +3,20 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonList,
   IonPage,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { VFC } from "react";
+import { useRef, VFC } from "react";
+import Message from "../../components/Message";
+import { useRoom } from "../../hooks/room";
 import routes from "../../routes";
 
 const Chat: VFC = () => {
+  const { info, messages } = useRoom();
+  // const messageListRef = useRef<HTMLIonListElement>(null);
+
   return (
     <IonPage>
       <IonHeader>
@@ -24,6 +30,14 @@ const Chat: VFC = () => {
             <IonTitle size="large">Chat</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonList
+        // ref={messageListRef}
+        >
+          {messages !== null &&
+            messages.map((message) => {
+              return <Message key={message.key} message={message} />;
+            })}
+        </IonList>
       </IonContent>
     </IonPage>
   );
