@@ -8,9 +8,13 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { VFC } from "react";
+import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
+import { useRoom } from "../../hooks/room";
 import routes from "../../routes";
 
 const MemberList: VFC = () => {
+  const { sheets } = useRoom();
+
   return (
     <IonPage>
       <IonHeader>
@@ -24,6 +28,10 @@ const MemberList: VFC = () => {
             <IonTitle size="large">MemberList</IonTitle>
           </IonToolbar>
         </IonHeader>
+        {sheets !== null &&
+          sheets.map((sheet) => {
+            return <SheetThumnail sheet={sheet} />;
+          })}
       </IonContent>
     </IonPage>
   );
