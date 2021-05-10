@@ -8,11 +8,6 @@ import {
 } from "@ionic/react";
 import { VFC } from "react";
 import { Redirect, Route } from "react-router-dom";
-import Chat from "../pages/room/Chat";
-import MemberList from "../pages/room/MemberList";
-import Roll from "../pages/room/Roll";
-import Story from "../pages/room/Story";
-import routes from "../routes";
 
 import {
   chatbubbleEllipsesOutline,
@@ -20,6 +15,11 @@ import {
   peopleCircleOutline,
   diceOutline,
 } from "ionicons/icons";
+import MemberList from "./MemberList";
+import Chat from "./Chat";
+import Roll from "./Roll";
+import Story from "./Story";
+import routes from "../../routes";
 
 const RoomTabs: VFC = () => {
   return (
