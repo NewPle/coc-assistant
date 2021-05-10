@@ -29,15 +29,13 @@ import CreateRoom from "./pages/CreateRoom";
 import JoinRoom from "./pages/JoinRoom";
 import RoomList from "./pages/RoomList";
 import CreateSheet from "./pages/CreateSheet";
-import RoomTabs from "./components/RoomTabs";
+import RoomTabs from "./pages/room/RoomTabs";
 import AuthGuard from "./components/AuthGuard";
-import { VFC } from "react";
+import { useEffect, VFC } from "react";
 import { useAuth } from "./hooks/auth";
 import { auth } from "./lib/firebase";
 
 const App: VFC = () => {
-  useAuth();
-  auth.signInAnonymously();
   return (
     <IonApp>
       <IonReactRouter>
