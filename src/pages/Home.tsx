@@ -18,25 +18,25 @@ const Home: VFC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonButton expand="full" href={routes.root}>
+        <IonButton expand="full" routerLink={routes.root}>
           ホーム
         </IonButton>
-        <IonButton expand="full" href={routes.sheetList}>
+        <IonButton expand="full" routerLink={routes.sheetList}>
           シート一覧
         </IonButton>
-        <IonButton expand="full" href={routes.createRoom}>
+        <IonButton expand="full" routerLink={routes.createRoom}>
           ルーム作成
         </IonButton>
-        <IonButton expand="full" href={routes.joinRoom}>
+        <IonButton expand="full" routerLink={routes.joinRoom}>
           ルームに参加
         </IonButton>
-        <IonButton expand="full" href={routes.roomList}>
+        <IonButton expand="full" routerLink={routes.roomList}>
           参加中ルーム一覧
         </IonButton>
-        <IonButton expand="full" href={routes.signup}>
+        <IonButton expand="full" routerLink={routes.signup}>
           サインアップ
         </IonButton>
-        <IonButton expand="full" href={routes.signin}>
+        <IonButton expand="full" routerLink={routes.signin}>
           サインイン
         </IonButton>
         <IonButton expand="full">サインアウト</IonButton>
