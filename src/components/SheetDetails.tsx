@@ -22,8 +22,8 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         <IonCardTitle>{sheet.characterName}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <IonList>
-          <IonListHeader>人物</IonListHeader>
+        <IonListHeader>人物</IonListHeader>
+        <IonList className="ion-padding-horizontal">
           <IonItem>
             <IonLabel>年齢</IonLabel>
             {sheet.age}
@@ -43,34 +43,37 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         </IonList>
 
         {sheet.belongings.length > 0 && (
-          <IonList>
+          <>
             <IonListHeader>持ち物一覧</IonListHeader>
-            {sheet.belongings.map((belonging, index) => {
-              return (
-                <IonChip color="primary" key={index}>
-                  <IonLabel>{belonging}</IonLabel>
-                </IonChip>
-              );
-            })}
-          </IonList>
+            <IonList className="ion-padding-horizontal">
+              {sheet.belongings.map((belonging, index) => {
+                return (
+                  <IonChip color="primary" key={index}>
+                    <IonLabel>{belonging}</IonLabel>
+                  </IonChip>
+                );
+              })}
+            </IonList>
+          </>
         )}
 
         {sheet.weapons.length > 0 && (
-          <IonList>
+          <>
             <IonListHeader>武器一覧</IonListHeader>
-            {sheet.weapons.map((weapon, index) => {
-              return (
-                <IonChip color="primary" key={index}>
-                  <IonLabel>{weapon}</IonLabel>
-                </IonChip>
-              );
-            })}
-          </IonList>
+            <IonList className="ion-padding-horizontal">
+              {sheet.weapons.map((weapon, index) => {
+                return (
+                  <IonChip color="primary" key={index}>
+                    <IonLabel>{weapon}</IonLabel>
+                  </IonChip>
+                );
+              })}
+            </IonList>
+          </>
         )}
 
-        <IonList>
-          <IonListHeader>技能値</IonListHeader>
-
+        <IonListHeader>技能値</IonListHeader>
+        <IonList className="ion-padding-horizontal">
           {sheet.investigatorSkills.map((investigatorSkill, index) => {
             return (
               <IonChip
