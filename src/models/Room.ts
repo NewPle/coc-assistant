@@ -10,5 +10,6 @@ export interface UserRoom {
   isMaster: boolean;
   roomId: string;
   roomName: string;
-  sheetId: string;
+  sheetId?: string;
+  characterName?: string;
 }
