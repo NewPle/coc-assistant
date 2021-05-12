@@ -3,3 +3,10 @@ export interface RoomInfo {
   roomId: string;
   roomName: string;
 }
+
+export interface UserRoom {
+  isMaster: boolean;
+  roomId: string;
+  roomName: string;
+  sheetId: string;
+}
