@@ -25,10 +25,10 @@ import { useHistory } from "react-router";
 import { useAuth } from "../hooks/auth";
 import { makeDefaultValues } from "../values/sheetDefault";
 import {
-  FirebaseUserSheetData,
   FirebaseUserSheetsData,
   InvestigatorSkills,
   Sheet,
+  UserSheet,
 } from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
@@ -113,7 +113,7 @@ const CreateSheet: React.VFC = () => {
       }
       // to this line
 
-      const userSheetData: FirebaseUserSheetData = {
+      const userSheetData: UserSheet = {
         sheetId: sheetKey,
         characterName,
         isParticipating: false,
