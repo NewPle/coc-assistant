@@ -19,55 +19,69 @@ import { updateRoomInfo } from "../modules/features/room/roomSlice";
 import { routes } from "../routes";
 import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/input-interface";
 import { useHistory } from "react-router";
+import { useError } from "../hooks/error";
+import { rtdbRoutes } from "../rtdbRoutes";
 
 const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const [roomName, setRoomName] = useState<string>("");
   const { user } = useAuth();
+  const { updateError } = useError();
 
   const onFormSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+      try {
+        event.preventDefault();
 
-      if (!user.uid) {
-        // todo
-        return;
-      }
+        if (!user.uid) {
+          // todo
+          return;
+        }
 
-      const roomRef = rtdb.ref("rooms");
-      const newRoomRef = roomRef.push();
-      const newRoomId = newRoomRef.key;
+        const roomsRootPath = rtdbRoutes.rooms.root;
+        if (!roomsRootPath) {
+          throw new Error();
+        }
+        const roomRef = rtdb.ref(roomsRootPath);
+        const newRoomRef = roomRef.push();
+        const newRoomId = newRoomRef.key;
 
-      if (!newRoomId) {
-        // todo
-        return;
-      }
+        if (!newRoomId) {
+          throw new Error();
+        }
 
-      const newRoomData = {
-        info: {
-          masterId: user.uid,
+        const newRoomData = {
+          info: {
+            masterId: user.uid,
+            roomId: newRoomId,
+            roomName,
+          },
+        };
+
+        const usersUserRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
+        if (!usersUserRoomsPath) {
+          throw new Error();
+        }
+        const userRoomRef = rtdb.ref(usersUserRoomsPath);
+
+        const newUserRoomData = {
           roomId: newRoomId,
           roomName,
-        },
-      };
+          isMaster: true,
+        };
 
-      const userRoomRef = rtdb.ref("users").child(user.uid).child("rooms");
+        userRoomRef.push(newUserRoomData);
+        newRoomRef.set(newRoomData);
 
-      const newUserRoomData = {
-        roomId: newRoomId,
-        roomName,
-        isMaster: true,
-      };
+        dispatch(updateRoomInfo(newRoomData.info));
 
-      userRoomRef.push(newUserRoomData);
-      newRoomRef.set(newRoomData);
-
-      dispatch(updateRoomInfo(newRoomData.info));
-
-      history.push(routes.room.root);
+        history.push(routes.room.root);
+      } catch (e) {
+        updateError("内部エラーが発生しました");
+      }
     },
-    [dispatch, user]
+    [dispatch, user, roomName, updateError, history]
   );
 
   const handleChangeInput = useCallback(
