@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ErrorState {
-  message: string;
+  message: string | null;
 }
 
 const initialState: ErrorState = {
-  message: "",
+  message: null,
 };
 
 export const errorSlice = createSlice({
@@ -13,7 +13,8 @@ export const errorSlice = createSlice({
   initialState,
   reducers: {
     updateError: (state, action: PayloadAction<string>) => {
-      state.message = action.payload;
+      // todo it may caouse performance problem
+      return Object.assign({}, state, { message: action.payload });
     },
   },
 });
