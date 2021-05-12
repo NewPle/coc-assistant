@@ -8,10 +8,12 @@ export interface FirebaseSheetsData {
   [key: string]: Sheet;
 }
 
+export interface FirebaseUserSheetsData {
+  [key: string]: FirebaseUserSheetData;
+}
+
 export interface FirebaseUserSheetData {
-  [key: string]: {
-    sheetId: string;
-    isParticipating: boolean;
-    participatingRoomId: string;
-  };
+  sheetId: string;
+  isParticipating: boolean;
+  participatingRoomId: string;
 }
