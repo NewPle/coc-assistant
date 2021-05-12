@@ -118,6 +118,7 @@ const CreateSheet: React.VFC = () => {
 
       const userSheetData: FirebaseUserSheetData = {
         sheetId: sheetKey,
+        characterName,
         isParticipating: false,
         participatingRoomId: "",
       };
