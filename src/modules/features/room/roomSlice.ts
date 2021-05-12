@@ -1,62 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Messages, RoomInfo, Sheets } from "../../../models";
 
 export interface RoomState {
   info: RoomInfo | null;
   messages: Messages | null;
   sheets: Sheets | null;
-}
-
-export interface RoomInfo {
-  masterId: string;
-  roomId: string;
-  roomName: string;
-}
-
-export type Sheets = Sheet[];
-
-export interface Sheet {
-  characterName: string;
-  userName: string;
-  age: number;
-  gender: string;
-  occupation: string;
-  belongings: string[];
-  weapons: string[];
-  background: string;
-  investigatorSkills: InvestigatorSkill[];
-  characteristics: Characteristics;
-  isParticipating: boolean;
-  injury: string[];
-  key: string;
-}
-
-export interface InvestigatorSkill {
-  name: string;
-  value: number;
-  skillPoint: number;
-}
-
-interface Characteristics {
-  STR: number;
-  CON: number;
-  POW: number;
-  DEX: number;
-  APP: number;
-  SIZ: number;
-  INT: number;
-  EDU: number;
-  MOV: number;
-  keys: string[];
-}
-
-export type Messages = Message[];
-
-export interface Message {
-  authorName: string;
-  authorId: string;
-  text: string;
-  createdAt: Object;
-  key: string;
 }
 
 const initialState: RoomState = {
@@ -81,10 +29,7 @@ export const roomSlice = createSlice({
   },
 });
 
-export const {
-  updateRoomInfo,
-  updateMessages,
-  updateSheets,
-} = roomSlice.actions;
+export const { updateRoomInfo, updateMessages, updateSheets } =
+  roomSlice.actions;
 
 export default roomSlice.reducer;
