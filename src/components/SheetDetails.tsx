@@ -9,7 +9,7 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/react";
-import { Sheet } from "../modules/features/room/roomSlice";
+import { Sheet } from "../models";
 
 interface Props {
   sheet: Sheet;

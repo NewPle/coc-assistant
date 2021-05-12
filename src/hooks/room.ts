@@ -1,23 +1,17 @@
 import { useEffect } from "react";
 import { rtdb } from "../lib/firebase";
 import {
-  Message,
+  FirebaseMessagesData,
+  FirebaseSheetsData,
   Messages,
-  Sheet,
   Sheets,
+} from "../models";
+import {
   updateMessages,
   updateRoomInfo,
   updateSheets,
 } from "../modules/features/room/roomSlice";
 import { useAppDispatch, useAppSelector } from "./redux";
-
-interface FirebaseMessagesData {
-  [key: string]: Message;
-}
-
-interface FirebaseSheetsData {
-  [key: string]: Sheet;
-}
 
 export const useRoom = () => {
   const dispatch = useAppDispatch();

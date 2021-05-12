@@ -1,5 +1,5 @@
 import { IonItem, IonLabel } from "@ionic/react";
-import { Message as IMessage } from "../modules/features/room/roomSlice";
+import { Message as IMessage } from "../models";
 
 interface Props {
   message: IMessage;
