@@ -1,22 +1,128 @@
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
+  IonChip,
   IonContent,
   IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonModal,
   IonPage,
+  IonRange,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import routes from "../routes";
+import { useMemo, useState } from "react";
+import { closeOutline } from "ionicons/icons";
+import { rtdb } from "../lib/firebase";
+import { useHistory } from "react-router";
+import { useAuth } from "../hooks/auth";
+import { makeDefaultValues } from "../values/sheetDefault";
+import { InvestigatorSkills } from "../models";
+import { routes } from "../routes";
+import { rtdbRoutes } from "../rtdbRoutes";
+import { useError } from "../hooks/error";
+
+interface ModalInfo {
+  index: number;
+  isOpen: boolean;
+}
 
 const CreateSheet: React.VFC = () => {
+  const {
+    initialInvestigatorSkills,
+    initialSkillPoint,
+    characteristics,
+    params,
+    combat,
+  } = useMemo(() => makeDefaultValues(), []);
+  const { updateError } = useError();
+  const history = useHistory();
+  const { user } = useAuth();
+  const [modalInfo, setModalInfo] = useState<ModalInfo>({
+    index: 0,
+    isOpen: false,
+  });
+  const [skillPoint, setSkillPoint] = useState(initialSkillPoint);
+  const [characterName, setCharacterName] = useState("");
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState("");
+  const [occupation, setOccupation] = useState("");
+
+  const [belongings, setBelongings] = useState<string[]>([]);
+  const [weapons, setWeapons] = useState<string[]>([]);
+
+  const [belonging, setBelonging] = useState("");
+  const [weapon, setWeapon] = useState("");
+
+  const [background, setBackground] = useState("");
+  const [investigatorSkills, setInvestigatorSkills] =
+    useState<InvestigatorSkills>(initialInvestigatorSkills);
+
+  const addSheet = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!user.uid) {
+      updateError("ユーザーが見つかりません");
+      return;
+    }
+    const sheetRootPath = rtdbRoutes.sheets.root;
+    if (!sheetRootPath) {
+      updateError("キャラクターシートが見つかりません");
+      return;
+    }
+
+    const sheetRef = rtdb.ref(sheetRootPath).push();
+    const sheetKey = sheetRef.key;
+    if (sheetKey === null) {
+      updateError("内部エラーが発生しました");
+      return;
+    }
+
+    const userSheetsPath = rtdbRoutes.users.user.sheets(user.uid);
+    if (!userSheetsPath) {
+      updateError("内部エラーが発生しました");
+      return;
+    }
+    const userRef = rtdb.ref(userSheetsPath);
+
+    const userSheetData = {
+      sheetId: sheetKey,
+    };
+
+    const sheetData = {
+      characterName,
+      playerName: "todo user name",
+      age,
+      gender,
+      occupation,
+      belongings,
+      weapons,
+      background,
+      investigatorSkills,
+      characteristics,
+      isParticipating: false,
+      injury: [],
+    };
+
+    userRef.push(userSheetData);
+    sheetRef.set(sheetData);
+
+    history.push(routes.sheetList);
+  };
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>CreateSheet</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.root} />
+            <IonBackButton defaultHref={routes.sheetList} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -26,6 +132,242 @@ const CreateSheet: React.VFC = () => {
             <IonTitle size="large">CreateSheet</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonModal
+          isOpen={modalInfo.isOpen}
+          swipeToClose={true}
+          cssClass="half-modal"
+          onDidDismiss={() => setModalInfo({ index: 0, isOpen: false })}
+        >
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>残り{skillPoint}ポイント</IonTitle>
+              <IonButtons slot="end">
+                <IonButton
+                  onClick={() => setModalInfo({ index: 0, isOpen: false })}
+                >
+                  <IonIcon slot="icon-only" icon={closeOutline} />
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+            <IonToolbar>
+              <IonTitle>{investigatorSkills[modalInfo.index].name}</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent>
+            <IonItem lines="full">
+              <IonRange
+                value={
+                  investigatorSkills[modalInfo.index].value +
+                  investigatorSkills[modalInfo.index].skillPoint
+                }
+                min={initialInvestigatorSkills[modalInfo.index]?.value}
+                max={100}
+                onIonChange={(e) => {
+                  setInvestigatorSkills((prev) => {
+                    prev[modalInfo.index].skillPoint =
+                      Number(e.detail.value) - prev[modalInfo.index].value;
+                    return [...prev];
+                  });
+                  setSkillPoint(
+                    initialSkillPoint -
+                      investigatorSkills.reduce((acc, cur) => {
+                        return acc + cur.skillPoint;
+                      }, 0)
+                  );
+                }}
+              />
+              <IonLabel>
+                <IonChip slot="end">
+                  {investigatorSkills[modalInfo.index].value +
+                    investigatorSkills[modalInfo.index].skillPoint}
+                </IonChip>
+              </IonLabel>
+            </IonItem>
+          </IonContent>
+        </IonModal>
+
+        <IonList>
+          <IonListHeader>能力値</IonListHeader>
+          {characteristics.keys.map((key) => {
+            return (
+              <IonChip color="primary" key={key}>
+                <IonLabel>
+                  {key} {characteristics[key]}
+                </IonLabel>
+              </IonChip>
+            );
+          })}
+        </IonList>
+        <IonList>
+          <IonListHeader>その他の能力値</IonListHeader>
+          {params.keys.map((key) => {
+            return (
+              <IonChip color="primary" key={key}>
+                <IonLabel>
+                  {key} {params[key]}
+                </IonLabel>
+              </IonChip>
+            );
+          })}
+        </IonList>
+        <IonList>
+          <IonListHeader>戦闘</IonListHeader>
+          {combat.keys.map((key) => {
+            return (
+              <IonChip color="primary" key={key}>
+                <IonLabel>
+                  {key} {combat[key]}
+                </IonLabel>
+              </IonChip>
+            );
+          })}
+        </IonList>
+        <form onSubmit={(event) => addSheet(event)}>
+          <IonList>
+            <IonListHeader>キャラクター情報</IonListHeader>
+            <IonItem>
+              <IonLabel position="floating">名前を入力</IonLabel>
+              <IonInput
+                value={characterName}
+                onIonChange={(e) => setCharacterName(String(e.detail.value))}
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">年齢を入力</IonLabel>
+              <IonInput
+                type="number"
+                value={age}
+                onIonChange={(e) => setAge(Number(e.detail.value))}
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">性別を入力</IonLabel>
+              <IonInput
+                value={gender}
+                onIonChange={(e) => setGender(String(e.detail.value))}
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">職業を入力</IonLabel>
+              <IonInput
+                value={occupation}
+                onIonChange={(e) => setOccupation(String(e.detail.value))}
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">持ち物</IonLabel>
+              <IonInput
+                value={belonging}
+                onIonChange={(e) => setBelonging(String(e.detail.value))}
+              />
+              <IonButton
+                slot="end"
+                style={{ margin: "auto 0" }}
+                onClick={() => {
+                  setBelongings((prev) => [...prev, belonging]);
+                  setBelonging("");
+                }}
+                disabled={!belonging}
+              >
+                追加
+              </IonButton>
+            </IonItem>
+            {belongings.length !== 0 && (
+              <IonList>
+                <IonListHeader>持ち物一覧</IonListHeader>
+                {belongings.length !== 0 &&
+                  belongings.map((belonging, index) => {
+                    return (
+                      <IonChip color="primary" key={index}>
+                        <IonLabel>{belonging}</IonLabel>
+                        <IonIcon
+                          icon={closeOutline}
+                          onClick={() => {
+                            setBelongings((prev) =>
+                              prev.filter((_, i) => i !== index)
+                            );
+                          }}
+                        />
+                      </IonChip>
+                    );
+                  })}
+              </IonList>
+            )}
+            <IonItem>
+              <IonLabel position="floating">武器</IonLabel>
+              <IonInput
+                value={weapon}
+                onIonChange={(e) => setWeapon(String(e.detail.value))}
+              />
+              <IonButton
+                slot="end"
+                style={{ margin: "auto 0" }}
+                onClick={() => {
+                  setWeapons((prev) => [...prev, weapon]);
+                  setWeapon("");
+                }}
+                disabled={!weapon}
+              >
+                追加
+              </IonButton>
+            </IonItem>
+            {weapons.length !== 0 && (
+              <IonList>
+                <IonListHeader>武器一覧</IonListHeader>
+                {weapons.map((weapon, index) => {
+                  return (
+                    <IonChip color="primary" key={index}>
+                      <IonLabel>{weapon}</IonLabel>
+                      <IonIcon
+                        icon={closeOutline}
+                        onClick={() => {
+                          setWeapons((prev) =>
+                            prev.filter((_, i) => i !== index)
+                          );
+                        }}
+                      />
+                    </IonChip>
+                  );
+                })}
+              </IonList>
+            )}
+            <IonItem>
+              <IonLabel position="floating">キャラクターの背景</IonLabel>
+              <IonTextarea
+                rows={8}
+                value={background}
+                onIonChange={(e) => setBackground(String(e.detail.value))}
+              />
+            </IonItem>
+          </IonList>
+          <IonList>
+            <IonListHeader>技能値の割り振り {skillPoint}ポイント</IonListHeader>
+            {investigatorSkills.map((investigatorSkill, index) => {
+              return (
+                <IonChip
+                  key={index}
+                  color={"primary"}
+                  outline={investigatorSkill.skillPoint === 0}
+                  onClick={() => setModalInfo({ index, isOpen: true })}
+                >
+                  <IonLabel>
+                    {investigatorSkill.name}{" "}
+                    {investigatorSkill.value + investigatorSkill.skillPoint}
+                  </IonLabel>
+                </IonChip>
+              );
+            })}
+          </IonList>
+          <IonButton
+            type="submit"
+            expand="block"
+            disabled={
+              !characterName || !age || !gender || !occupation || skillPoint < 0
+            }
+          >
+            作成
+          </IonButton>
+        </form>
       </IonContent>
     </IonPage>
   );
