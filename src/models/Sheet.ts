@@ -24,7 +24,7 @@ export interface InvestigatorSkill {
   skillPoint: number;
 }
 
-interface Characteristics {
+export interface Characteristics {
   STR: number;
   CON: number;
   POW: number;
@@ -34,5 +34,20 @@ interface Characteristics {
   INT: number;
   EDU: number;
   MOV: number;
-  keys: string[];
+  keys: ["STR", "CON", "POW", "DEX", "APP", "SIZ", "INT", "EDU", "MOV"];
+}
+
+export interface Params {
+  SAN: number;
+  HP: number;
+  LUK: number;
+  MP: number;
+  keys: ["SAN", "HP", "LUK", "MP"];
+}
+
+export interface Combat {
+  BUILD: number;
+  DB: number;
+  EVASIONS: number;
+  keys: ["BUILD", "DB", "EVASIONS"];
 }
