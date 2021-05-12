@@ -1,14 +1,22 @@
 import { IonCard, IonCardHeader } from "@ionic/react";
-import { Sheet } from "../../models";
+import { Sheet, UserSheet } from "../../models";
 
 interface Props {
-  sheet: Sheet;
+  sheet: Sheet | UserSheet;
+  onSheetClick: (sheetId: string) => void;
 }
 
-const SheetThumnail: React.VFC<Props> = ({ sheet }) => {
+const SheetThumnail: React.VFC<Props> = ({
+  sheet: { characterName, sheetId },
+  onSheetClick,
+}) => {
+  const handleClick = () => {
+    onSheetClick(sheetId);
+  };
+
   return (
-    <IonCard>
-      <IonCardHeader>{sheet.characterName}</IonCardHeader>
+    <IonCard onClick={handleClick}>
+      <IonCardHeader>{characterName}</IonCardHeader>
     </IonCard>
   );
 };
