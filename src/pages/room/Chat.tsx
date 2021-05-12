@@ -1,20 +1,75 @@
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonContent,
+  IonFooter,
   IonHeader,
   IonList,
   IonPage,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useRef } from "react";
-import Message from "../../components/Message";
+import React, { useRef, useState } from "react";
+import firebase from "firebase";
+import { useAuth } from "../../hooks/auth";
+import { useError } from "../../hooks/error";
 import { useRoom } from "../../hooks/room";
+import { rtdb } from "../../lib/firebase";
+import { Message as IMessage } from "../../models";
+import { rtdbRoutes } from "../../rtdbRoutes";
+import Message from "../../components/Message";
 
 const Chat: React.VFC = () => {
   const { info, messages } = useRoom();
+  const { user } = useAuth();
+  const [message, setMessage] = useState("");
+  const { updateError } = useError();
   // const messageListRef = useRef<HTMLIonListElement>(null);
+
+  const showForm = user.uid === info?.masterId;
+
+  const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      if (!user.uid) {
+        throw new Error("ユーザーが見つかりません");
+      }
+      if (!info) {
+        throw new Error();
+      }
+
+      const roomMessagePath = rtdbRoutes.rooms.room.messages(info.roomId);
+      if (!roomMessagePath) {
+        throw new Error();
+      }
+      const roomMessageRef = rtdb.ref(roomMessagePath);
+
+      const newMessageRef = roomMessageRef.push();
+      const newMessageKey = newMessageRef.key;
+      if (!newMessageKey) {
+        throw new Error();
+      }
+
+      const newMessage: IMessage = {
+        authorId: user.uid,
+        authorName: "todo user name",
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        text: message,
+        key: newMessageKey,
+      };
+
+      newMessageRef.set(newMessage);
+      setMessage("");
+    } catch (error) {
+      if (error.message) {
+        updateError(error.message);
+      } else {
+        updateError("内部エラーが発生しました");
+      }
+    }
+  };
 
   return (
     <IonPage>
@@ -38,6 +93,29 @@ const Chat: React.VFC = () => {
             })}
         </IonList>
       </IonContent>
+      {showForm && (
+        <IonFooter>
+          <form onSubmit={sendMessage}>
+            <IonToolbar>
+              <IonTextarea
+                autoGrow={true}
+                placeholder="メッセージ"
+                name="messageInput"
+                className="ion-margin-start"
+                value={message}
+                rows={1}
+                onIonChange={(e) => setMessage(String(e.detail.value))}
+              />
+              <IonButtons slot="end">
+                {/* todo disable button when input is empty or only spaces */}
+                <IonButton type="submit" disabled={message.length === 0}>
+                  送信
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </form>
+        </IonFooter>
+      )}
     </IonPage>
   );
 };
