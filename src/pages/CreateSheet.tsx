@@ -136,7 +136,7 @@ const CreateSheet: React.VFC = () => {
         characteristics,
         isParticipating: false,
         injury: [],
-        key: sheetKey,
+        sheetId: sheetKey,
       };
 
       userSheetsRef.push(userSheetData);

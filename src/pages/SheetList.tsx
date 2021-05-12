@@ -109,7 +109,7 @@ const SheetList: React.VFC = () => {
           </IonToolbar>
         </IonHeader>
         {sheets.map((sheet) => {
-          return <SheetDetails sheet={sheet} key={sheet.key} />;
+          return <SheetDetails sheet={sheet} key={sheet.sheetId} />;
         })}
       </IonContent>
     </IonPage>

@@ -13,7 +13,7 @@ export interface Sheet {
   characteristics: Characteristics;
   isParticipating: boolean;
   injury: string[];
-  key: string;
+  sheetId: string;
 }
 
 export type InvestigatorSkills = InvestigatorSkill[];
