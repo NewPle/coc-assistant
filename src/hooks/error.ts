@@ -4,7 +4,7 @@ import { useAppDispatch } from "./redux";
 export const useError = () => {
   const dispatch = useAppDispatch();
 
-  const updateError = ({ message }: { message: string }) => {
+  const updateError = (message: string) => {
     dispatch(updateErrorState(message));
   };
 
