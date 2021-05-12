@@ -3,7 +3,7 @@ const room = (path?: string) => {
   return path ? `${prefix}/${path}` : prefix;
 };
 
-const routes = {
+export const routes = {
   root: "/",
   signup: "/signup",
   signin: "/signin",
@@ -20,5 +20,3 @@ const routes = {
     story: room("story"),
   },
 };
-
-export default routes;

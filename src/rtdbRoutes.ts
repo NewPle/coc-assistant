@@ -37,7 +37,7 @@ const users = (userId?: string, propName?: string) => {
   return `${prefix}/${userId}/${propName}`;
 };
 
-const routes = {
+export const rtdbRoutes = {
   rooms: {
     root: rooms(),
     room: {
@@ -61,5 +61,3 @@ const routes = {
     },
   },
 };
-
-export default routes;
