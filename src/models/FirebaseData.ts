@@ -14,6 +14,7 @@ export interface FirebaseUserSheetsData {
 
 export interface FirebaseUserSheetData {
   sheetId: string;
+  characterName: string;
   isParticipating: boolean;
   participatingRoomId: string;
 }
