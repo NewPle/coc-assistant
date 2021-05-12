@@ -24,35 +24,49 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
       <IonCardContent>
         <IonList>
           <IonListHeader>人物</IonListHeader>
-          <IonItem>年齢: {sheet.age}</IonItem>
-          <IonItem>性別: {sheet.gender}</IonItem>
-          <IonItem>職業: {sheet.occupation}</IonItem>
-          <IonItem>背景: {sheet.background}</IonItem>
+          <IonItem>
+            <IonLabel>年齢</IonLabel>
+            {sheet.age}
+          </IonItem>
+          <IonItem>
+            <IonLabel>性別</IonLabel>
+            {sheet.gender}
+          </IonItem>
+          <IonItem>
+            <IonLabel>職業</IonLabel>
+            {sheet.occupation}
+          </IonItem>
+          <IonItem>
+            <IonLabel position="stacked">背景</IonLabel>
+            {sheet.background}
+          </IonItem>
         </IonList>
 
-        <IonList>
-          <IonListHeader>持ち物一覧</IonListHeader>
-          {sheet.belongings.length > 0 &&
-            sheet.belongings.map((belonging, index) => {
+        {sheet.belongings.length > 0 && (
+          <IonList>
+            <IonListHeader>持ち物一覧</IonListHeader>
+            {sheet.belongings.map((belonging, index) => {
               return (
                 <IonChip color="primary" key={index}>
                   <IonLabel>{belonging}</IonLabel>
                 </IonChip>
               );
             })}
-        </IonList>
+          </IonList>
+        )}
 
-        <IonList>
-          <IonListHeader>武器一覧</IonListHeader>
-          {sheet.weapons.length > 0 &&
-            sheet.weapons.map((weapon, index) => {
+        {sheet.weapons.length > 0 && (
+          <IonList>
+            <IonListHeader>武器一覧</IonListHeader>
+            {sheet.weapons.map((weapon, index) => {
               return (
                 <IonChip color="primary" key={index}>
                   <IonLabel>{weapon}</IonLabel>
                 </IonChip>
               );
             })}
-        </IonList>
+          </IonList>
+        )}
 
         <IonList>
           <IonListHeader>技能値</IonListHeader>
