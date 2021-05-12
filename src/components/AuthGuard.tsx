@@ -1,4 +1,4 @@
-import { ReactNode, VFC } from "react";
+import { ReactNode } from "react";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 import NotFound from "../pages/erorr/NotFound";
@@ -8,7 +8,7 @@ interface Props {
   children: ReactNode;
 }
 
-const AuthGuard: VFC<Props> = ({ children }) => {
+const AuthGuard: React.VFC<Props> = ({ children }) => {
   const { user } = useAuth();
   const isSignedIn = !!user.uid;
 
@@ -20,7 +20,7 @@ interface ComponentProps {
   children: ReactNode;
 }
 
-const Component: VFC<ComponentProps> = ({ isSignedIn, children }) => {
+const Component: React.VFC<ComponentProps> = ({ isSignedIn, children }) => {
   if (isSignedIn) {
     return <>{children}</>;
   }

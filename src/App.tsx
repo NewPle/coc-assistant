@@ -34,11 +34,11 @@ import RoomList from "./pages/RoomList";
 import CreateSheet from "./pages/CreateSheet";
 import RoomTabs from "./pages/room/RoomTabs";
 import AuthGuard from "./components/AuthGuard";
-import { useEffect, VFC } from "react";
+import { useEffect } from "react";
 import { useAuth } from "./hooks/auth";
 import { auth } from "./lib/firebase";
 
-const App: VFC = () => {
+const App: React.VFC = () => {
   return (
     <IonApp>
       <IonReactRouter>

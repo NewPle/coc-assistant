@@ -6,7 +6,7 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
-import { VFC } from "react";
+
 import { Redirect, Route } from "react-router-dom";
 
 import {
@@ -21,7 +21,7 @@ import Roll from "./Roll";
 import Story from "./Story";
 import routes from "../../routes";
 
-const RoomTabs: VFC = () => {
+const RoomTabs: React.VFC = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>

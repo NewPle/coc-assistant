@@ -7,10 +7,9 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { VFC } from "react";
 import routes from "../routes";
 
-const JoinRoom: VFC = () => {
+const JoinRoom: React.VFC = () => {
   return (
     <IonPage>
       <IonHeader>

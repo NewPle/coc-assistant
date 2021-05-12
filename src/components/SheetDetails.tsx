@@ -9,14 +9,13 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/react";
-import { VFC } from "react";
 import { Sheet } from "../modules/features/room/roomSlice";
 
 interface Props {
   sheet: Sheet;
 }
 
-const SheetDetails: VFC<Props> = ({ sheet }) => {
+const SheetDetails: React.VFC<Props> = ({ sheet }) => {
   return (
     <IonCard>
       <IonCardHeader>

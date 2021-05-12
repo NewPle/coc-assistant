@@ -7,12 +7,12 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { VFC } from "react";
+
 import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
 import routes from "../../routes";
 
-const MemberList: VFC = () => {
+const MemberList: React.VFC = () => {
   const { sheets } = useRoom();
 
   return (

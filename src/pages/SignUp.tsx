@@ -6,10 +6,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { VFC } from "react";
+
 import routes from "../routes";
 
-const SignUp: VFC = () => {
+const SignUp: React.VFC = () => {
   return (
     <IonPage>
       <IonHeader>

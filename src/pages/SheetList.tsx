@@ -7,10 +7,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { VFC } from "react";
+
 import routes from "../routes";
 
-const SheetList: VFC = () => {
+const SheetList: React.VFC = () => {
   return (
     <IonPage>
       <IonHeader>

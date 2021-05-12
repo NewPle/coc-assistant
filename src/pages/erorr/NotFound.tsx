@@ -1,7 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle } from "@ionic/react";
-import { VFC } from "react";
 
-const NotFound: VFC = () => {
+const NotFound: React.VFC = () => {
   return (
     <IonPage>
       <IonContent>404 page not found</IonContent>

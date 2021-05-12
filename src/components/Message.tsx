@@ -1,12 +1,11 @@
 import { IonItem, IonLabel } from "@ionic/react";
-import { VFC } from "react";
 import { Message as IMessage } from "../modules/features/room/roomSlice";
 
 interface Props {
   message: IMessage;
 }
 
-const Message: VFC<Props> = ({ message }) => {
+const Message: React.VFC<Props> = ({ message }) => {
   return (
     <IonItem lines="none">
       <IonLabel

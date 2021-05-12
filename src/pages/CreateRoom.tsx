@@ -11,7 +11,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { FormEvent, useCallback, useState, VFC } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useAuth } from "../hooks/auth";
 import { useAppDispatch } from "../hooks/redux";
 import { rtdb } from "../lib/firebase";
@@ -20,7 +20,7 @@ import routes from "../routes";
 import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/input-interface";
 import { useHistory } from "react-router";
 
-const CreateRoom: VFC = () => {
+const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const [roomName, setRoomName] = useState<string>("");

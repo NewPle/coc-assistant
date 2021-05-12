@@ -8,12 +8,12 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useRef, VFC } from "react";
+import { useRef } from "react";
 import Message from "../../components/Message";
 import { useRoom } from "../../hooks/room";
 import routes from "../../routes";
 
-const Chat: VFC = () => {
+const Chat: React.VFC = () => {
   const { info, messages } = useRoom();
   // const messageListRef = useRef<HTMLIonListElement>(null);
 
