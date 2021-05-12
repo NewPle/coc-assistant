@@ -2,17 +2,8 @@ import {
   IonBackButton,
   IonButton,
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonChip,
   IonContent,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -22,13 +13,7 @@ import SheetDetails from "../components/SheetDetails";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
 import { rtdb } from "../lib/firebase";
-import {
-  FirebaseSheetsData,
-  FirebaseUserSheetData,
-  FirebaseUserSheetsData,
-  Sheet,
-  Sheets,
-} from "../models";
+import { FirebaseUserSheetsData, Sheets } from "../models";
 
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
