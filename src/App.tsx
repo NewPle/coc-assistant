@@ -37,10 +37,12 @@ import AuthGuard from "./components/AuthGuard";
 import { useEffect } from "react";
 import { useAuth } from "./hooks/auth";
 import { auth } from "./lib/firebase";
+import ErrorToast from "./components/error/ErrorToast";
 
 const App: React.VFC = () => {
   return (
     <IonApp>
+      <ErrorToast />
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path={routes.root} component={Home} />
