@@ -364,3 +364,5 @@ export const Roll: React.VFC = () => {
     </IonPage>
   );
 };
+
+export default Roll;
