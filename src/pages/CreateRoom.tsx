@@ -21,6 +21,7 @@ import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/
 import { useHistory } from "react-router";
 import { useError } from "../hooks/error";
 import { rtdbRoutes } from "../rtdbRoutes";
+import { UserRoom } from "../models";
 
 const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ const CreateRoom: React.VFC = () => {
         }
         const userRoomRef = rtdb.ref(usersUserRoomsPath);
 
-        const newUserRoomData = {
+        const newUserRoomData: UserRoom = {
           roomId: newRoomId,
           roomName,
           isMaster: true,
