@@ -4,6 +4,8 @@ export interface RoomInfo {
   roomName: string;
 }
 
+export type UserRooms = UserRoom[];
+
 export interface UserRoom {
   isMaster: boolean;
   roomId: string;
