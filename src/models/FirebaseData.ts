@@ -7,3 +7,11 @@ export interface FirebaseMessagesData {
 export interface FirebaseSheetsData {
   [key: string]: Sheet;
 }
+
+export interface FirebaseUserSheetData {
+  [key: string]: {
+    sheetId: string;
+    isParticipating: boolean;
+    participatingRoomId: string;
+  };
+}
