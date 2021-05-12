@@ -48,7 +48,7 @@ const DIFFICULTIES = [
   { type: "Extream", value: 5 },
 ];
 
-export const Roll: React.VFC = () => {
+const Roll: React.VFC = () => {
   const normalColor = "success";
   const activeColor = "danger";
   const passiveColor = "primary";
