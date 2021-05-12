@@ -7,7 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import routes from "../routes";
+import { routes } from "../routes";
 
 const RoomList: React.VFC = () => {
   return (

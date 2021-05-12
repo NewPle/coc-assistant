@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 import NotFound from "../pages/erorr/NotFound";
-import routes from "../routes";
 
 interface Props {
   children: ReactNode;

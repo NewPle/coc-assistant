@@ -7,7 +7,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-import routes from "../routes";
+import { routes } from "../routes";
 
 const SignIn: React.VFC = () => {
   return (

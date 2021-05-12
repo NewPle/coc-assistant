@@ -19,7 +19,7 @@ import MemberList from "./MemberList";
 import Chat from "./Chat";
 import Roll from "./Roll";
 import Story from "./Story";
-import routes from "../../routes";
+import { routes } from "../../routes";
 
 const RoomTabs: React.VFC = () => {
   return (

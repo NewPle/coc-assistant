@@ -11,7 +11,6 @@ import {
 import { useRef } from "react";
 import Message from "../../components/Message";
 import { useRoom } from "../../hooks/room";
-import routes from "../../routes";
 
 const Chat: React.VFC = () => {
   const { info, messages } = useRoom();

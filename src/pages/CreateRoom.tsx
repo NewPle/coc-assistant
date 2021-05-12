@@ -16,7 +16,7 @@ import { useAuth } from "../hooks/auth";
 import { useAppDispatch } from "../hooks/redux";
 import { rtdb } from "../lib/firebase";
 import { updateRoomInfo } from "../modules/features/room/roomSlice";
-import routes from "../routes";
+import { routes } from "../routes";
 import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/input-interface";
 import { useHistory } from "react-router";
 

@@ -10,7 +10,6 @@ import {
 
 import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
-import routes from "../../routes";
 
 const MemberList: React.VFC = () => {
   const { sheets } = useRoom();
