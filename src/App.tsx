@@ -21,7 +21,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-import "./styles/global.css";
+import "./styles/global.scss";
 
 import routes from "./routes";
 import Home from "./pages/Home";

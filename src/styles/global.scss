@@ -1,0 +1,16 @@
+.firebase-emulator-warning {
+  display: none;
+}
+
+.half-modal {
+  align-items: flex-end;
+
+  .modal-wrapper {
+    transition: height 420ms;
+    height: 30vh !important;
+  }
+
+  ion-header ion-toolbar:first-of-type {
+    padding-top: 0;
+  }
+}
