@@ -78,7 +78,7 @@ const JoinRoom: React.VFC = () => {
             const userRoomData: UserRoom = {
               isMaster: false,
               roomId,
-              roomName: roomInfoData.roomId,
+              roomName: roomInfoData.roomName,
               sheetId: selectedSheetId,
               characterName,
             };
