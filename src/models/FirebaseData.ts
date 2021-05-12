@@ -14,6 +14,6 @@ export interface FirebaseUserSheetsData {
   [key: string]: UserSheet;
 }
 
-export interface FirebaseUserRooms {
+export interface FirebaseUserRoomsData {
   [key: string]: UserRoom;
 }
