@@ -18,13 +18,13 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { closeOutline } from "ionicons/icons";
 import { rtdb } from "../lib/firebase";
 import { useHistory } from "react-router";
 import { useAuth } from "../hooks/auth";
 import { makeDefaultValues } from "../values/sheetDefault";
-import { InvestigatorSkills } from "../models";
+import { FirebaseUserSheetData, InvestigatorSkills } from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { useError } from "../hooks/error";
@@ -65,56 +65,117 @@ const CreateSheet: React.VFC = () => {
   const [investigatorSkills, setInvestigatorSkills] =
     useState<InvestigatorSkills>(initialInvestigatorSkills);
 
-  const addSheet = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!user.uid) {
-      updateError("ユーザーが見つかりません");
-      return;
-    }
-    const sheetsRootPath = rtdbRoutes.sheets.root;
-    if (!sheetsRootPath) {
-      updateError("キャラクターシートが見つかりません");
-      return;
-    }
+  // todo use useCallback
+  const createSheet = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+      if (!user.uid) {
+        updateError("ユーザーが見つかりません");
+        return;
+      }
+      const sheetsRootPath = rtdbRoutes.sheets.root;
+      if (!sheetsRootPath) {
+        throw new Error();
+      }
 
-    const sheetRef = rtdb.ref(sheetsRootPath).push();
-    const sheetKey = sheetRef.key;
-    if (sheetKey === null) {
+      const sheetRef = rtdb.ref(sheetsRootPath).push();
+      const sheetKey = sheetRef.key;
+      if (sheetKey === null) {
+        throw new Error();
+      }
+
+      const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
+      if (!userSheetsSheetPath) {
+        throw new Error();
+      }
+      const userSheetsRef = rtdb.ref(userSheetsSheetPath);
+
+      // todo it might not needed
+      // from
+      const userSheets = await userSheetsRef.get().then((snapshot) => {
+        if (snapshot.exists()) {
+          const userSheetsData: FirebaseUserSheetData = snapshot.val();
+          const userSheets = Object.keys(userSheetsData).map((key) => {
+            return userSheetsData[key];
+          });
+          return userSheets;
+        } else {
+          return null;
+        }
+      });
+
+      if (userSheets && userSheets.length > 0) {
+        updateError("通常アカウントではこれ以上シートを作成できません");
+        history.push(routes.root);
+        return;
+      }
+      // to
+
+      const userSheetData = {
+        sheetId: sheetKey,
+      };
+
+      const sheetData = {
+        characterName,
+        playerName: "todo user name",
+        age,
+        gender,
+        occupation,
+        belongings,
+        weapons,
+        background,
+        investigatorSkills,
+        characteristics,
+        isParticipating: false,
+        injury: [],
+      };
+
+      userSheetsRef.push(userSheetData);
+      sheetRef.set(sheetData);
+
+      history.push(routes.sheetList);
+    } catch (e) {
       updateError("内部エラーが発生しました");
-      return;
     }
-
-    const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
-    if (!userSheetsSheetPath) {
-      updateError("内部エラーが発生しました");
-      return;
-    }
-    const userRef = rtdb.ref(userSheetsSheetPath);
-
-    const userSheetData = {
-      sheetId: sheetKey,
-    };
-
-    const sheetData = {
-      characterName,
-      playerName: "todo user name",
-      age,
-      gender,
-      occupation,
-      belongings,
-      weapons,
-      background,
-      investigatorSkills,
-      characteristics,
-      isParticipating: false,
-      injury: [],
-    };
-
-    userRef.push(userSheetData);
-    sheetRef.set(sheetData);
-
-    history.push(routes.sheetList);
   };
+
+  useEffect(() => {
+    const checkUserSheetsNum = async () => {
+      if (!user.uid) {
+        updateError("ユーザーが見つかりません");
+        return;
+      }
+
+      const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
+      if (!userSheetsSheetPath) {
+        throw new Error();
+      }
+      const userSheetsRef = rtdb.ref(userSheetsSheetPath);
+
+      const userSheets = await userSheetsRef.get().then((snapshot) => {
+        if (snapshot.exists()) {
+          const userSheetsData: FirebaseUserSheetData = snapshot.val();
+          const userSheets = Object.keys(userSheetsData).map((key) => {
+            return userSheetsData[key];
+          });
+          return userSheets;
+        } else {
+          return null;
+        }
+      });
+
+      if (!userSheets) {
+        return;
+      }
+
+      if (userSheets.length > 0) {
+        updateError("通常アカウントではこれ以上シートを作成できません");
+        history.push(routes.root);
+        return;
+      }
+    };
+    checkUserSheetsNum();
+  }, []);
 
   return (
     <IonPage>
@@ -222,7 +283,7 @@ const CreateSheet: React.VFC = () => {
             );
           })}
         </IonList>
-        <form onSubmit={(event) => addSheet(event)}>
+        <form onSubmit={createSheet}>
           <IonList>
             <IonListHeader>キャラクター情報</IonListHeader>
             <IonItem>
