@@ -16,9 +16,10 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    if (user.uid !== null) {
-      return;
-    }
+    // todo this lines dosen't needed
+    // if (user.uid !== null) {
+    //   return;
+    // }
 
     auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
