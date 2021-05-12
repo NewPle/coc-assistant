@@ -20,7 +20,12 @@ import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
 import { useRoom } from "../hooks/room";
 import { rtdb } from "../lib/firebase";
-import { FirebaseUserSheetsData, RoomInfo, UserSheets } from "../models";
+import {
+  FirebaseUserSheetsData,
+  RoomInfo,
+  UserRoom,
+  UserSheets,
+} from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 
@@ -58,6 +63,27 @@ const JoinRoom: React.VFC = () => {
               throw new Error("自身がマスターのルームには参加できません");
             }
             setInfo(roomInfoData);
+
+            if (!user.uid) {
+              throw new Error("ユーザーが見つかりません");
+            }
+            const userRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
+            if (!userRoomsPath) {
+              throw new Error();
+            }
+            const userRoomsRef = rtdb.ref(userRoomsPath);
+            const characterName = userSheets.filter(
+              (userSheet) => userSheet.sheetId === selectedSheetId
+            )[0].characterName;
+            const userRoomData: UserRoom = {
+              isMaster: false,
+              roomId,
+              roomName: roomInfoData.roomId,
+              sheetId: selectedSheetId,
+              characterName,
+            };
+            userRoomsRef.push(userRoomData);
+
             history.push(routes.room.root);
           } else {
             throw new Error();
