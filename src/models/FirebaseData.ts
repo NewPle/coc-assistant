@@ -1,4 +1,5 @@
 import { Sheet, Message } from "./";
+import { UserSheetData } from "./Sheet";
 
 export interface FirebaseMessagesData {
   [key: string]: Message;
@@ -9,12 +10,5 @@ export interface FirebaseSheetsData {
 }
 
 export interface FirebaseUserSheetsData {
-  [key: string]: FirebaseUserSheetData;
-}
-
-export interface FirebaseUserSheetData {
-  sheetId: string;
-  characterName: string;
-  isParticipating: boolean;
-  participatingRoomId: string;
+  [key: string]: UserSheetData;
 }

@@ -51,3 +51,12 @@ export interface Combat {
   EVASIONS: number;
   keys: ["BUILD", "DB", "EVASIONS"];
 }
+
+export type UserSheetsData = UserSheetData[];
+
+export interface UserSheetData {
+  sheetId: string;
+  characterName: string;
+  isParticipating: boolean;
+  participatingRoomId: string;
+}
