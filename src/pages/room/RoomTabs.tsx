@@ -7,7 +7,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useHistory } from "react-router-dom";
 
 import {
   chatbubbleEllipsesOutline,
@@ -20,8 +20,17 @@ import Chat from "./Chat";
 import Roll from "./Roll";
 import Story from "./Story";
 import { routes } from "../../routes";
+import { useEffect } from "react";
+import { useRoom } from "../../hooks/room";
 
 const RoomTabs: React.VFC = () => {
+  const history = useHistory();
+  const { info } = useRoom();
+  useEffect(() => {
+    if (!info) {
+      history.push(routes.root);
+    }
+  }, [info]);
   return (
     <IonTabs>
       <IonRouterOutlet>
