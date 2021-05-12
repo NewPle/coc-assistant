@@ -35,8 +35,7 @@ const CreateRoom: React.VFC = () => {
         event.preventDefault();
 
         if (!user.uid) {
-          // todo
-          return;
+          throw new Error("ユーザーが見つかりません");
         }
 
         const roomsRootPath = rtdbRoutes.rooms.root;
@@ -77,8 +76,12 @@ const CreateRoom: React.VFC = () => {
         dispatch(updateRoomInfo(newRoomData.info));
 
         history.push(routes.room.root);
-      } catch (e) {
-        updateError("内部エラーが発生しました");
+      } catch (error) {
+        if (error.message) {
+          updateError(error.message);
+        } else {
+          updateError("内部エラーが発生しました");
+        }
       }
     },
     [dispatch, user, roomName, updateError, history]
