@@ -24,7 +24,12 @@ import { rtdb } from "../lib/firebase";
 import { useHistory } from "react-router";
 import { useAuth } from "../hooks/auth";
 import { makeDefaultValues } from "../values/sheetDefault";
-import { FirebaseUserSheetData, InvestigatorSkills } from "../models";
+import {
+  FirebaseUserSheetData,
+  FirebaseUserSheetsData,
+  InvestigatorSkills,
+  Sheet,
+} from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { useError } from "../hooks/error";
@@ -91,13 +96,13 @@ const CreateSheet: React.VFC = () => {
       const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
       // todo it might not needed
-      // from
+      // from this line
       const userSheets = await userSheetsRef.get().then((snapshot) => {
         if (snapshot.exists()) {
-          const userSheetsData: FirebaseUserSheetData = snapshot.val();
-          const userSheets = Object.keys(userSheetsData).map((key) => {
-            return userSheetsData[key];
-          });
+          const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+          const userSheets = Object.keys(userSheetsData).map(
+            (key) => userSheetsData[key]
+          );
           return userSheets;
         } else {
           return null;
@@ -109,15 +114,17 @@ const CreateSheet: React.VFC = () => {
         history.push(routes.root);
         return;
       }
-      // to
+      // to this line
 
-      const userSheetData = {
+      const userSheetData: FirebaseUserSheetData = {
         sheetId: sheetKey,
+        isParticipating: false,
+        participatingRoomId: "",
       };
 
-      const sheetData = {
+      const sheetData: Sheet = {
         characterName,
-        playerName: "todo user name",
+        userName: "todo user name",
         age,
         gender,
         occupation,
@@ -128,6 +135,7 @@ const CreateSheet: React.VFC = () => {
         characteristics,
         isParticipating: false,
         injury: [],
+        key: sheetKey,
       };
 
       userSheetsRef.push(userSheetData);
@@ -154,10 +162,10 @@ const CreateSheet: React.VFC = () => {
 
       const userSheets = await userSheetsRef.get().then((snapshot) => {
         if (snapshot.exists()) {
-          const userSheetsData: FirebaseUserSheetData = snapshot.val();
-          const userSheets = Object.keys(userSheetsData).map((key) => {
-            return userSheetsData[key];
-          });
+          const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+          const userSheets = Object.keys(userSheetsData).map(
+            (key) => userSheetsData[key]
+          );
           return userSheets;
         } else {
           return null;
