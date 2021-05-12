@@ -1,5 +1,5 @@
 import { Sheet, Message } from "./";
-import { UserSheetData } from "./Sheet";
+import { UserSheet } from "./Sheet";
 
 export interface FirebaseMessagesData {
   [key: string]: Message;
@@ -10,5 +10,5 @@ export interface FirebaseSheetsData {
 }
 
 export interface FirebaseUserSheetsData {
-  [key: string]: UserSheetData;
+  [key: string]: UserSheet;
 }

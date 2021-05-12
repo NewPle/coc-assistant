@@ -52,9 +52,9 @@ export interface Combat {
   keys: ["BUILD", "DB", "EVASIONS"];
 }
 
-export type UserSheetsData = UserSheetData[];
+export type UserSheets = UserSheet[];
 
-export interface UserSheetData {
+export interface UserSheet {
   sheetId: string;
   characterName: string;
   isParticipating: boolean;
