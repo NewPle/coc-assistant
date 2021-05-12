@@ -71,25 +71,25 @@ const CreateSheet: React.VFC = () => {
       updateError("ユーザーが見つかりません");
       return;
     }
-    const sheetRootPath = rtdbRoutes.sheets.root;
-    if (!sheetRootPath) {
+    const sheetsRootPath = rtdbRoutes.sheets.root;
+    if (!sheetsRootPath) {
       updateError("キャラクターシートが見つかりません");
       return;
     }
 
-    const sheetRef = rtdb.ref(sheetRootPath).push();
+    const sheetRef = rtdb.ref(sheetsRootPath).push();
     const sheetKey = sheetRef.key;
     if (sheetKey === null) {
       updateError("内部エラーが発生しました");
       return;
     }
 
-    const userSheetsPath = rtdbRoutes.users.user.sheets(user.uid);
-    if (!userSheetsPath) {
+    const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
+    if (!userSheetsSheetPath) {
       updateError("内部エラーが発生しました");
       return;
     }
-    const userRef = rtdb.ref(userSheetsPath);
+    const userRef = rtdb.ref(userSheetsSheetPath);
 
     const userSheetData = {
       sheetId: sheetKey,
