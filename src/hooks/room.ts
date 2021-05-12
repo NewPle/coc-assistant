@@ -4,6 +4,7 @@ import {
   FirebaseMessagesData,
   FirebaseSheetsData,
   Messages,
+  RoomInfo,
   Sheets,
 } from "../models";
 import {
@@ -16,6 +17,10 @@ import { useAppDispatch, useAppSelector } from "./redux";
 export const useRoom = () => {
   const dispatch = useAppDispatch();
   const { info, messages, sheets } = useAppSelector(({ room }) => room);
+
+  const setInfo = (roomInfo: RoomInfo) => {
+    dispatch(updateRoomInfo(roomInfo));
+  };
 
   useEffect(() => {
     if (!info) {
@@ -86,6 +91,7 @@ export const useRoom = () => {
   }, [dispatch, info]);
 
   return {
+    setInfo,
     info,
     messages,
     sheets,
