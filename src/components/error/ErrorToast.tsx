@@ -1,4 +1,4 @@
-import { IonText, IonToast } from "@ionic/react";
+import { IonToast } from "@ionic/react";
 import { useCallback, useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/redux";
 
