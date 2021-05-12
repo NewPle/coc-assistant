@@ -75,8 +75,7 @@ const CreateSheet: React.VFC = () => {
     try {
       event.preventDefault();
       if (!user.uid) {
-        updateError("ユーザーが見つかりません");
-        return;
+        throw new Error("ユーザーが見つかりません");
       }
       const sheetsRootPath = rtdbRoutes.sheets.root;
       if (!sheetsRootPath) {
@@ -110,9 +109,7 @@ const CreateSheet: React.VFC = () => {
       });
 
       if (userSheets && userSheets.length > 0) {
-        updateError("通常アカウントではこれ以上シートを作成できません");
-        history.push(routes.root);
-        return;
+        throw new Error("通常アカウントではこれ以上シートを作成できません");
       }
       // to this line
 
@@ -143,44 +140,56 @@ const CreateSheet: React.VFC = () => {
       sheetRef.set(sheetData);
 
       history.push(routes.sheetList);
-    } catch (e) {
-      updateError("内部エラーが発生しました");
+    } catch (error) {
+      if (error.message) {
+        updateError(error.message);
+      } else {
+        updateError("内部エラーが発生しました");
+      }
+      history.push(routes.root);
     }
   };
 
   useEffect(() => {
     const checkUserSheetsNum = async () => {
-      if (!user.uid) {
-        updateError("ユーザーが見つかりません");
-        return;
-      }
-
-      const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
-      if (!userSheetsSheetPath) {
-        throw new Error();
-      }
-      const userSheetsRef = rtdb.ref(userSheetsSheetPath);
-
-      const userSheets = await userSheetsRef.get().then((snapshot) => {
-        if (snapshot.exists()) {
-          const userSheetsData: FirebaseUserSheetsData = snapshot.val();
-          const userSheets = Object.keys(userSheetsData).map(
-            (key) => userSheetsData[key]
-          );
-          return userSheets;
-        } else {
-          return null;
+      try {
+        if (!user.uid) {
+          throw new Error("ユーザーが見つかりません");
         }
-      });
 
-      if (!userSheets) {
-        return;
-      }
+        const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
+        if (!userSheetsSheetPath) {
+          throw new Error();
+        }
+        const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
-      if (userSheets.length > 0) {
-        updateError("通常アカウントではこれ以上シートを作成できません");
-        history.push(routes.root);
-        return;
+        const userSheets = await userSheetsRef.get().then((snapshot) => {
+          if (snapshot.exists()) {
+            const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+            const userSheets = Object.keys(userSheetsData).map(
+              (key) => userSheetsData[key]
+            );
+            return userSheets;
+          } else {
+            return null;
+          }
+        });
+
+        if (!userSheets) {
+          return;
+        }
+
+        if (userSheets.length > 0) {
+          updateError("通常アカウントではこれ以上シートを作成できません");
+          history.push(routes.root);
+          return;
+        }
+      } catch (error) {
+        if (error.message) {
+          updateError(error.message);
+        } else {
+          updateError("内部エラーが発生しました");
+        }
       }
     };
     checkUserSheetsNum();
