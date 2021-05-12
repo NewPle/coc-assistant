@@ -1,4 +1,4 @@
-import { IonToast } from "@ionic/react";
+import { IonText, IonToast } from "@ionic/react";
 import { useCallback, useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/redux";
 
@@ -26,7 +26,7 @@ const ErrorToast: React.VFC = () => {
       message={error.message}
       duration={2000}
       onDidDismiss={handleDismiss}
-      position="top"
+      // position="top"
       color="danger"
     />
   );
