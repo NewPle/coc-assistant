@@ -18,12 +18,14 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
+import SheetDetails from "../components/SheetDetails";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
 import { rtdb } from "../lib/firebase";
 import {
   FirebaseSheetsData,
   FirebaseUserSheetData,
+  FirebaseUserSheetsData,
   Sheet,
   Sheets,
 } from "../models";
@@ -52,7 +54,7 @@ const SheetList: React.VFC = () => {
 
         const userSheets = await userSheetsRef.get().then((snapshot) => {
           if (snapshot.exists()) {
-            const userSheetsData: FirebaseUserSheetData = snapshot.val();
+            const userSheetsData: FirebaseUserSheetsData = snapshot.val();
             const userSheets = Object.keys(userSheetsData).map((key) => {
               return userSheetsData[key];
             });
@@ -121,67 +123,8 @@ const SheetList: React.VFC = () => {
             <IonTitle size="large">SheetList</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {sheets.map((sheet, index) => {
-          return (
-            <IonCard key={index}>
-              <IonCardHeader>
-                <IonCardTitle>{sheet.characterName}</IonCardTitle>
-              </IonCardHeader>
-              <IonCardContent>
-                <IonList>
-                  <IonListHeader>title</IonListHeader>
-                  <IonItem>年齢: {sheet.age}</IonItem>
-                  <IonItem>性別: {sheet.gender}</IonItem>
-                  <IonItem>職業: {sheet.occupation}</IonItem>
-                  <IonItem>背景: {sheet.background}</IonItem>
-                </IonList>
-
-                <IonList>
-                  <IonListHeader>持ち物一覧</IonListHeader>
-                  {sheet.belongings.length > 0 &&
-                    sheet.belongings.map((belonging, index) => {
-                      return (
-                        <IonChip color="primary" key={index}>
-                          <IonLabel>{belonging}</IonLabel>
-                        </IonChip>
-                      );
-                    })}
-                </IonList>
-
-                <IonList>
-                  <IonListHeader>武器一覧</IonListHeader>
-                  {sheet.weapons.length > 0 &&
-                    sheet.weapons.map((weapon, index) => {
-                      return (
-                        <IonChip color="primary" key={index}>
-                          <IonLabel>{weapon}</IonLabel>
-                        </IonChip>
-                      );
-                    })}
-                </IonList>
-
-                <IonList>
-                  <IonListHeader>技能値</IonListHeader>
-
-                  {sheet.investigatorSkills.map((investigatorSkill, index) => {
-                    return (
-                      <IonChip
-                        key={index}
-                        color={"primary"}
-                        outline={investigatorSkill.skillPoint === 0}
-                      >
-                        <IonLabel>
-                          {investigatorSkill.name}{" "}
-                          {investigatorSkill.value +
-                            investigatorSkill.skillPoint}
-                        </IonLabel>
-                      </IonChip>
-                    );
-                  })}
-                </IonList>
-              </IonCardContent>
-            </IonCard>
-          );
+        {sheets.map((sheet) => {
+          return <SheetDetails sheet={sheet} key={sheet.key} />;
         })}
       </IonContent>
     </IonPage>
