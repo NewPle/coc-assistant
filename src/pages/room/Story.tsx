@@ -1,16 +1,18 @@
 import {
-  IonBackButton,
-  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-
-import { routes } from "../../routes";
+import { useRoom } from "../../hooks/room";
 
 const Story: React.VFC = () => {
+  const { story } = useRoom();
   return (
     <IonPage>
       <IonHeader>
@@ -24,6 +26,14 @@ const Story: React.VFC = () => {
             <IonTitle size="large">Story</IonTitle>
           </IonToolbar>
         </IonHeader>
+        {story && (
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle>{story.title}</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>{story.content}</IonCardContent>
+          </IonCard>
+        )}
       </IonContent>
     </IonPage>
   );
