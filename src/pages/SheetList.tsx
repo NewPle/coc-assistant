@@ -9,6 +9,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
+import BackButton from "../components/atoms/BackButton";
 import SheetDetails from "../components/SheetDetails";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
@@ -94,7 +95,7 @@ const SheetList: React.VFC = () => {
         <IonToolbar>
           <IonTitle>SheetList</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.root} />
+            <BackButton routerLink={routes.root} />
           </IonButtons>
           <IonButtons slot="end">
             <IonButton routerLink={routes.createSheet}>作成</IonButton>

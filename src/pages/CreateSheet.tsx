@@ -33,6 +33,7 @@ import {
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { useError } from "../hooks/error";
+import BackButton from "../components/atoms/BackButton";
 
 interface ModalInfo {
   index: number;
@@ -195,7 +196,7 @@ const CreateSheet: React.VFC = () => {
         <IonToolbar>
           <IonTitle>CreateSheet</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.sheetList} />
+            <BackButton routerLink={routes.sheetList} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

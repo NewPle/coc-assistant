@@ -23,6 +23,7 @@ import { useHistory } from "react-router";
 import { useError } from "../hooks/error";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { UserRoom } from "../models";
+import BackButton from "../components/atoms/BackButton";
 
 const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
@@ -124,7 +125,7 @@ const CreateRoom: React.VFC = () => {
         <IonToolbar>
           <IonTitle>CreateRoom</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.root} />
+            <BackButton routerLink={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

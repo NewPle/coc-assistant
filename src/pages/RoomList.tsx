@@ -14,6 +14,7 @@ import {
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import BackButton from "../components/atoms/BackButton";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
 import { useRoom } from "../hooks/room";
@@ -99,7 +100,7 @@ const RoomList: React.VFC = () => {
         <IonToolbar>
           <IonTitle>RoomList</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.root} />
+            <BackButton routerLink={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

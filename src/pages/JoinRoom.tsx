@@ -15,6 +15,7 @@ import {
 } from "@ionic/react";
 import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import BackButton from "../components/atoms/BackButton";
 import SheetThumnail from "../components/thumbnails/SheetThumbnail";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
@@ -144,7 +145,7 @@ const JoinRoom: React.VFC = () => {
         <IonToolbar>
           <IonTitle>JoinRoom</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={routes.root} />
+            <BackButton routerLink={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
