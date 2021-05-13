@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { useAuth } from "../hooks/auth";
-import NotFound from "../pages/erorr/NotFound";
 
 interface Props {
   children: ReactNode;
@@ -22,7 +21,7 @@ const Component: React.VFC<ComponentProps> = ({ isSignedIn, children }) => {
   if (isSignedIn) {
     return <>{children}</>;
   }
-  return <NotFound />;
+  return null;
 };
 
 export default AuthGuard;
