@@ -23,6 +23,7 @@ import { rtdb } from "../lib/firebase";
 import {
   FirebaseUserSheetsData,
   RoomInfo,
+  Sheet,
   UserRoom,
   UserSheets,
 } from "../models";
@@ -56,7 +57,7 @@ const JoinRoom: React.VFC = () => {
       const roomInfoRef = rtdb.ref(roomInfoPath);
       roomInfoRef
         .get()
-        .then((snapshot) => {
+        .then(async (snapshot) => {
           if (snapshot.exists()) {
             const roomInfoData: RoomInfo = snapshot.val();
             if (roomInfoData.masterId === user.uid) {
@@ -67,14 +68,47 @@ const JoinRoom: React.VFC = () => {
             if (!user.uid) {
               throw new Error("ユーザーが見つかりません");
             }
+            const sheetPath = rtdbRoutes.sheets.sheet(selectedSheetId);
+            if (!sheetPath) {
+              throw new Error();
+            }
+            const sheetRef = rtdb.ref(sheetPath);
+            const sheet = await sheetRef
+              .get()
+              .then((snapshot) => {
+                if (snapshot.exists()) {
+                  const sheetData: Sheet = snapshot.val();
+                  return sheetData;
+                } else {
+                  throw new Error();
+                }
+              })
+              .catch((error) => {
+                console.error(error);
+                updateError(error.message);
+              });
+            if (!sheet) {
+              throw new Error();
+            }
+            sheet.isParticipating = true;
+
+            const userSheetsPath = rtdbRoutes.users.user.sheets(user.uid);
+            if (!userSheetsPath) {
+              throw new Error();
+            }
+            const sheetId = sheet.sheetId.includes("/") ? null : sheet.sheetId;
+            if (!sheetId) {
+              throw new Error();
+            }
+            const userSheetPath = userSheetsPath + "/" + sheetId;
+            const userSheetRef = rtdb.ref(userSheetPath);
+
             const userRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
             if (!userRoomsPath) {
               throw new Error();
             }
             const userRoomsRef = rtdb.ref(userRoomsPath);
-            const characterName = userSheets.filter(
-              (userSheet) => userSheet.sheetId === selectedSheetId
-            )[0].characterName;
+            const characterName = sheet.characterName;
             const userRoomData: UserRoom = {
               isMaster: false,
               roomId,
@@ -82,7 +116,22 @@ const JoinRoom: React.VFC = () => {
               sheetId: selectedSheetId,
               characterName,
             };
+
+            const roomSheetsPath = rtdbRoutes.rooms.room.sheets(
+              roomInfoData.roomId
+            );
+            if (!roomSheetsPath) {
+              throw new Error();
+            }
+            const roomSheetsRef = rtdb.ref(roomSheetsPath);
+
+            userSheetRef.update({
+              isParticipating: true,
+              participatingRoomId: roomInfoData.roomId,
+            });
             userRoomsRef.push(userRoomData);
+            sheetRef.update({ isParticipating: true });
+            roomSheetsRef.push(sheet);
 
             history.push(routes.room.root);
           } else {
