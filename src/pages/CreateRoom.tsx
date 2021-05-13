@@ -8,6 +8,7 @@ import {
   IonItem,
   IonLabel,
   IonPage,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -27,6 +28,8 @@ const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const [roomName, setRoomName] = useState<string>("");
+  const [storyTitle, setStoryTitle] = useState<string>("");
+  const [storyContent, setStoryContent] = useState<string>("");
   const { user } = useAuth();
   const { updateError } = useError();
 
@@ -57,6 +60,10 @@ const CreateRoom: React.VFC = () => {
             roomId: newRoomId,
             roomName,
           },
+          story: {
+            title: storyTitle,
+            content: storyContent,
+          },
         };
 
         const usersUserRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
@@ -85,7 +92,7 @@ const CreateRoom: React.VFC = () => {
         }
       }
     },
-    [dispatch, user, roomName, updateError, history]
+    [dispatch, user, roomName, updateError, history, storyTitle, storyContent]
   );
 
   const handleChangeInput = useCallback(
@@ -95,6 +102,23 @@ const CreateRoom: React.VFC = () => {
       }
     },
     [setRoomName]
+  );
+
+  const handleChangeTitle = useCallback(
+    (event: CustomEvent<InputChangeEventDetail>) => {
+      if (event.detail.value) {
+        setStoryTitle(event.detail.value);
+      }
+    },
+    [setStoryTitle]
+  );
+  const handleChangeContent = useCallback(
+    (event: CustomEvent<InputChangeEventDetail>) => {
+      if (event.detail.value) {
+        setStoryContent(event.detail.value);
+      }
+    },
+    [setStoryContent]
   );
 
   return (
@@ -122,7 +146,29 @@ const CreateRoom: React.VFC = () => {
               onIonChange={handleChangeInput}
             />
           </IonItem>
-          <IonButton type="submit">作成</IonButton>
+          <IonItem>
+            <IonLabel position="floating">ストーリーのタイトル</IonLabel>
+            <IonInput
+              name="title"
+              value={storyTitle}
+              onIonChange={handleChangeTitle}
+            />
+          </IonItem>
+          <IonItem>
+            <IonLabel position="floating">ストーリーの内容</IonLabel>
+            <IonTextarea
+              name="storyContent"
+              value={storyContent}
+              rows={8}
+              onIonChange={handleChangeContent}
+            />
+          </IonItem>
+          <IonButton
+            type="submit"
+            disabled={!roomName || !storyTitle || !storyContent}
+          >
+            作成
+          </IonButton>
         </form>
       </IonContent>
     </IonPage>
