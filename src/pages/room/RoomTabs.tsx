@@ -24,14 +24,17 @@ import { useEffect } from "react";
 import { useRoom } from "../../hooks/room";
 import { useAuth } from "../../hooks/auth";
 import MasterGuard from "../../components/MasterGuard";
+import { useError } from "../../hooks/error";
 
 const RoomTabs: React.VFC = () => {
   const history = useHistory();
   const { user } = useAuth();
   const { info } = useRoom();
+  const { updateError } = useError();
 
   useEffect(() => {
     if (!info) {
+      updateError("ルーム情報が見つかりません");
       history.push(routes.root);
     }
   }, [info]);

@@ -37,7 +37,7 @@ const Chat: React.VFC = () => {
         throw new Error("ユーザーが見つかりません");
       }
       if (!info) {
-        throw new Error();
+        throw new Error("ルーム情報が見つかりません");
       }
 
       const roomMessagePath = rtdbRoutes.rooms.room.messages(info.roomId);
