@@ -14,6 +14,7 @@ export interface Sheet {
   isParticipating: boolean;
   injury: string[];
   sheetId: string;
+  userId: string;
 }
 
 export type InvestigatorSkills = InvestigatorSkill[];
