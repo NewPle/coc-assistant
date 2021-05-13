@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ErrorState {
-  message: string | null;
+  message?: string | null;
   where: string | null;
 }
 
@@ -17,7 +17,9 @@ export const errorSlice = createSlice({
     updateError: (state, action: PayloadAction<ErrorState>) => {
       // todo it may caouse performance problem
       return Object.assign({}, state, {
-        message: action.payload.message,
+        message: action.payload.message
+          ? action.payload.message
+          : "内部エラーが発生しました",
         where: action.payload.where,
       });
     },
