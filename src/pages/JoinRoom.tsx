@@ -136,6 +136,7 @@ const JoinRoom: React.VFC = () => {
       console.error(error);
       updateError(error.message);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

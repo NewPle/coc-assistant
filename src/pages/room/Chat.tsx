@@ -10,7 +10,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import firebase from "firebase";
 import { useAuth } from "../../hooks/auth";
 import { useError } from "../../hooks/error";
