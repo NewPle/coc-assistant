@@ -61,7 +61,6 @@ const JoinRoom: React.VFC = () => {
             if (roomInfoData.masterId === user.uid) {
               throw new Error("自身がマスターのルームには参加できません");
             }
-            setInfo(roomInfoData);
 
             if (!user.uid) {
               throw new Error("ユーザーが見つかりません");
@@ -84,22 +83,23 @@ const JoinRoom: React.VFC = () => {
                 updateError(error.message);
               });
             if (!sheet) {
-              throw new Error();
+              throw new Error("シートを取得できませんでした");
             }
             sheet.isParticipating = true;
 
-            const userSheetsPath = rtdbRoutes.users.user.sheets.root(user.uid);
+            const userSheetsSheetPath = rtdbRoutes.users.user.sheets.sheet(
+              user.uid,
+              sheet.sheetId
+            );
 
-            const sheetId = sheet.sheetId.includes("/") ? null : sheet.sheetId;
-            if (!sheetId) {
-              throw new Error();
-            }
-            const userSheetPath = userSheetsPath + "/" + sheetId;
-            const userSheetRef = rtdb.ref(userSheetPath);
+            const userSheetRef = rtdb.ref(userSheetsSheetPath);
 
-            const userRoomsPath = rtdbRoutes.users.user.rooms.root(user.uid);
+            const userRoomsRoomPath = rtdbRoutes.users.user.rooms.room(
+              user.uid,
+              roomId
+            );
 
-            const userRoomsRef = rtdb.ref(userRoomsPath);
+            const userRoomsRef = rtdb.ref(userRoomsRoomPath);
             const characterName = sheet.characterName;
             const userRoomData: UserRoom = {
               isMaster: false,
@@ -109,19 +109,22 @@ const JoinRoom: React.VFC = () => {
               characterName,
             };
 
-            const roomSheetsPath = rtdbRoutes.rooms.room.sheets.root(
-              roomInfoData.roomId
+            const roomSheetsSheetPath = rtdbRoutes.rooms.room.sheets.sheet(
+              roomInfoData.roomId,
+              sheet.sheetId
             );
 
-            const roomSheetsRef = rtdb.ref(roomSheetsPath);
+            const roomSheetsRef = rtdb.ref(roomSheetsSheetPath);
+
+            setInfo(roomInfoData);
 
             userSheetRef.update({
               isParticipating: true,
               participatingRoomId: roomInfoData.roomId,
             });
-            userRoomsRef.push(userRoomData);
+            userRoomsRef.set(userRoomData);
             sheetRef.update({ isParticipating: true });
-            roomSheetsRef.push(sheet);
+            roomSheetsRef.set(sheet);
 
             history.push(routes.room.root);
           } else {
