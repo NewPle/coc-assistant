@@ -6,20 +6,26 @@ import {
   Messages,
   RoomInfo,
   Sheets,
+  Story,
 } from "../models";
 import {
   updateMessages,
   updateRoomInfo,
   updateSheets,
+  updateStory,
 } from "../modules/features/room/roomSlice";
 import { useAppDispatch, useAppSelector } from "./redux";
 
 export const useRoom = () => {
   const dispatch = useAppDispatch();
-  const { info, messages, sheets } = useAppSelector(({ room }) => room);
+  const { info, messages, sheets, story } = useAppSelector(({ room }) => room);
 
   const setInfo = (roomInfo: RoomInfo) => {
     dispatch(updateRoomInfo(roomInfo));
+  };
+
+  const setStory = (story: Story) => {
+    dispatch(updateStory(story));
   };
 
   useEffect(() => {
@@ -95,5 +101,7 @@ export const useRoom = () => {
     info,
     messages,
     sheets,
+    story,
+    setStory,
   };
 };
