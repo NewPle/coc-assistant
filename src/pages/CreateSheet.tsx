@@ -80,14 +80,14 @@ const CreateSheet: React.VFC = () => {
       const sheetsRootPath = rtdbRoutes.sheets.root;
 
       const sheetRef = rtdb.ref(sheetsRootPath).push();
-      const sheetId = sheetRef.key;
-      if (sheetId === null) {
+      const newSheetId = sheetRef.key;
+      if (newSheetId === null) {
         throw new Error();
       }
 
       const userSheetsSheetPath = rtdbRoutes.users.user.sheets.sheet(
         user.uid,
-        sheetId
+        newSheetId
       );
 
       const userSheetsRef = rtdb.ref(userSheetsSheetPath);
@@ -112,7 +112,7 @@ const CreateSheet: React.VFC = () => {
       // to this line
 
       const userSheetData: UserSheet = {
-        sheetId,
+        sheetId: newSheetId,
         characterName,
         isParticipating: false,
         participatingRoomId: "",
@@ -131,7 +131,7 @@ const CreateSheet: React.VFC = () => {
         characteristics,
         isParticipating: false,
         injury: [],
-        sheetId,
+        sheetId: newSheetId,
         userId: user.uid,
       };
 
