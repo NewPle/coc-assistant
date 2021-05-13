@@ -1,5 +1,4 @@
 import {
-  IonBackButton,
   IonButton,
   IonButtons,
   IonChip,

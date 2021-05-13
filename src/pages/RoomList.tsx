@@ -1,6 +1,5 @@
 import {
   IonAlert,
-  IonBackButton,
   IonButtons,
   IonCard,
   IonCardHeader,
