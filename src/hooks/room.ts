@@ -14,18 +14,17 @@ import {
   updateSheets,
   updateStory,
 } from "../modules/features/room/roomSlice";
+import { rtdbRoutes } from "../rtdbRoutes";
+import { useError } from "./error";
 import { useAppDispatch, useAppSelector } from "./redux";
 
 export const useRoom = () => {
   const dispatch = useAppDispatch();
   const { info, messages, sheets, story } = useAppSelector(({ room }) => room);
+  const { updateError } = useError();
 
   const setInfo = (roomInfo: RoomInfo) => {
     dispatch(updateRoomInfo(roomInfo));
-  };
-
-  const setStory = (story: Story) => {
-    dispatch(updateStory(story));
   };
 
   useEffect(() => {
@@ -96,12 +95,42 @@ export const useRoom = () => {
     });
   }, [dispatch, info]);
 
+  useEffect(() => {
+    try {
+      if (!info) {
+        throw new Error();
+      }
+
+      if (info.roomId.includes("/")) {
+        throw new Error();
+      }
+
+      const storyPath = rtdbRoutes.rooms.room.story(info.roomId);
+      if (!storyPath) {
+        throw new Error();
+      }
+      const storyRef = rtdb.ref(storyPath);
+
+      storyRef.on("value", (snapshot) => {
+        if (snapshot.exists()) {
+          const storyData: Story = snapshot.val();
+          dispatch(updateStory(storyData));
+        }
+      });
+    } catch (error) {
+      if (error.message) {
+        updateError(error.message);
+      } else {
+        updateError("内部エラーが発生しました");
+      }
+    }
+  }, []);
+
   return {
     setInfo,
     info,
     messages,
     sheets,
     story,
-    setStory,
   };
 };
