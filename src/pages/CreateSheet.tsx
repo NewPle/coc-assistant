@@ -78,39 +78,33 @@ const CreateSheet: React.VFC = () => {
         throw new Error("ユーザーが見つかりません");
       }
       const sheetsRootPath = rtdbRoutes.sheets.root;
-      if (!sheetsRootPath) {
-        throw new Error();
-      }
 
       const sheetRef = rtdb.ref(sheetsRootPath).push();
-      const sheetKey = sheetRef.key;
-      if (sheetKey === null) {
+      const sheetId = sheetRef.key;
+      if (sheetId === null) {
         throw new Error();
       }
 
-      const userSheetsSheetPath = rtdbRoutes.users.user.sheets.root(user.uid);
+      const userSheetsSheetPath = rtdbRoutes.users.user.sheets.sheet(
+        user.uid,
+        sheetId
+      );
 
       const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
       // todo it might not needed
       // from this line
-      const userSheets = await userSheetsRef
-        .get()
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const userSheetsData: FirebaseUserSheetsData = snapshot.val();
-            const userSheets = Object.keys(userSheetsData).map(
-              (key) => userSheetsData[key]
-            );
-            return userSheets;
-          } else {
-            throw new Error();
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          updateError(error.massage);
-        });
+      const userSheets = await userSheetsRef.get().then((snapshot) => {
+        if (snapshot.exists()) {
+          const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+          const userSheets = Object.keys(userSheetsData).map(
+            (key) => userSheetsData[key]
+          );
+          return userSheets;
+        } else {
+          return;
+        }
+      });
 
       if (userSheets && userSheets.length > 0) {
         throw new Error("通常アカウントではこれ以上シートを作成できません");
@@ -118,7 +112,7 @@ const CreateSheet: React.VFC = () => {
       // to this line
 
       const userSheetData: UserSheet = {
-        sheetId: sheetKey,
+        sheetId,
         characterName,
         isParticipating: false,
         participatingRoomId: "",
@@ -137,10 +131,11 @@ const CreateSheet: React.VFC = () => {
         characteristics,
         isParticipating: false,
         injury: [],
-        sheetId: sheetKey,
+        sheetId,
+        userId: user.uid,
       };
 
-      userSheetsRef.push(userSheetData);
+      userSheetsRef.set(userSheetData);
       sheetRef.set(sheetData);
 
       history.push(routes.sheetList);
