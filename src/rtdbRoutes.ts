@@ -45,6 +45,7 @@ export const rtdbRoutes = {
       info: (roomId: string) => rooms(roomId, "info"),
       messages: (roomId: string) => rooms(roomId, "messages"),
       sheets: (roomId: string) => rooms(roomId, "sheets"),
+      story: (roomId: string) => rooms(roomId, "story"),
     },
   },
   sheets: {
