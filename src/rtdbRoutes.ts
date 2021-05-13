@@ -4,12 +4,22 @@ const rooms = (roomId?: string, propName?: string) => {
     return prefix;
   }
   if (roomId.includes("/")) {
-    return null;
+    throw new Error();
   }
   if (!propName) {
     return `${prefix}/${roomId}`;
   }
   return `${prefix}/${roomId}/${propName}`;
+};
+
+const room = (prefix: string | null, roomId: string) => {
+  if (!prefix) {
+    throw new Error();
+  }
+  if (roomId.includes("/")) {
+    throw new Error();
+  }
+  return `${prefix}/${roomId}`;
 };
 
 const sheets = (sheetId?: string) => {
@@ -18,7 +28,17 @@ const sheets = (sheetId?: string) => {
     return prefix;
   }
   if (sheetId.includes("/")) {
-    return null;
+    throw new Error();
+  }
+  return `${prefix}/${sheetId}`;
+};
+
+const sheet = (prefix: string | null, sheetId: string) => {
+  if (!prefix) {
+    throw new Error();
+  }
+  if (sheetId.includes("/")) {
+    throw new Error();
   }
   return `${prefix}/${sheetId}`;
 };
@@ -29,7 +49,7 @@ const users = (userId?: string, propName?: string) => {
     return prefix;
   }
   if (userId.includes("/")) {
-    return null;
+    throw new Error();
   }
   if (!propName) {
     return `${prefix}/${userId}`;
@@ -44,7 +64,11 @@ export const rtdbRoutes = {
       root: (roomId: string) => rooms(roomId),
       info: (roomId: string) => rooms(roomId, "info"),
       messages: (roomId: string) => rooms(roomId, "messages"),
-      sheets: (roomId: string) => rooms(roomId, "sheets"),
+      sheets: {
+        root: (roomId: string) => rooms(roomId, "sheets"),
+        sheet: (roomId: string, sheetId: string) =>
+          sheet(rtdbRoutes.rooms.room.sheets.root(roomId), sheetId),
+      },
       story: (roomId: string) => rooms(roomId, "story"),
     },
   },
@@ -57,8 +81,17 @@ export const rtdbRoutes = {
     user: {
       root: (userId: string) => users(userId),
       info: (userId: string) => users(userId, "info"),
-      rooms: (userId: string) => users(userId, "rooms"),
-      sheets: (userId: string) => users(userId, "sheets"),
+      rooms: {
+        root: (userId: string) => users(userId, "rooms"),
+        room: (userId: string, roomId: string) =>
+          room(rtdbRoutes.users.user.rooms.root(userId), roomId),
+      },
+      // sheets: (userId: string) => users(userId, "sheets"),
+      sheets: {
+        root: (userId: string) => users(userId, "sheets"),
+        sheet: (userId: string, sheetId: string) =>
+          sheet(rtdbRoutes.users.user.sheets.root(userId), sheetId),
+      },
     },
   },
 };
