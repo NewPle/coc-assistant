@@ -63,11 +63,8 @@ const Chat: React.VFC = () => {
       newMessageRef.set(newMessage);
       setMessage("");
     } catch (error) {
-      if (error.message) {
-        updateError(error.message);
-      } else {
-        updateError("内部エラーが発生しました");
-      }
+      console.error(error);
+      updateError(error.message);
     }
   };
 

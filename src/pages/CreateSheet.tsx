@@ -141,11 +141,8 @@ const CreateSheet: React.VFC = () => {
 
       history.push(routes.sheetList);
     } catch (error) {
-      if (error.message) {
-        updateError(error.message);
-      } else {
-        updateError("内部エラーが発生しました");
-      }
+      console.error(error);
+      updateError(error.message);
       history.push(routes.root);
     }
   };
@@ -185,11 +182,8 @@ const CreateSheet: React.VFC = () => {
           return;
         }
       } catch (error) {
-        if (error.message) {
-          updateError(error.message);
-        } else {
-          updateError("内部エラーが発生しました");
-        }
+        console.error(error);
+        updateError(error.message);
       }
     };
     checkUserSheetsNum();

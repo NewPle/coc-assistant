@@ -98,7 +98,7 @@ export const useRoom = () => {
   useEffect(() => {
     try {
       if (!info) {
-        throw new Error();
+        return;
       }
 
       if (info.roomId.includes("/")) {
@@ -118,11 +118,8 @@ export const useRoom = () => {
         }
       });
     } catch (error) {
-      if (error.message) {
-        updateError(error.message);
-      } else {
-        updateError("内部エラーが発生しました");
-      }
+      console.error(error);
+      updateError(error.message);
     }
   }, []);
 

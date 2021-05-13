@@ -50,18 +50,12 @@ const RoomList: React.VFC = () => {
           }
         })
         .catch((error) => {
-          if (error.message) {
-            updateError(error.message);
-          } else {
-            updateError("内部エラーが発生しました");
-          }
+          console.error(error);
+          updateError(error.message);
         });
     } catch (error) {
-      if (error.message) {
-        updateError(error.message);
-      } else {
-        updateError("内部エラーが発生しました");
-      }
+      console.error(error);
+      updateError(error.message);
     }
   };
 
@@ -90,18 +84,12 @@ const RoomList: React.VFC = () => {
           }
         })
         .catch((error) => {
-          if (error.message) {
-            updateError(error.message);
-          } else {
-            updateError("内部エラーが発生しました");
-          }
+          console.error(error);
+          updateError(error.message);
         });
     } catch (error) {
-      if (error.message) {
-        updateError(error.message);
-      } else {
-        updateError("内部エラーが発生しました");
-      }
+      console.error(error);
+      updateError(error.message);
     }
   }, []);
 

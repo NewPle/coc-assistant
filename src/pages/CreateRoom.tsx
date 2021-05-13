@@ -85,11 +85,8 @@ const CreateRoom: React.VFC = () => {
 
         history.push(routes.room.root);
       } catch (error) {
-        if (error.message) {
-          updateError(error.message);
-        } else {
-          updateError("内部エラーが発生しました");
-        }
+        console.error(error);
+        updateError(error.message);
       }
     },
     [dispatch, user, roomName, updateError, history, storyTitle, storyContent]

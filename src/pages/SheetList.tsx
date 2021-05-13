@@ -27,8 +27,7 @@ const SheetList: React.VFC = () => {
     const getSheets = async () => {
       try {
         if (!user.uid) {
-          updateError("ユーザーが見つかりません");
-          return;
+          throw new Error("ユーザーが見つかりません");
         }
 
         const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
@@ -50,8 +49,7 @@ const SheetList: React.VFC = () => {
         });
 
         if (!userSheets) {
-          updateError("シートが見つかりません");
-          return;
+          throw new Error("シートが見つかりません");
         }
 
         const ps = userSheets.map((userSheet) => {
@@ -81,8 +79,9 @@ const SheetList: React.VFC = () => {
           });
           setSheets(newSheetsState);
         });
-      } catch (e) {
-        updateError("内部エラーが発生しました");
+      } catch (error) {
+        console.error(error);
+        updateError(error.message);
       }
     };
 
