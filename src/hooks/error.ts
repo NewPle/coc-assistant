@@ -1,14 +1,11 @@
-import {
-  ErrorState,
-  updateError as updateErrorState,
-} from "../modules/features/error/errorSlice";
+import { updateError as updateErrorState } from "../modules/features/error/errorSlice";
 import { useAppDispatch } from "./redux";
 
 export const useError = () => {
   const dispatch = useAppDispatch();
 
-  const updateError = ({ message, where }: ErrorState) => {
-    dispatch(updateErrorState({ message, where }));
+  const updateError = (message: string) => {
+    dispatch(updateErrorState(message));
   };
 
   return { updateError };
