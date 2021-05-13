@@ -22,24 +22,30 @@ import Story from "./Story";
 import { routes } from "../../routes";
 import { useEffect } from "react";
 import { useRoom } from "../../hooks/room";
+import { useAuth } from "../../hooks/auth";
+import MasterGuard from "../../components/MasterGuard";
 
 const RoomTabs: React.VFC = () => {
   const history = useHistory();
+  const { user } = useAuth();
   const { info } = useRoom();
+
   useEffect(() => {
     if (!info) {
       history.push(routes.root);
     }
   }, [info]);
+
   return (
     <IonTabs>
       <IonRouterOutlet>
+        <MasterGuard>
+          <Route path={routes.room.roll} component={Roll} />
+          <Route path={routes.room.story} component={Story} />
+        </MasterGuard>
         <Route path={routes.room.memberList} component={MemberList} />
         <Route path={routes.room.chat} component={Chat} />
-        <Route path={routes.room.roll} component={Roll} />
-        <Route path={routes.room.story} component={Story} />
         <Redirect exact path={routes.room.root} to={routes.room.memberList} />
-        <Route />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         <IonTabButton tab="member-list" href={routes.room.memberList}>
@@ -54,10 +60,12 @@ const RoomTabs: React.VFC = () => {
           <IonIcon icon={diceOutline} />
           <IonLabel>ダイス</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="story" href={routes.room.story}>
-          <IonIcon icon={newspaperOutline} />
-          <IonLabel>ストーリー</IonLabel>
-        </IonTabButton>
+        {info && user.uid === info.masterId && (
+          <IonTabButton tab="story" href={routes.room.story}>
+            <IonIcon icon={newspaperOutline} />
+            <IonLabel>ストーリー</IonLabel>
+          </IonTabButton>
+        )}
       </IonTabBar>
     </IonTabs>
   );
