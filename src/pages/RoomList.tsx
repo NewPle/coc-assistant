@@ -64,10 +64,8 @@ const RoomList: React.VFC = () => {
       if (!user.uid) {
         throw new Error("ユーザーが見つかりません");
       }
-      const userRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
-      if (!userRoomsPath) {
-        throw new Error();
-      }
+      const userRoomsPath = rtdbRoutes.users.user.rooms.root(user.uid);
+
       const userRoomsRef = rtdb.ref(userRoomsPath);
 
       userRoomsRef

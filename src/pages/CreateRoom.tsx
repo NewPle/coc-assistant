@@ -43,9 +43,7 @@ const CreateRoom: React.VFC = () => {
         }
 
         const roomsRootPath = rtdbRoutes.rooms.root;
-        if (!roomsRootPath) {
-          throw new Error();
-        }
+
         const roomRef = rtdb.ref(roomsRootPath);
         const newRoomRef = roomRef.push();
         const newRoomId = newRoomRef.key;
@@ -66,10 +64,8 @@ const CreateRoom: React.VFC = () => {
           },
         };
 
-        const usersUserRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
-        if (!usersUserRoomsPath) {
-          throw new Error();
-        }
+        const usersUserRoomsPath = rtdbRoutes.users.user.rooms.root(user.uid);
+
         const userRoomRef = rtdb.ref(usersUserRoomsPath);
 
         const newUserRoomData: UserRoom = {

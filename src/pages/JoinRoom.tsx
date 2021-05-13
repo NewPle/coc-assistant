@@ -51,9 +51,7 @@ const JoinRoom: React.VFC = () => {
         }
       });
       const roomInfoPath = rtdbRoutes.rooms.room.info(roomId);
-      if (!roomInfoPath) {
-        throw new Error();
-      }
+
       const roomInfoRef = rtdb.ref(roomInfoPath);
       roomInfoRef
         .get()
@@ -69,9 +67,7 @@ const JoinRoom: React.VFC = () => {
               throw new Error("ユーザーが見つかりません");
             }
             const sheetPath = rtdbRoutes.sheets.sheet(selectedSheetId);
-            if (!sheetPath) {
-              throw new Error();
-            }
+
             const sheetRef = rtdb.ref(sheetPath);
             const sheet = await sheetRef
               .get()
@@ -92,10 +88,8 @@ const JoinRoom: React.VFC = () => {
             }
             sheet.isParticipating = true;
 
-            const userSheetsPath = rtdbRoutes.users.user.sheets(user.uid);
-            if (!userSheetsPath) {
-              throw new Error();
-            }
+            const userSheetsPath = rtdbRoutes.users.user.sheets.root(user.uid);
+
             const sheetId = sheet.sheetId.includes("/") ? null : sheet.sheetId;
             if (!sheetId) {
               throw new Error();
@@ -103,10 +97,8 @@ const JoinRoom: React.VFC = () => {
             const userSheetPath = userSheetsPath + "/" + sheetId;
             const userSheetRef = rtdb.ref(userSheetPath);
 
-            const userRoomsPath = rtdbRoutes.users.user.rooms(user.uid);
-            if (!userRoomsPath) {
-              throw new Error();
-            }
+            const userRoomsPath = rtdbRoutes.users.user.rooms.root(user.uid);
+
             const userRoomsRef = rtdb.ref(userRoomsPath);
             const characterName = sheet.characterName;
             const userRoomData: UserRoom = {
@@ -117,12 +109,10 @@ const JoinRoom: React.VFC = () => {
               characterName,
             };
 
-            const roomSheetsPath = rtdbRoutes.rooms.room.sheets(
+            const roomSheetsPath = rtdbRoutes.rooms.room.sheets.root(
               roomInfoData.roomId
             );
-            if (!roomSheetsPath) {
-              throw new Error();
-            }
+
             const roomSheetsRef = rtdb.ref(roomSheetsPath);
 
             userSheetRef.update({
@@ -158,10 +148,8 @@ const JoinRoom: React.VFC = () => {
         throw new Error("ユーザーが見つかりません");
       }
 
-      const userSheetsPath = rtdbRoutes.users.user.sheets(user.uid);
-      if (!userSheetsPath) {
-        throw new Error();
-      }
+      const userSheetsPath = rtdbRoutes.users.user.sheets.root(user.uid);
+
       const userSheetsRef = rtdb.ref(userSheetsPath);
 
       userSheetsRef

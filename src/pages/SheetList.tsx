@@ -30,10 +30,8 @@ const SheetList: React.VFC = () => {
           throw new Error("ユーザーが見つかりません");
         }
 
-        const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
-        if (!userSheetsSheetPath) {
-          throw new Error();
-        }
+        const userSheetsSheetPath = rtdbRoutes.users.user.sheets.root(user.uid);
+
         const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
         const userSheets = await userSheetsRef.get().then((snapshot) => {

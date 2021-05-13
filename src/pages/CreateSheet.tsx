@@ -88,25 +88,29 @@ const CreateSheet: React.VFC = () => {
         throw new Error();
       }
 
-      const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
-      if (!userSheetsSheetPath) {
-        throw new Error();
-      }
+      const userSheetsSheetPath = rtdbRoutes.users.user.sheets.root(user.uid);
+
       const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
       // todo it might not needed
       // from this line
-      const userSheets = await userSheetsRef.get().then((snapshot) => {
-        if (snapshot.exists()) {
-          const userSheetsData: FirebaseUserSheetsData = snapshot.val();
-          const userSheets = Object.keys(userSheetsData).map(
-            (key) => userSheetsData[key]
-          );
-          return userSheets;
-        } else {
-          return null;
-        }
-      });
+      const userSheets = await userSheetsRef
+        .get()
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+            const userSheets = Object.keys(userSheetsData).map(
+              (key) => userSheetsData[key]
+            );
+            return userSheets;
+          } else {
+            throw new Error();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          updateError(error.massage);
+        });
 
       if (userSheets && userSheets.length > 0) {
         throw new Error("通常アカウントではこれ以上シートを作成できません");
@@ -142,7 +146,7 @@ const CreateSheet: React.VFC = () => {
       history.push(routes.sheetList);
     } catch (error) {
       console.error(error);
-      updateError(error.message);
+      updateError(error.massage);
       history.push(routes.root);
     }
   };
@@ -154,10 +158,8 @@ const CreateSheet: React.VFC = () => {
           throw new Error("ユーザーが見つかりません");
         }
 
-        const userSheetsSheetPath = rtdbRoutes.users.user.sheets(user.uid);
-        if (!userSheetsSheetPath) {
-          throw new Error();
-        }
+        const userSheetsSheetPath = rtdbRoutes.users.user.sheets.root(user.uid);
+
         const userSheetsRef = rtdb.ref(userSheetsSheetPath);
 
         const userSheets = await userSheetsRef.get().then((snapshot) => {
