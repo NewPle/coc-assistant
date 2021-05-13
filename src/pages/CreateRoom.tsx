@@ -64,9 +64,12 @@ const CreateRoom: React.VFC = () => {
           },
         };
 
-        const usersUserRoomsPath = rtdbRoutes.users.user.rooms.root(user.uid);
+        const usersUserRoomsRoomPath = rtdbRoutes.users.user.rooms.room(
+          user.uid,
+          newRoomId
+        );
 
-        const userRoomRef = rtdb.ref(usersUserRoomsPath);
+        const userRoomRef = rtdb.ref(usersUserRoomsRoomPath);
 
         const newUserRoomData: UserRoom = {
           roomId: newRoomId,
@@ -74,7 +77,7 @@ const CreateRoom: React.VFC = () => {
           isMaster: true,
         };
 
-        userRoomRef.push(newUserRoomData);
+        userRoomRef.set(newUserRoomData);
         newRoomRef.set(newRoomData);
 
         dispatch(updateRoomInfo(newRoomData.info));
