@@ -42,8 +42,8 @@ const RoomTabs: React.VFC = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
+        <Route path={routes.room.roll} component={Roll} />
         <MasterGuard>
-          <Route path={routes.room.roll} component={Roll} />
           <Route path={routes.room.story} component={Story} />
         </MasterGuard>
         <Route path={routes.room.memberList} component={MemberList} />
