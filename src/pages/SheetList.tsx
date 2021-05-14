@@ -96,7 +96,9 @@ const SheetList: React.VFC = () => {
             <BackButton routerLink={routes.root} />
           </IonButtons>
           <IonButtons slot="end">
-            <IonButton routerLink={routes.createSheet}>作成</IonButton>
+            <IonButton routerLink={routes.createSheet} fill="solid">
+              作成
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
