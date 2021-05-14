@@ -33,7 +33,7 @@ const Component: React.VFC<ComponentProps> = ({
   if (isLoading) {
     return null;
   }
-  return <NotFound />;
+  return <Redirect to={routes.signin} />;
 };
 
 export default AuthGuard;
