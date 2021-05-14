@@ -1,4 +1,5 @@
-import { IonItem, IonLabel } from "@ionic/react";
+import { IonCard, IonItem, IonLabel } from "@ionic/react";
+import { useRoom } from "../hooks/room";
 import { Message as IMessage } from "../models";
 
 interface Props {
@@ -6,20 +7,20 @@ interface Props {
 }
 
 const Message: React.VFC<Props> = ({ message }) => {
+  const { info } = useRoom();
   return (
     <IonItem lines="none">
       <IonLabel
         className="ion-padding ion-text-wrap"
-        // color="light-contrast"
         style={{
-          // backgroundColor:
-          //   uid === message.authorId
-          //     ? "var(--ion-color-secondary-tint)"
-          //     : "var(--ion-color-light-tint)",
-          // color:
-          //   uid === message.authorId
-          //     ? "var(--ion-color-secondary-contrast)"
-          //     : "var(--ion-color-light-contrast)",
+          backgroundColor:
+            message.authorId === info?.masterId
+              ? "var(--ion-color-secondary-tint)"
+              : "var(--ion-color-light-tint)",
+          color:
+            message.authorId === info?.masterId
+              ? "var(--ion-color-secondary-contrast)"
+              : "var(--ion-color-light-contrast)",
           borderRadius: "12px",
         }}
       >
