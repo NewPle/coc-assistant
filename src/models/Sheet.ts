@@ -22,6 +22,14 @@ export type InvestigatorSkills = InvestigatorSkill[];
 export interface InvestigatorSkill {
   name: string;
   value: number;
+}
+
+export type InvestigatorSkillsWithSkillPoint =
+  InvestigatorSkillWithSkillPoint[];
+
+export interface InvestigatorSkillWithSkillPoint {
+  name: string;
+  value: number;
   skillPoint: number;
 }
 

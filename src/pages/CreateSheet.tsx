@@ -26,6 +26,7 @@ import { makeDefaultValues } from "../values/sheetDefault";
 import {
   FirebaseUserSheetsData,
   InvestigatorSkills,
+  InvestigatorSkillsWithSkillPoint,
   Sheet,
   UserSheet,
 } from "../models";
@@ -68,7 +69,7 @@ const CreateSheet: React.VFC = () => {
 
   const [background, setBackground] = useState("");
   const [investigatorSkills, setInvestigatorSkills] =
-    useState<InvestigatorSkills>(initialInvestigatorSkills);
+    useState<InvestigatorSkillsWithSkillPoint>(initialInvestigatorSkills);
 
   // todo use useCallback
   const createSheet = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -118,6 +119,14 @@ const CreateSheet: React.VFC = () => {
         participatingRoomId: "",
       };
 
+      const investigatorSkillsWithoutSkillPoint: InvestigatorSkills =
+        investigatorSkills.map((investigatorSkill) => {
+          return {
+            name: investigatorSkill.name,
+            value: investigatorSkill.skillPoint + investigatorSkill.value,
+          };
+        });
+
       const sheetData: Sheet = {
         characterName,
         userName: "todo user name",
@@ -127,7 +136,7 @@ const CreateSheet: React.VFC = () => {
         belongings,
         weapons,
         background,
-        investigatorSkills,
+        investigatorSkills: investigatorSkillsWithoutSkillPoint,
         characteristics,
         isParticipating: false,
         injury: [],

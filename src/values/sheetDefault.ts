@@ -1,4 +1,10 @@
-import { InvestigatorSkills, Characteristics, Params, Combat } from "../models";
+import {
+  InvestigatorSkills,
+  Characteristics,
+  Params,
+  Combat,
+  InvestigatorSkillsWithSkillPoint,
+} from "../models";
 import { randomInt } from "./randomInt";
 
 export const makeDefaultValues = () => {
@@ -51,7 +57,7 @@ export const makeDefaultValues = () => {
     keys: ["BUILD", "DB", "EVASIONS"],
   };
 
-  const initialInvestigatorSkills: InvestigatorSkills = [
+  const initialInvestigatorSkills: InvestigatorSkillsWithSkillPoint = [
     { name: "威圧", value: 15, skillPoint: 0 },
     { name: "近接戦闘", value: 25, skillPoint: 0 },
     { name: "乗馬", value: 5, skillPoint: 0 },
