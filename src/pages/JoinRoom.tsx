@@ -85,6 +85,9 @@ const JoinRoom: React.VFC = () => {
             if (!sheet) {
               throw new Error("シートを取得できませんでした");
             }
+            if (sheet.isParticipating) {
+              throw new Error("参加中のシートは使えません");
+            }
             sheet.isParticipating = true;
 
             const userSheetsSheetPath = rtdbRoutes.users.user.sheets.sheet(
