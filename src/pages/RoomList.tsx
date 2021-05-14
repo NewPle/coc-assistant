@@ -111,6 +111,7 @@ const RoomList: React.VFC = () => {
         <IonAlert
           isOpen={showAlert}
           message={"このルームに参加しますか？"}
+          backdropDismiss={false}
           buttons={[
             {
               text: "キャンセル",
