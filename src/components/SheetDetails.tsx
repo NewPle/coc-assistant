@@ -9,6 +9,7 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/react";
+import React from "react";
 import { Sheet } from "../models";
 
 interface Props {
@@ -73,7 +74,7 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         )}
 
         <IonListHeader>技能値</IonListHeader>
-        <IonList className="ion-padding-horizontal">
+        <IonList>
           {sheet.investigatorSkills.map((investigatorSkill, index) => {
             return (
               <IonChip key={index} color={"primary"}>
