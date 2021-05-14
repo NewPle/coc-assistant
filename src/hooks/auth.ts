@@ -4,7 +4,6 @@ import {
   signIn as signInAction,
   signOut as signOutAction,
 } from "../modules/features/auth/userSlice";
-import { useError } from "./error";
 import { useAppDispatch, useAppSelector } from "./redux";
 
 export const useAuth = () => {
@@ -12,7 +11,7 @@ export const useAuth = () => {
   const user = useAppSelector(({ user }) => user);
 
   const signUp = (email: string, password: string, displayName: string) => {
-    auth
+    return auth
       .createUserWithEmailAndPassword(email, password)
       .then((firebaseUser) => {
         if (firebaseUser.user) {
@@ -22,11 +21,11 @@ export const useAuth = () => {
   };
 
   const signIn = (email: string, password: string) => {
-    auth.signInWithEmailAndPassword(email, password);
+    return auth.signInWithEmailAndPassword(email, password);
   };
 
   const signOut = () => {
-    auth.signOut();
+    return auth.signOut();
   };
 
   useEffect(() => {
