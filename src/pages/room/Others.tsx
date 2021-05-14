@@ -105,7 +105,7 @@ const Others: React.VFC = () => {
           sheet.sheetId
         );
         const userSheetRef = rtdb.ref(userSheetPath);
-        sheet.isParticipating = false;
+        const updatedSheet = { ...sheet, isParticipating: false };
 
         const userRoomPath = rtdbRoutes.users.user.rooms.room(
           sheet.userId,
@@ -120,7 +120,7 @@ const Others: React.VFC = () => {
           isParticipating: false,
           participatingRoomId: "",
         });
-        sheetsSheetRef.update(sheet);
+        sheetsSheetRef.update(updatedSheet);
         userRoomRef.remove();
       });
 
