@@ -1,11 +1,25 @@
 import { useEffect } from "react";
 import { auth } from "../lib/firebase";
-import { signin, signout } from "../modules/features/auth/userSlice";
+import {
+  signIn as signInAction,
+  signOut as signOutAction,
+} from "../modules/features/auth/userSlice";
+import { useError } from "./error";
 import { useAppDispatch, useAppSelector } from "./redux";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ user }) => user);
+
+  const signUp = (email: string, password: string, displayName: string) => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((firebaseUser) => {
+        if (firebaseUser.user) {
+          firebaseUser.user.updateProfile({ displayName });
+        }
+      });
+  };
 
   const signIn = (email: string, password: string) => {
     auth.signInWithEmailAndPassword(email, password);
@@ -23,12 +37,12 @@ export const useAuth = () => {
 
     auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
-        dispatch(signin(firebaseUser.uid));
+        dispatch(signInAction(firebaseUser.uid));
       } else {
-        dispatch(signout());
+        dispatch(signOutAction());
       }
     });
   }, []);
 
-  return { user, signIn, signOut };
+  return { user, signIn, signOut, signUp };
 };

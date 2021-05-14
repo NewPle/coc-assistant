@@ -12,15 +12,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    signin: (state, action: PayloadAction<string>) => {
+    signIn: (state, action: PayloadAction<string>) => {
       state.uid = action.payload;
     },
-    signout: (state) => {
+    signOut: (state) => {
       state.uid = null;
     },
   },
 });
 
-export const { signin, signout } = userSlice.actions;
+export const { signIn, signOut } = userSlice.actions;
 
 export default userSlice.reducer;
