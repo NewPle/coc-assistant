@@ -6,8 +6,11 @@ import {
 } from "../modules/features/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux";
 import firebase from "firebase/app";
+import { useHistory } from "react-router";
+import { routes } from "../routes";
 
 export const useAuth = () => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ user }) => user);
 
@@ -30,6 +33,7 @@ export const useAuth = () => {
   };
 
   const signOut = () => {
+    history.push(routes.signin);
     return auth.signOut();
   };
 
