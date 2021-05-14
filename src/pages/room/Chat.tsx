@@ -21,13 +21,11 @@ import { rtdbRoutes } from "../../rtdbRoutes";
 import Message from "../../components/Message";
 
 const Chat: React.VFC = () => {
-  const { info, messages } = useRoom();
+  const { info, messages, sheets } = useRoom();
   const { user } = useAuth();
   const [message, setMessage] = useState("");
   const { updateError } = useError();
   // const messageListRef = useRef<HTMLIonListElement>(null);
-
-  const showForm = user.uid === info?.masterId;
 
   const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,9 +49,20 @@ const Chat: React.VFC = () => {
         throw new Error();
       }
 
+      if (!sheets && info.masterId !== user.uid) {
+        throw new Error("シートが見つかりません");
+      }
+
+      const authorName =
+        info.masterId === user.uid
+          ? "マスター"
+          : // @ts-ignore
+            sheets.filter((sheet) => sheet.userId === user.uid)[0]
+              .characterName;
+
       const newMessage: IMessage = {
         authorId: user.uid,
-        authorName: "todo user name",
+        authorName,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         text: message,
         key: newMessageKey,
@@ -89,29 +98,27 @@ const Chat: React.VFC = () => {
             })}
         </IonList>
       </IonContent>
-      {showForm && (
-        <IonFooter>
-          <form onSubmit={sendMessage}>
-            <IonToolbar>
-              <IonTextarea
-                autoGrow={true}
-                placeholder="メッセージ"
-                name="messageInput"
-                className="ion-margin-start"
-                value={message}
-                rows={1}
-                onIonChange={(e) => setMessage(String(e.detail.value))}
-              />
-              <IonButtons slot="end">
-                {/* todo disable button when input is empty or only spaces */}
-                <IonButton type="submit" disabled={message.length === 0}>
-                  送信
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </form>
-        </IonFooter>
-      )}
+      <IonFooter>
+        <form onSubmit={sendMessage}>
+          <IonToolbar>
+            <IonTextarea
+              autoGrow={true}
+              placeholder="メッセージ"
+              name="messageInput"
+              className="ion-margin-start"
+              value={message}
+              rows={1}
+              onIonChange={(e) => setMessage(String(e.detail.value))}
+            />
+            <IonButtons slot="end">
+              {/* todo disable button when input is empty or only spaces */}
+              <IonButton type="submit" disabled={message.length === 0}>
+                送信
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </form>
+      </IonFooter>{" "}
     </IonPage>
   );
 };
