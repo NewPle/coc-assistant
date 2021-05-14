@@ -76,14 +76,9 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         <IonList className="ion-padding-horizontal">
           {sheet.investigatorSkills.map((investigatorSkill, index) => {
             return (
-              <IonChip
-                key={index}
-                color={"primary"}
-                outline={investigatorSkill.skillPoint === 0}
-              >
+              <IonChip key={index} color={"primary"}>
                 <IonLabel>
-                  {investigatorSkill.name}{" "}
-                  {investigatorSkill.value + investigatorSkill.skillPoint}
+                  {investigatorSkill.name} {investigatorSkill.value}
                 </IonLabel>
               </IonChip>
             );
