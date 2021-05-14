@@ -6,9 +6,12 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useAppDispatch } from "../hooks/redux";
+import { signOut } from "../modules/features/auth/userSlice";
 import { routes } from "../routes";
 
 const Home: React.VFC = () => {
+  const dispatch = useAppDispatch();
   return (
     <IonPage>
       <IonHeader>
@@ -17,9 +20,6 @@ const Home: React.VFC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonButton expand="full" routerLink={routes.root}>
-          ホーム
-        </IonButton>
         <IonButton expand="full" routerLink={routes.sheetList}>
           シート一覧
         </IonButton>
@@ -32,13 +32,13 @@ const Home: React.VFC = () => {
         <IonButton expand="full" routerLink={routes.roomList}>
           参加中ルーム一覧
         </IonButton>
-        <IonButton expand="full" routerLink={routes.signup}>
-          サインアップ
+        <IonButton
+          expand="full"
+          color="danger"
+          onClick={() => dispatch(signOut())}
+        >
+          サインアウト
         </IonButton>
-        <IonButton expand="full" routerLink={routes.signin}>
-          サインイン
-        </IonButton>
-        <IonButton expand="full">サインアウト</IonButton>
       </IonContent>
     </IonPage>
   );
