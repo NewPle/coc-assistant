@@ -22,9 +22,13 @@ export const userSlice = createSlice({
       state.uid = null;
       state.loading = false;
     },
+    signUp: (state, action: PayloadAction<string>) => {
+      state.uid = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { signIn, signOut } = userSlice.actions;
+export const { signIn, signOut, signUp } = userSlice.actions;
 
 export default userSlice.reducer;

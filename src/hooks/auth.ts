@@ -3,6 +3,7 @@ import { auth } from "../lib/firebase";
 import {
   signIn as signInAction,
   signOut as signOutAction,
+  signUp as signUpAction,
 } from "../modules/features/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux";
 import firebase from "firebase/app";
@@ -26,6 +27,7 @@ export const useAuth = () => {
           .then((firebaseUser) => {
             if (firebaseUser.user) {
               firebaseUser.user.updateProfile({ displayName });
+              dispatch(signInAction(firebaseUser.user.uid));
             }
           })
       )
@@ -59,6 +61,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser) => {
+      console.log("auth state changed");
       if (firebaseUser) {
         dispatch(signInAction(firebaseUser.uid));
       } else {
