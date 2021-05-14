@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
   uid: string | null;
+  loading: boolean;
 }
 
 const initialState: UserState = {
   uid: null,
+  loading: true,
 };
 
 export const userSlice = createSlice({
@@ -14,9 +16,11 @@ export const userSlice = createSlice({
   reducers: {
     signIn: (state, action: PayloadAction<string>) => {
       state.uid = action.payload;
+      state.loading = false;
     },
     signOut: (state) => {
       state.uid = null;
+      state.loading = false;
     },
   },
 });
