@@ -1,8 +1,19 @@
 import {
+  IonAlert,
   IonButton,
   IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonChip,
   IonContent,
   IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -18,10 +29,39 @@ import { FirebaseUserSheetsData, Sheets } from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 
+import { trashOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
+
 const SheetList: React.VFC = () => {
+  const history = useHistory();
   const [sheets, setSheets] = useState<Sheets>([]);
   const { user } = useAuth();
   const { updateError } = useError();
+  const [selectedSheetId, setSelectedSheetId] = useState("");
+
+  const deleteSheet = () => {
+    try {
+      if (!user.uid) {
+        throw new Error("ユーザーが見つかりません");
+      }
+      const sheet = sheets.filter((s) => s.sheetId === selectedSheetId)[0];
+      if (sheet.isParticipating) {
+        throw new Error("ルームに参加中のシートは削除できません");
+      }
+      const usersUserSheetsSheetPath = rtdbRoutes.users.user.sheets.sheet(
+        user.uid,
+        sheet.sheetId
+      );
+      const userSheetRef = rtdb.ref(usersUserSheetsSheetPath);
+
+      const sheetsSheetPath = rtdbRoutes.sheets.sheet(sheet.sheetId);
+      const sheetRef = rtdb.ref(sheetsSheetPath);
+
+      userSheetRef.remove();
+      sheetRef.remove();
+      history.push(routes.root);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     const getSheets = async () => {
@@ -108,8 +148,107 @@ const SheetList: React.VFC = () => {
             <IonTitle size="large">SheetList</IonTitle>
           </IonToolbar>
         </IonHeader>
+
+        <IonAlert
+          isOpen={!!selectedSheetId}
+          header={"キャラクターシートを削除しますか？"}
+          message={"この操作を元に戻すことはできません。本当に削除しますか？"}
+          backdropDismiss={false}
+          buttons={[
+            {
+              text: "キャンセル",
+              handler: () => setSelectedSheetId(""),
+            },
+            {
+              text: "削除する",
+              handler: () => {
+                deleteSheet();
+              },
+            },
+          ]}
+        />
+
         {sheets.map((sheet) => {
-          return <SheetDetails sheet={sheet} key={sheet.sheetId} />;
+          return (
+            <IonCard>
+              <IonCardHeader>
+                <IonToolbar>
+                  <IonCardTitle>{sheet.characterName}</IonCardTitle>
+                  <IonButtons slot="end">
+                    <IonButton
+                      onClick={() => setSelectedSheetId(sheet.sheetId)}
+                    >
+                      <IonIcon icon={trashOutline} slot="icon-only" />
+                    </IonButton>
+                  </IonButtons>
+                </IonToolbar>
+              </IonCardHeader>
+              <IonCardContent>
+                <IonListHeader>人物</IonListHeader>
+                <IonList className="ion-padding-horizontal">
+                  <IonItem>
+                    <IonLabel>年齢</IonLabel>
+                    {sheet.age}
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>性別</IonLabel>
+                    {sheet.gender}
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>職業</IonLabel>
+                    {sheet.occupation}
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel position="stacked">背景</IonLabel>
+                    {sheet.background}
+                  </IonItem>
+                </IonList>
+
+                {sheet.belongings.length > 0 && (
+                  <>
+                    <IonListHeader>持ち物一覧</IonListHeader>
+                    <IonList className="ion-padding-horizontal">
+                      {sheet.belongings.map((belonging, index) => {
+                        return (
+                          <IonChip color="primary" key={index}>
+                            <IonLabel>{belonging}</IonLabel>
+                          </IonChip>
+                        );
+                      })}
+                    </IonList>
+                  </>
+                )}
+
+                {sheet.weapons.length > 0 && (
+                  <>
+                    <IonListHeader>武器一覧</IonListHeader>
+                    <IonList className="ion-padding-horizontal">
+                      {sheet.weapons.map((weapon, index) => {
+                        return (
+                          <IonChip color="primary" key={index}>
+                            <IonLabel>{weapon}</IonLabel>
+                          </IonChip>
+                        );
+                      })}
+                    </IonList>
+                  </>
+                )}
+
+                <IonListHeader>技能値</IonListHeader>
+                <IonList>
+                  {sheet.investigatorSkills.map((investigatorSkill, index) => {
+                    return (
+                      <IonChip key={index} color={"primary"}>
+                        <IonLabel>
+                          {investigatorSkill.name} {investigatorSkill.value}
+                        </IonLabel>
+                      </IonChip>
+                    );
+                  })}
+                </IonList>
+              </IonCardContent>
+            </IonCard>
+          );
         })}
       </IonContent>
     </IonPage>
