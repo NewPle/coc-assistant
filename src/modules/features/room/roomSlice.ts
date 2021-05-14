@@ -31,10 +31,21 @@ export const roomSlice = createSlice({
     updateStory: (state, action: PayloadAction<Story>) => {
       state.story = action.payload;
     },
+    exitRoom: (state) => {
+      state.info = null;
+      state.messages = null;
+      state.sheets = null;
+      state.story = null;
+    },
   },
 });
 
-export const { updateRoomInfo, updateMessages, updateSheets, updateStory } =
-  roomSlice.actions;
+export const {
+  updateRoomInfo,
+  updateMessages,
+  updateSheets,
+  updateStory,
+  exitRoom,
+} = roomSlice.actions;
 
 export default roomSlice.reducer;

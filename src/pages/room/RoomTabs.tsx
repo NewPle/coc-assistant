@@ -14,6 +14,7 @@ import {
   newspaperOutline,
   peopleCircleOutline,
   diceOutline,
+  settingsOutline,
 } from "ionicons/icons";
 import MemberList from "./MemberList";
 import Chat from "./Chat";
@@ -25,6 +26,7 @@ import { useRoom } from "../../hooks/room";
 import { useAuth } from "../../hooks/auth";
 import MasterGuard from "../../components/MasterGuard";
 import { useError } from "../../hooks/error";
+import Others from "./Others";
 
 const RoomTabs: React.VFC = () => {
   const history = useHistory();
@@ -48,6 +50,7 @@ const RoomTabs: React.VFC = () => {
         </MasterGuard>
         <Route path={routes.room.memberList} component={MemberList} />
         <Route path={routes.room.chat} component={Chat} />
+        <Route path={routes.room.others} component={Others} />
         <Redirect exact path={routes.room.root} to={routes.room.memberList} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
@@ -69,6 +72,10 @@ const RoomTabs: React.VFC = () => {
             <IonLabel>ストーリー</IonLabel>
           </IonTabButton>
         )}
+        <IonTabButton tab="others" href={routes.room.others}>
+          <IonIcon icon={settingsOutline} />
+          <IonLabel>その他</IonLabel>
+        </IonTabButton>
       </IonTabBar>
     </IonTabs>
   );
