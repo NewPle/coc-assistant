@@ -132,7 +132,7 @@ const JoinRoom: React.VFC = () => {
             analytics.logEvent("join_room");
             history.push(routes.room.root);
           } else {
-            throw new Error();
+            throw new Error("ルームが見つかりません");
           }
         })
         .catch((error) => {
