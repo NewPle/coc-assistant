@@ -45,10 +45,10 @@ const App: React.VFC = () => {
       <ErrorToast />
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path={routes.root} component={Home} />
           <Route exact path={routes.signin} component={SignIn} />
           <Route exact path={routes.signup} component={SignUp} />
           <AuthGuard>
+            <Route exact path={routes.root} component={Home} />
             <Route exact path={routes.sheetList} component={SheetList} />
             <Route exact path={routes.createRoom} component={CreateRoom} />
             <Route exact path={routes.joinRoom} component={JoinRoom} />
