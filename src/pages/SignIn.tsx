@@ -13,15 +13,11 @@ import { useState } from "react";
 import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/input-interface";
 
 import { routes } from "../routes";
-import { useError } from "../hooks/error";
 import { useAuth } from "../hooks/auth";
-import { useHistory } from "react-router";
 
 const SignIn: React.VFC = () => {
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { updateError } = useError();
   const { signIn } = useAuth();
 
   const handleChangeEmail = (e: CustomEvent<InputChangeEventDetail>) => {
@@ -38,12 +34,8 @@ const SignIn: React.VFC = () => {
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      signIn(email, password).then(() => history.push(routes.root));
-    } catch (error) {
-      console.error(error);
-      updateError(error.message);
-    }
+
+    signIn(email, password);
   };
 
   return (
@@ -66,19 +58,26 @@ const SignIn: React.VFC = () => {
               name="email"
               type="email"
               value={email}
+              required
               onIonChange={handleChangeEmail}
             />
           </IonItem>
           <IonItem>
-            <IonLabel position="floating">パスワード</IonLabel>
+            <IonLabel position="floating">6文字以上のパスワード</IonLabel>
             <IonInput
               name="password"
               type="password"
               value={password}
+              minlength={6}
               onIonChange={handleChangePassword}
+              required
             />
           </IonItem>
-          <IonButton type="submit" expand="full">
+          <IonButton
+            type="submit"
+            expand="full"
+            disabled={!email || password.length < 6}
+          >
             サインイン
           </IonButton>
         </form>

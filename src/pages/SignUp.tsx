@@ -13,16 +13,12 @@ import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/
 
 import { routes } from "../routes";
 import { useState } from "react";
-import { useError } from "../hooks/error";
 import { useAuth } from "../hooks/auth";
-import { useHistory } from "react-router";
 
 const SignUp: React.VFC = () => {
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const { updateError } = useError();
   const { signUp } = useAuth();
 
   const handleChangeEmail = (e: CustomEvent<InputChangeEventDetail>) => {
@@ -45,14 +41,8 @@ const SignUp: React.VFC = () => {
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      signUp(email, password, displayName).then(() =>
-        history.push(routes.root)
-      );
-    } catch (error) {
-      console.error(error);
-      updateError(error.message);
-    }
+
+    signUp(email, password, displayName);
   };
 
   return (
@@ -76,6 +66,7 @@ const SignUp: React.VFC = () => {
               name="displayName"
               type="text"
               value={displayName}
+              required
               onIonChange={handleChangeDisplayName}
             />
           </IonItem>
@@ -85,19 +76,26 @@ const SignUp: React.VFC = () => {
               name="email"
               type="email"
               value={email}
+              required
               onIonChange={handleChangeEmail}
             />
           </IonItem>
           <IonItem>
-            <IonLabel position="floating">パスワード</IonLabel>
+            <IonLabel position="floating">6文字以上のパスワード</IonLabel>
             <IonInput
               name="password"
               type="password"
               value={password}
+              minlength={6}
+              required
               onIonChange={handleChangePassword}
             />
           </IonItem>
-          <IonButton type="submit" expand="full">
+          <IonButton
+            type="submit"
+            expand="full"
+            disabled={!email || password.length < 6 || !displayName}
+          >
             サインアップ
           </IonButton>
         </form>
