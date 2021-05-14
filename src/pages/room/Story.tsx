@@ -31,7 +31,11 @@ const Story: React.VFC = () => {
             <IonCardHeader>
               <IonCardTitle>{story.title}</IonCardTitle>
             </IonCardHeader>
-            <IonCardContent>{story.content}</IonCardContent>
+            <IonCardContent>
+              <p style={{ whiteSpace: "pre-wrap", fontSize: "20px" }}>
+                {story.content}
+              </p>
+            </IonCardContent>
           </IonCard>
         )}
       </IonContent>
