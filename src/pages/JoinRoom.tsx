@@ -19,7 +19,7 @@ import SheetThumnail from "../components/thumbnails/SheetThumbnail";
 import { useAuth } from "../hooks/auth";
 import { useError } from "../hooks/error";
 import { useRoom } from "../hooks/room";
-import { rtdb } from "../lib/firebase";
+import { analytics, rtdb } from "../lib/firebase";
 import {
   FirebaseUserSheetsData,
   RoomInfo,
@@ -126,6 +126,7 @@ const JoinRoom: React.VFC = () => {
             sheetRef.update({ isParticipating: true });
             roomSheetsRef.set(sheet);
 
+            analytics.logEvent("join_room");
             history.push(routes.room.root);
           } else {
             throw new Error();

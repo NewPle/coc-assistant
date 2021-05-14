@@ -19,7 +19,7 @@ import {
 } from "@ionic/react";
 import { useEffect, useMemo, useState } from "react";
 import { closeOutline } from "ionicons/icons";
-import { rtdb } from "../lib/firebase";
+import { analytics, rtdb } from "../lib/firebase";
 import { useHistory } from "react-router";
 import { useAuth } from "../hooks/auth";
 import { makeDefaultValues } from "../values/sheetDefault";

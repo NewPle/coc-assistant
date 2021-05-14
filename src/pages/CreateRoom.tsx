@@ -14,7 +14,7 @@ import {
 import { FormEvent, useCallback, useState } from "react";
 import { useAuth } from "../hooks/auth";
 import { useAppDispatch } from "../hooks/redux";
-import { rtdb } from "../lib/firebase";
+import { analytics, rtdb } from "../lib/firebase";
 import { updateRoomInfo } from "../modules/features/room/roomSlice";
 import { routes } from "../routes";
 import { InputChangeEventDetail } from "@ionic/core/dist/types/components/input/input-interface";
@@ -82,6 +82,7 @@ const CreateRoom: React.VFC = () => {
 
         dispatch(updateRoomInfo(newRoomData.info));
 
+        analytics.logEvent("create_room");
         history.push(routes.room.root);
       } catch (error) {
         console.error(error);

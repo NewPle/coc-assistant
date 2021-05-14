@@ -17,15 +17,15 @@ if (firebase.apps.length === 0) {
   };
 
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
 }
 
 let auth = firebase.auth();
 let rtdb = firebase.database();
+const analytics = firebase.analytics();
 
 if (process.env.NODE_ENV === "development") {
   auth.useEmulator("http://localhost:9099");
   rtdb.useEmulator("localhost", 9000);
 }
 
-export { rtdb, auth };
+export { rtdb, auth, analytics };

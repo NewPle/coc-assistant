@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { auth } from "../lib/firebase";
+import { analytics, auth } from "../lib/firebase";
 import {
   signIn as signInAction,
   signOut as signOutAction,
@@ -28,6 +28,7 @@ export const useAuth = () => {
             if (firebaseUser.user) {
               firebaseUser.user.updateProfile({ displayName });
               dispatch(signInAction(firebaseUser.user.uid));
+              analytics.logEvent("sign_up", { method: "EmailAndPassword" });
             }
           })
       )
@@ -61,9 +62,9 @@ export const useAuth = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser) => {
-      console.log("auth state changed");
       if (firebaseUser) {
         dispatch(signInAction(firebaseUser.uid));
+        analytics.logEvent("login", { method: "EmailAndPassword" });
       } else {
         dispatch(signOutAction());
       }
