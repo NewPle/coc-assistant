@@ -88,7 +88,15 @@ export const useRoom = () => {
       if (snapshot.exists()) {
         const sheetsData: FirebaseSheetsData = snapshot.val();
         const newSheets: Sheets = Object.keys(sheetsData).map(
-          (key: string) => sheetsData[key]
+          (key: string) => ({
+            // @ts-ignore
+            belongings: [],
+            // @ts-ignore
+            weapons: [],
+            // @ts-ignore
+            injury: [],
+            ...sheetsData[key],
+          })
         );
         dispatch(updateSheets(newSheets));
       }
