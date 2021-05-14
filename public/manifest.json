@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "CoC assistant",
+  "name": "CoC assistant",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
