@@ -5,23 +5,28 @@ import {
   signOut as signOutAction,
 } from "../modules/features/auth/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux";
+import firebase from "firebase/app";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({ user }) => user);
 
   const signUp = (email: string, password: string, displayName: string) => {
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((firebaseUser) => {
-        if (firebaseUser.user) {
-          firebaseUser.user.updateProfile({ displayName });
-        }
-      });
+    return auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() =>
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((firebaseUser) => {
+          if (firebaseUser.user) {
+            firebaseUser.user.updateProfile({ displayName });
+          }
+        })
+    );
   };
 
   const signIn = (email: string, password: string) => {
-    return auth.signInWithEmailAndPassword(email, password);
+    return auth
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => auth.signInWithEmailAndPassword(email, password));
   };
 
   const signOut = () => {
@@ -29,11 +34,6 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    // todo this lines dosen't needed
-    // if (user.uid !== null) {
-    //   return;
-    // }
-
     auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         dispatch(signInAction(firebaseUser.uid));
