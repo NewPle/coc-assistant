@@ -1,3 +1,4 @@
+import { key } from "ionicons/icons";
 import { useEffect } from "react";
 import { rtdb } from "../lib/firebase";
 import {
@@ -13,6 +14,7 @@ import {
   updateRoomInfo,
   updateSheets,
   updateStory,
+  exitRoom as exitRoomAction,
 } from "../modules/features/room/roomSlice";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { useError } from "./error";
@@ -25,6 +27,10 @@ export const useRoom = () => {
 
   const setInfo = (roomInfo: RoomInfo) => {
     dispatch(updateRoomInfo(roomInfo));
+  };
+
+  const exitRoom = () => {
+    dispatch(exitRoomAction());
   };
 
   useEffect(() => {
@@ -87,17 +93,23 @@ export const useRoom = () => {
     sheetsRef.on("value", (snapshot) => {
       if (snapshot.exists()) {
         const sheetsData: FirebaseSheetsData = snapshot.val();
-        const newSheets: Sheets = Object.keys(sheetsData).map(
-          (key: string) => ({
-            // @ts-ignore
-            belongings: [],
-            // @ts-ignore
-            weapons: [],
-            // @ts-ignore
-            injury: [],
-            ...sheetsData[key],
+        // @ts-ignore
+        const newSheets: Sheets = Object.keys(sheetsData)
+          .map((key: string) => {
+            if (!sheetsData[key]) {
+              return null;
+            }
+            return {
+              // @ts-ignore
+              belongings: [],
+              // @ts-ignore
+              weapons: [],
+              // @ts-ignore
+              injury: [],
+              ...sheetsData[key],
+            };
           })
-        );
+          .filter((i) => i !== null);
         dispatch(updateSheets(newSheets));
       }
     });
@@ -137,5 +149,6 @@ export const useRoom = () => {
     messages,
     sheets,
     story,
+    exitRoom,
   };
 };
