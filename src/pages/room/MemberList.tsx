@@ -5,18 +5,19 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useCallback, useState } from "react";
+// import { useCallback, useState } from "react";
+import SheetDetails from "../../components/SheetDetails";
 
-import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
+// import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
 
 const MemberList: React.VFC = () => {
   const { sheets } = useRoom();
-  const [selectedSheetId, setSelectedSheetId] = useState("");
+  // const [selectedSheetId, setSelectedSheetId] = useState("");
 
-  const onSheetClick = useCallback((sheetId: string) => {
-    setSelectedSheetId(sheetId);
-  }, []);
+  // const onSheetClick = useCallback((sheetId: string) => {
+  //   setSelectedSheetId(sheetId);
+  // }, []);
 
   return (
     <IonPage>
@@ -34,11 +35,12 @@ const MemberList: React.VFC = () => {
         {sheets !== null &&
           sheets.map((sheet) => {
             return (
-              <SheetThumnail
-                key={sheet.sheetId}
-                sheet={sheet}
-                onSheetClick={onSheetClick}
-              />
+              <SheetDetails sheet={sheet} key={sheet.sheetId} />
+              // <SheetThumnail
+              //   key={sheet.sheetId}
+              //   sheet={sheet}
+              //   onSheetClick={onSheetClick}
+              // />
             );
           })}
       </IonContent>
