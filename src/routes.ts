@@ -18,5 +18,6 @@ export const routes = {
     chat: room("chat"),
     roll: room("roll"),
     story: room("story"),
+    others: room("others"),
   },
 };
