@@ -124,18 +124,18 @@ const CreateRoom: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>CreateRoom</IonTitle>
           <IonButtons slot="start">
             <BackButton routerLink={routes.root} />
           </IonButtons>
+          <IonTitle>ルームの作成</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">CreateRoom</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <form onSubmit={onFormSubmit}>
           <IonItem>
             <IonLabel position="floating">ルーム名</IonLabel>

@@ -278,7 +278,6 @@ const Roll: React.VFC = () => {
               ホームへ
             </IonButton>
           </IonButtons>
-          <IonTitle>Roll</IonTitle>
           <IonButtons slot="end">
             <IonButton
               fill="solid"
@@ -295,13 +294,14 @@ const Roll: React.VFC = () => {
             </IonButton>
           </IonButtons>
         </IonToolbar>
+        <IonTitle>ロール</IonTitle>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Roll</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         {/* <ResultModal /> */}
         <ResultAlert />

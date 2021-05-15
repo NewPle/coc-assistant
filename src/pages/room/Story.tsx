@@ -30,15 +30,15 @@ const Story: React.VFC = () => {
               ホームへ
             </IonButton>
           </IonButtons>
-          <IonTitle>Story</IonTitle>
         </IonToolbar>
+        <IonTitle>ストーリー</IonTitle>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Story</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         {story && (
           <IonCard>
             <IonCardHeader>

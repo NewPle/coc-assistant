@@ -15,7 +15,7 @@ const Home: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>ホーム</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

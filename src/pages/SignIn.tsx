@@ -42,15 +42,15 @@ const SignIn: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>SignIn</IonTitle>
+          <IonTitle>サインイン</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">SignIn</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <form onSubmit={onFormSubmit}>
           <IonItem>
             <IonLabel position="floating">メールアドレス</IonLabel>

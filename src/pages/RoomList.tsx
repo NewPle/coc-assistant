@@ -96,18 +96,18 @@ const RoomList: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>RoomList</IonTitle>
+          <IonTitle>ルームリスト</IonTitle>
           <IonButtons slot="start">
             <BackButton routerLink={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">RoomList</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonAlert
           isOpen={showAlert}
           message={"このルームに参加しますか？"}

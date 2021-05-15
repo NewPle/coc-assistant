@@ -136,7 +136,7 @@ const SheetList: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>SheetList</IonTitle>
+          <IonTitle>シートリスト</IonTitle>
           <IonButtons slot="start">
             <BackButton routerLink={routes.root} />
           </IonButtons>
@@ -148,11 +148,11 @@ const SheetList: React.VFC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">SheetList</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonAlert
           isOpen={!!selectedSheetId}

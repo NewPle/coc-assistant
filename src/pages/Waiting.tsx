@@ -22,15 +22,15 @@ const Waiting: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Waiting</IonTitle>
+          <IonTitle>メールアドレスの確認</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Waiting</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonToast
           isOpen={showToast}
           message={"メールを再送信しました"}
@@ -38,28 +38,47 @@ const Waiting: React.VFC = () => {
           onDidDismiss={() => setShowToast(false)}
           // position="top"
         />
-        <p>CoC assistantが確認用メールを送信しました。</p>
-        <p>メールアドレスの確認をお願いします。</p>
-        <IonButton href={routes.root}>確認しました</IonButton>
-        <div />
-        <IonButton
-          onClick={() =>
-            auth.currentUser
-              ?.sendEmailVerification()
-              .then(() => setShowToast(true))
-              .catch((error) => {
-                console.error(error);
-                updateError(error);
-              })
-          }
-          disabled={showToast}
-        >
-          メールを再送信する
-        </IonButton>
-        <div />
-        <IonButton routerLink={routes.signup} color="medium">
-          メールアドレスを変更する
-        </IonButton>
+        <div className="ion-text-center">
+          <p>CoC assistantが確認用メールを送信しました。</p>
+          <p>メールアドレスの確認をお願いします。</p>
+          <div className="ion-padding" />
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal"
+            href={routes.root}
+          >
+            確認しました
+          </IonButton>
+          <div className="ion-padding" />
+          <div className="ion-padding" />
+          <div className="ion-padding" />
+          <div className="ion-padding" />
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal"
+            onClick={() =>
+              auth.currentUser
+                ?.sendEmailVerification()
+                .then(() => setShowToast(true))
+                .catch((error) => {
+                  console.error(error);
+                  updateError(error);
+                })
+            }
+            disabled={showToast}
+          >
+            メールを再送信する
+          </IonButton>
+          <div className="ion-padding" />
+          <IonButton
+            expand="block"
+            className="ion-padding-horizontal"
+            routerLink={routes.signup}
+            color="medium"
+          >
+            メールアドレスを変更する
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );

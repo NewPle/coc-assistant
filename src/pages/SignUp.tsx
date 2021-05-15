@@ -49,15 +49,15 @@ const SignUp: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>SignUp</IonTitle>
+          <IonTitle>サインアップ</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">SignUp</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <form onSubmit={onFormSubmit}>
           <IonItem>

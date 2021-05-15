@@ -112,15 +112,15 @@ const MemberList: React.VFC = () => {
               ホームへ
             </IonButton>
           </IonButtons>
-          <IonTitle>MemberList</IonTitle>
         </IonToolbar>
+        <IonTitle>メンバーリスト</IonTitle>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">MemberList</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         {sheet !== null && showModal.p && (
           <IonModal
             isOpen={!!showModal.p}

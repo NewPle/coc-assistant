@@ -64,7 +64,7 @@ const RoomTabs: React.VFC = () => {
         </IonTabButton>
         <IonTabButton tab="roll" href={routes.room.roll}>
           <IonIcon icon={diceOutline} />
-          <IonLabel>ダイス</IonLabel>
+          <IonLabel>ロール</IonLabel>
         </IonTabButton>
         {info && user.uid === info.masterId && (
           <IonTabButton tab="story" href={routes.room.story}>

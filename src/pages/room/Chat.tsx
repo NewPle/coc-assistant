@@ -91,15 +91,15 @@ const Chat: React.VFC = () => {
               ホームへ
             </IonButton>
           </IonButtons>
-          <IonTitle>Chat</IonTitle>
         </IonToolbar>
+        <IonTitle>チャット</IonTitle>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Chat</IonTitle>
+            <IonTitle size="large">チャット</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonList
         // ref={messageListRef}
         >

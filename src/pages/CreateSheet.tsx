@@ -241,18 +241,18 @@ const CreateSheet: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>CreateSheet</IonTitle>
+          <IonTitle>シートの作成</IonTitle>
           <IonButtons slot="start">
             <BackButton routerLink={routes.sheetList} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">CreateSheet</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonModal
           isOpen={modalInfo.isOpen}
           swipeToClose={true}

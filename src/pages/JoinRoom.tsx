@@ -187,18 +187,18 @@ const JoinRoom: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>JoinRoom</IonTitle>
+          <IonTitle>ルームに参加</IonTitle>
           <IonButtons slot="start">
             <BackButton routerLink={routes.root} />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">JoinRoom</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <form onSubmit={joinRoom}>
           <IonItem>
             <IonLabel position="floating">ルームID</IonLabel>
