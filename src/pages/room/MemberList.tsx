@@ -165,7 +165,7 @@ const MemberList: React.VFC = () => {
                     </IonItem>
                   </IonList>
 
-                  {sheet.belongings.length > 0 && (
+                  {sheet.belongings?.length > 0 && (
                     <>
                       <IonListHeader>持ち物一覧</IonListHeader>
                       <IonList>
@@ -212,7 +212,7 @@ const MemberList: React.VFC = () => {
                     </IonButton>
                   </IonItem>
 
-                  {sheet.weapons.length > 0 && (
+                  {sheet.weapons?.length > 0 && (
                     <>
                       <IonListHeader>武器一覧</IonListHeader>
                       <IonList>

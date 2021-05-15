@@ -216,7 +216,7 @@ const Others: React.VFC = () => {
             <p>{info?.roomName}</p>
           </IonItem>
           <CopyToClipboard text={String(info?.roomId)}>
-            <IonItem button>
+            <IonItem button detail={false}>
               <IonLabel position="stacked">ルームID</IonLabel>
               <p>{info?.roomId}</p>
               <IonIcon
