@@ -129,7 +129,7 @@ const Chat: React.VFC = () => {
             </IonButtons>
           </IonToolbar>
         </form>
-      </IonFooter>{" "}
+      </IonFooter>
     </IonPage>
   );
 };
