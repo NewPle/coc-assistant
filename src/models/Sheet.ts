@@ -6,6 +6,8 @@ export interface Sheet {
   age: number;
   gender: string;
   occupation: string;
+  params: Params;
+  combat: Combat;
   belongings: string[];
   weapons: string[];
   background: string;
