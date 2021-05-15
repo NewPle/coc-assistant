@@ -29,6 +29,7 @@ const Home: React.VFC = () => {
           >
             シート一覧
           </IonButton>
+          <div className="ion-padding-top" />
           <IonButton
             expand="block"
             className="ion-padding-horizontal"
@@ -36,6 +37,7 @@ const Home: React.VFC = () => {
           >
             ルーム作成
           </IonButton>
+          <div className="ion-padding-top" />
           <IonButton
             expand="block"
             className="ion-padding-horizontal"
@@ -43,6 +45,7 @@ const Home: React.VFC = () => {
           >
             ルームに参加
           </IonButton>
+          <div className="ion-padding-top" />
           <IonButton
             expand="block"
             className="ion-padding-horizontal"
@@ -50,7 +53,6 @@ const Home: React.VFC = () => {
           >
             参加中ルーム一覧
           </IonButton>
-          <div className="ion-padding" />
           <div className="ion-padding" />
           <div className="ion-padding" />
           <IonButton
