@@ -200,10 +200,19 @@ const MemberList: React.VFC = () => {
                       slot="end"
                       style={{ margin: "auto 0" }}
                       onClick={() => {
-                        setSheet((prev: any) => ({
-                          ...prev,
-                          belongings: [...prev.belongings, belonging],
-                        }));
+                        setSheet((prev: any) => {
+                          if (prev) {
+                            return {
+                              ...prev,
+                              belongings: [...prev.belongings, belonging],
+                            };
+                          } else {
+                            return {
+                              ...prev,
+                              belongings: [belonging],
+                            };
+                          }
+                        });
                         setBelonging("");
                       }}
                       disabled={!belonging}
@@ -247,10 +256,19 @@ const MemberList: React.VFC = () => {
                       slot="end"
                       style={{ margin: "auto 0" }}
                       onClick={() => {
-                        setSheet((prev: any) => ({
-                          ...prev,
-                          weapons: [...prev.weapons, weapon],
-                        }));
+                        setSheet((prev: any) => {
+                          if (prev) {
+                            return {
+                              ...prev,
+                              weapons: [...prev.weapons, weapon],
+                            };
+                          } else {
+                            return {
+                              ...prev,
+                              weapons: [weapon],
+                            };
+                          }
+                        });
                         setWeapon("");
                       }}
                       disabled={!weapon}
