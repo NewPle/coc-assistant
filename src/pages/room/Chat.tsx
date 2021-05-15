@@ -19,6 +19,7 @@ import { rtdb } from "../../lib/firebase";
 import { Message as IMessage } from "../../models";
 import { rtdbRoutes } from "../../rtdbRoutes";
 import Message from "../../components/Message";
+import { routes } from "../../routes";
 
 const Chat: React.VFC = () => {
   const { info, messages, sheets } = useRoom();
@@ -80,6 +81,11 @@ const Chat: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>Chat</IonTitle>
         </IonToolbar>
       </IonHeader>

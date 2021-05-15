@@ -32,6 +32,7 @@ import React, { useCallback, useRef, useState } from "react";
 import SheetDetails from "../../components/SheetDetails";
 import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
+import { routes } from "../../routes";
 import { randomInt } from "../../values/randomInt";
 
 const DICES = [
@@ -262,6 +263,11 @@ const Roll: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>Roll</IonTitle>
           <IonButtons slot="end">
             <IonButton

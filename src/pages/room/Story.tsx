@@ -1,4 +1,6 @@
 import {
+  IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -10,6 +12,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useRoom } from "../../hooks/room";
+import { routes } from "../../routes";
 
 const Story: React.VFC = () => {
   const { story } = useRoom();
@@ -17,6 +20,11 @@ const Story: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>Story</IonTitle>
         </IonToolbar>
       </IonHeader>
