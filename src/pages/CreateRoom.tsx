@@ -23,6 +23,7 @@ import { useError } from "../hooks/error";
 import { rtdbRoutes } from "../rtdbRoutes";
 import { UserRoom } from "../models";
 import BackButton from "../components/atoms/BackButton";
+import { useRoom } from "../hooks/room";
 
 const CreateRoom: React.VFC = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ const CreateRoom: React.VFC = () => {
   const [storyTitle, setStoryTitle] = useState<string>("");
   const [storyContent, setStoryContent] = useState<string>("");
   const { user } = useAuth();
+  const { setInfo } = useRoom();
   const { updateError } = useError();
 
   const onFormSubmit = useCallback(
@@ -80,7 +82,7 @@ const CreateRoom: React.VFC = () => {
         userRoomRef.set(newUserRoomData);
         newRoomRef.set(newRoomData);
 
-        dispatch(updateRoomInfo(newRoomData.info));
+        setInfo(newRoomData.info);
 
         analytics.logEvent("create_room");
         history.push(routes.room.root);
