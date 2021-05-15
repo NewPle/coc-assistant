@@ -97,7 +97,7 @@ export const makeDefaultValues = () => {
     { name: "射撃(拳銃)", value: 20, skillPoint: 0 },
     { name: "電気修理", value: 10, skillPoint: 0 },
     { name: "鑑定", value: 5, skillPoint: 0 },
-    { name: "ライフル/ショットガン", value: 25, skillPoint: 0 },
+    { name: "ライフル・ショットガン", value: 25, skillPoint: 0 },
     { name: "投擲", value: 20, skillPoint: 0 },
     { name: "機械修理", value: 10, skillPoint: 0 },
     { name: "登攀", value: 20, skillPoint: 0 },
