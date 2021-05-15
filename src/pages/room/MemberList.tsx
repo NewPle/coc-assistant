@@ -1,4 +1,6 @@
 import {
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonPage,
@@ -10,6 +12,7 @@ import SheetDetails from "../../components/SheetDetails";
 
 // import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
+import { routes } from "../../routes";
 
 const MemberList: React.VFC = () => {
   const { sheets } = useRoom();
@@ -23,6 +26,11 @@ const MemberList: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid" color="medium">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>MemberList</IonTitle>
         </IonToolbar>
       </IonHeader>

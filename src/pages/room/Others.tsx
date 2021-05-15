@@ -1,6 +1,7 @@
 import {
   IonAlert,
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -158,6 +159,11 @@ const Others: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid" color="medium">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>Others</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -208,31 +214,16 @@ const Others: React.VFC = () => {
         </IonList>
         <div className="ion-padding"></div>
         <div className="ion-padding"></div>
-        <IonList>
-          <IonItem button={true} routerLink={routes.root}>
-            <IonLabel>ホームに戻る</IonLabel>
-          </IonItem>
-          <div className="ion-padding"></div>
-          <div className="ion-padding"></div>
-          {!isMaster && (
-            <IonItem
-              button={true}
-              onClick={() => setShowAlert(true)}
-              color="danger"
-            >
-              <IonLabel>ルームを退出する</IonLabel>
-            </IonItem>
-          )}
-          {isMaster && (
-            <IonItem
-              button={true}
-              onClick={() => setShowAlert(true)}
-              color="danger"
-            >
-              <IonLabel>ルームを削除する</IonLabel>
-            </IonItem>
-          )}
-        </IonList>
+        {!isMaster && (
+          <IonButton onClick={() => setShowAlert(true)} color="danger">
+            ルームを退出
+          </IonButton>
+        )}
+        {isMaster && (
+          <IonButton onClick={() => setShowAlert(true)} color="danger">
+            ルームを削除する
+          </IonButton>
+        )}
       </IonContent>
     </IonPage>
   );

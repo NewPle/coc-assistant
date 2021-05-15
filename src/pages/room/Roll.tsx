@@ -32,6 +32,7 @@ import React, { useCallback, useRef, useState } from "react";
 import SheetDetails from "../../components/SheetDetails";
 import SheetThumnail from "../../components/thumbnails/SheetThumbnail";
 import { useRoom } from "../../hooks/room";
+import { routes } from "../../routes";
 import { randomInt } from "../../values/randomInt";
 
 const DICES = [
@@ -262,6 +263,11 @@ const Roll: React.VFC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton routerLink={routes.root} fill="solid" color="medium">
+              ホームへ
+            </IonButton>
+          </IonButtons>
           <IonTitle>Roll</IonTitle>
           <IonButtons slot="end">
             <IonButton
@@ -495,7 +501,7 @@ const Roll: React.VFC = () => {
               </IonItem>
             </IonList>
             <IonList>
-              <IonListHeader>追加のダイス</IonListHeader>
+              <IonListHeader>能動側の追加のダイス</IonListHeader>
               <IonRadioGroup
                 value={aAdditionalDice}
                 onIonChange={(event) => setAAdditionalDice(event.detail.value)}
@@ -503,7 +509,11 @@ const Roll: React.VFC = () => {
                 {ADDITIONAL_DICES.map((additionalDice, index) => {
                   return (
                     <IonItem key={index} lines="full">
-                      <IonRadio slot="start" value={additionalDice} />
+                      <IonRadio
+                        slot="start"
+                        value={additionalDice}
+                        color={activeColor}
+                      />
                       <IonLabel>{additionalDice.type}</IonLabel>
                     </IonItem>
                   );
@@ -511,7 +521,7 @@ const Roll: React.VFC = () => {
               </IonRadioGroup>
             </IonList>
             <IonList>
-              <IonListHeader>難易度選択</IonListHeader>
+              <IonListHeader>能動側の難易度選択</IonListHeader>
               <IonRadioGroup
                 value={aDifficulty}
                 onIonChange={(event) => setADifficulty(event.detail.value)}
@@ -519,7 +529,11 @@ const Roll: React.VFC = () => {
                 {DIFFICULTIES.map((difficulty, index) => {
                   return (
                     <IonItem key={index} lines="full">
-                      <IonRadio slot="start" value={difficulty} />
+                      <IonRadio
+                        slot="start"
+                        value={difficulty}
+                        color={activeColor}
+                      />
                       <IonLabel>{difficulty.type}</IonLabel>
                     </IonItem>
                   );
@@ -527,20 +541,14 @@ const Roll: React.VFC = () => {
               </IonRadioGroup>
             </IonList>
             <IonList>
-              <IonListHeader>ロール結果の増減</IonListHeader>
+              <IonListHeader>能動側のロール結果の増減</IonListHeader>
               <IonItem lines="full">
                 <IonRange
                   value={aAdditionalValue}
                   onIonChange={(event) =>
                     setAAdditionalValue(Number(event.detail.value))
                   }
-                  color={
-                    aAdditionalValue === 0
-                      ? "dark"
-                      : aAdditionalValue < 0
-                      ? "danger"
-                      : "primary"
-                  }
+                  color={activeColor}
                   ticks={true}
                   snaps={true}
                   step={10}
@@ -548,22 +556,14 @@ const Roll: React.VFC = () => {
                   max={100}
                 />
                 <IonLabel>
-                  <IonChip
-                    color={
-                      aAdditionalValue === 0
-                        ? "dark"
-                        : aAdditionalValue < 0
-                        ? "danger"
-                        : "primary"
-                    }
-                    slot="end"
-                  >
+                  <IonChip color={activeColor} slot="end">
                     {aAdditionalValue}
                   </IonChip>
                 </IonLabel>
               </IonItem>
             </IonList>
-
+            <div className="ion-padding" />
+            <div className="ion-padding" />
             {/* ・・・・・・・・・・・・・・・ */}
             <IonList>
               <IonListHeader color={passiveColor}>
@@ -594,7 +594,7 @@ const Roll: React.VFC = () => {
               </IonItem>
             </IonList>
             <IonList>
-              <IonListHeader>追加のダイス</IonListHeader>
+              <IonListHeader>受動側の追加のダイス</IonListHeader>
               <IonRadioGroup
                 value={pAdditionalDice}
                 onIonChange={(event) => setPAdditionalDice(event.detail.value)}
@@ -602,7 +602,11 @@ const Roll: React.VFC = () => {
                 {ADDITIONAL_DICES.map((additionalDice, index) => {
                   return (
                     <IonItem key={index} lines="full">
-                      <IonRadio slot="start" value={additionalDice} />
+                      <IonRadio
+                        slot="start"
+                        value={additionalDice}
+                        color={passiveColor}
+                      />
                       <IonLabel>{additionalDice.type}</IonLabel>
                     </IonItem>
                   );
@@ -618,7 +622,11 @@ const Roll: React.VFC = () => {
                 {DIFFICULTIES.map((difficulty, index) => {
                   return (
                     <IonItem key={index} lines="full">
-                      <IonRadio slot="start" value={difficulty} />
+                      <IonRadio
+                        slot="start"
+                        value={difficulty}
+                        color={passiveColor}
+                      />
                       <IonLabel>{difficulty.type}</IonLabel>
                     </IonItem>
                   );
@@ -633,13 +641,7 @@ const Roll: React.VFC = () => {
                   onIonChange={(event) =>
                     setPAdditionalValue(Number(event.detail.value))
                   }
-                  color={
-                    pAdditionalValue === 0
-                      ? "dark"
-                      : pAdditionalValue < 0
-                      ? "danger"
-                      : "primary"
-                  }
+                  color={passiveColor}
                   ticks={true}
                   snaps={true}
                   step={10}
@@ -647,16 +649,7 @@ const Roll: React.VFC = () => {
                   max={100}
                 />
                 <IonLabel>
-                  <IonChip
-                    color={
-                      pAdditionalValue === 0
-                        ? "dark"
-                        : pAdditionalValue < 0
-                        ? "danger"
-                        : "primary"
-                    }
-                    slot="end"
-                  >
+                  <IonChip color={passiveColor} slot="end">
                     {pAdditionalValue}
                   </IonChip>
                 </IonLabel>
