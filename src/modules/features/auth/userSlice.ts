@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface UserState {
   uid: string | null;
   loading: boolean;
-  // emailVerified: boolean;
+  emailVerified: boolean;
 }
 
 const initialState: UserState = {
   uid: null,
   loading: true,
-  // emailVerified: false,
+  emailVerified: false,
 };
 
 export const userSlice = createSlice({
