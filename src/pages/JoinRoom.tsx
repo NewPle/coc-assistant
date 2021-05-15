@@ -209,22 +209,39 @@ const JoinRoom: React.VFC = () => {
               onIonChange={(event) => setRoomId(String(event.detail.value))}
             />
           </IonItem>
-          <IonList>
-            <IonListHeader>キャラクターを選択</IonListHeader>
-            {userSheets.map((userSheet) => {
-              return (
-                <SheetThumnail
-                  key={userSheet.sheetId}
-                  sheet={userSheet}
-                  onSheetClick={onSheetClick}
-                  selected={userSheet.sheetId === selectedSheetId}
-                />
-              );
-            })}
-          </IonList>
-          <IonButton type="submit" disabled={!selectedSheetId || !roomId}>
-            参加
-          </IonButton>
+          <div className="ion-padding" />
+          {userSheets.length === 0 && (
+            <div className="ion-text-center">
+              <p>キャラクターシートを追加してください</p>
+            </div>
+          )}
+          {userSheets.length > 0 && (
+            <IonList>
+              <IonListHeader>以下からキャラクターを選択</IonListHeader>
+              {userSheets.map((userSheet) => {
+                return (
+                  <SheetThumnail
+                    key={userSheet.sheetId}
+                    sheet={userSheet}
+                    onSheetClick={onSheetClick}
+                    selected={userSheet.sheetId === selectedSheetId}
+                  />
+                );
+              })}
+            </IonList>
+          )}
+          <div className="ion-padding" />
+
+          <div className="ion-text-center">
+            <IonButton
+              className="ion-padding-horizontal"
+              expand="block"
+              type="submit"
+              disabled={!selectedSheetId || !roomId}
+            >
+              参加
+            </IonButton>
+          </div>
         </form>
       </IonContent>
     </IonPage>

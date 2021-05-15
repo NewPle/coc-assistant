@@ -162,12 +162,17 @@ const CreateRoom: React.VFC = () => {
               onIonChange={handleChangeContent}
             />
           </IonItem>
-          <IonButton
-            type="submit"
-            disabled={!roomName || !storyTitle || !storyContent}
-          >
-            作成
-          </IonButton>
+          <div className="ion-padding" />
+          <div className="ion-text-center">
+            <IonButton
+              className="ion-padding-horizontal"
+              expand="block"
+              type="submit"
+              disabled={!roomName || !storyTitle || !storyContent}
+            >
+              作成
+            </IonButton>
+          </div>
         </form>
       </IonContent>
     </IonPage>
