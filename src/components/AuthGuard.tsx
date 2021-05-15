@@ -34,7 +34,7 @@ const Component: React.VFC<ComponentProps> = ({
   if (isLoading) {
     return null;
   }
-  if (!isVerified) {
+  if (!isVerified && isSignedIn) {
     return <Waiting />;
   }
   if (isSignedIn) {
