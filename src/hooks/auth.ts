@@ -105,7 +105,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser) => {
-      console.log(firebaseUser);
       if (firebaseUser) {
         dispatch(
           signInAction({

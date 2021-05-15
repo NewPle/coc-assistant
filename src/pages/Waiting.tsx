@@ -40,6 +40,8 @@ const Waiting: React.VFC = () => {
         />
         <p>CoC assistantが確認用メールを送信しました。</p>
         <p>メールアドレスの確認をお願いします。</p>
+        <IonButton routerLink={routes.root}>確認しました</IonButton>
+        <div />
         <IonButton
           onClick={() =>
             auth.currentUser
@@ -52,11 +54,11 @@ const Waiting: React.VFC = () => {
           }
           disabled={showToast}
         >
-          メールの再送信
+          メールを再送信する
         </IonButton>
         <div />
         <IonButton routerLink={routes.signup} color="medium">
-          メールアドレスの変更
+          メールアドレスを変更する
         </IonButton>
       </IonContent>
     </IonPage>
