@@ -94,8 +94,10 @@ const Others: React.VFC = () => {
 
       if (!sheets) {
         masterRoomRef.remove();
-        roomsRoomRef.remove();
-        exitRoom();
+        // roomsRoomRef.remove();
+        roomsRoomRef.set({ info: "", messages: "", sheets: "", story: "" });
+
+        // exitRoom();
         history.push(routes.root);
       }
 
@@ -125,8 +127,8 @@ const Others: React.VFC = () => {
       });
 
       masterRoomRef.remove();
-      roomsRoomRef.remove();
-      exitRoom();
+      roomsRoomRef.set({ info: "", messages: "", sheets: "", story: "" });
+      // exitRoom();
       history.push(routes.root);
     } catch (error) {
       console.error(error);
