@@ -215,17 +215,17 @@ const Others: React.VFC = () => {
             <IonLabel position="stacked">ルーム名</IonLabel>
             <p>{info?.roomName}</p>
           </IonItem>
-          <IonItem button>
-            <IonLabel position="stacked">ルームID</IonLabel>
-            <CopyToClipboard text={String(info?.roomId)}>
+          <CopyToClipboard text={String(info?.roomId)}>
+            <IonItem button>
+              <IonLabel position="stacked">ルームID</IonLabel>
               <p>{info?.roomId}</p>
-            </CopyToClipboard>
-            <IonIcon
-              icon={copyOutline}
-              slot="end"
-              style={{ margin: "auto 0" }}
-            />
-          </IonItem>
+              <IonIcon
+                icon={copyOutline}
+                slot="end"
+                style={{ margin: "auto 0" }}
+              />
+            </IonItem>
+          </CopyToClipboard>
         </IonList>
         <div className="ion-padding"></div>
         <div className="ion-padding"></div>
