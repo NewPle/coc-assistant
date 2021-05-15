@@ -129,12 +129,14 @@ const MemberList: React.VFC = () => {
           >
             <IonHeader>
               <IonToolbar>
-                <IonTitle>シートの値の編集</IonTitle>
+                <IonTitle>シートの編集</IonTitle>
                 <IonButtons slot="end">
                   <IonButton
                     onClick={() => setShowModal({ p: "", c: "", t: "" })}
+                    fill="solid"
+                    color="danger"
                   >
-                    編集を破棄する
+                    編集を破棄
                   </IonButton>
                 </IonButtons>
               </IonToolbar>
@@ -566,6 +568,10 @@ const MemberList: React.VFC = () => {
                 <IonCardContent>
                   <IonListHeader>人物</IonListHeader>
                   <IonList className="ion-padding-horizontal">
+                    <IonItem>
+                      <IonLabel>名前</IonLabel>
+                      {sheet.characterName}
+                    </IonItem>
                     <IonItem>
                       <IonLabel>年齢</IonLabel>
                       {sheet.age}
