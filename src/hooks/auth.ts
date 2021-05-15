@@ -52,7 +52,6 @@ export const useAuth = () => {
   };
 
   const signOut = () => {
-    history.push(routes.signin);
     return auth.signOut().catch((error) => {
       console.error(error);
       updateError(firebaseError(error, "signout"));

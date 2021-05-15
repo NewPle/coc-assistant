@@ -6,12 +6,11 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useAppDispatch } from "../hooks/redux";
-import { signOut } from "../modules/features/auth/userSlice";
+import { useAuth } from "../hooks/auth";
 import { routes } from "../routes";
 
 const Home: React.VFC = () => {
-  const dispatch = useAppDispatch();
+  const { signOut } = useAuth();
   return (
     <IonPage>
       <IonHeader>
@@ -32,11 +31,7 @@ const Home: React.VFC = () => {
         <IonButton expand="full" routerLink={routes.roomList}>
           参加中ルーム一覧
         </IonButton>
-        <IonButton
-          expand="full"
-          color="danger"
-          onClick={() => dispatch(signOut())}
-        >
+        <IonButton expand="full" color="danger" onClick={() => signOut()}>
           サインアウト
         </IonButton>
       </IonContent>
