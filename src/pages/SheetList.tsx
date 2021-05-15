@@ -215,6 +215,7 @@ const SheetList: React.VFC = () => {
 
                 {sheet.belongings.length > 0 && (
                   <>
+                    <div className="ion-padding" />
                     <IonListHeader>持ち物一覧</IonListHeader>
                     <IonList>
                       {sheet.belongings.map((belonging, index) => {
@@ -230,6 +231,7 @@ const SheetList: React.VFC = () => {
 
                 {sheet.weapons.length > 0 && (
                   <>
+                    <div className="ion-padding" />
                     <IonListHeader>武器一覧</IonListHeader>
                     <IonList>
                       {sheet.weapons.map((weapon, index) => {
@@ -245,6 +247,7 @@ const SheetList: React.VFC = () => {
 
                 {sheet.characteristics && (
                   <>
+                    <div className="ion-padding" />
                     <IonListHeader>能力値</IonListHeader>
                     <IonList>
                       {sheet.characteristics.keys.map((key, index) => {
@@ -261,6 +264,7 @@ const SheetList: React.VFC = () => {
                 )}
                 {sheet.params && (
                   <>
+                    <div className="ion-padding" />
                     <IonListHeader>パラメーター値</IonListHeader>
                     <IonList>
                       {sheet.params.keys.map((key, index) => {
@@ -277,6 +281,7 @@ const SheetList: React.VFC = () => {
                 )}
                 {sheet.combat && (
                   <>
+                    <div className="ion-padding" />
                     <IonListHeader>戦闘値</IonListHeader>
                     <IonList>
                       {sheet.combat.keys.map((key, index) => {
@@ -292,6 +297,7 @@ const SheetList: React.VFC = () => {
                   </>
                 )}
 
+                <div className="ion-padding" />
                 <IonListHeader>技能値</IonListHeader>
                 <IonList>
                   {sheet.investigatorSkills.map((investigatorSkill, index) => {
