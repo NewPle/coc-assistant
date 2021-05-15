@@ -20,7 +20,9 @@ const Home: React.VFC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent style={{ "--ion-background-color": "#000" }}>
-        <img src={Logo} alt="そこはかとない宇宙の深淵" />
+        <div className="ion-text-center">
+          <img src={Logo} alt="そこはかとない宇宙の深淵" width="80%" />
+        </div>
         <IonButton
           expand="block"
           className="ion-padding-horizontal"
