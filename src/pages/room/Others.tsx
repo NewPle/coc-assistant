@@ -205,11 +205,11 @@ const Others: React.VFC = () => {
           <IonListHeader>ルーム情報</IonListHeader>
           <IonItem>
             <IonLabel position="stacked">ルーム名</IonLabel>
-            {info?.roomName}
+            <p>{info?.roomName}</p>
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">ルームID</IonLabel>
-            {info?.roomId}
+            <p>{info?.roomId}</p>
           </IonItem>
         </IonList>
         <div className="ion-padding"></div>
