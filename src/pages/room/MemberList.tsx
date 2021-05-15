@@ -142,11 +142,17 @@ const MemberList: React.VFC = () => {
             <IonContent>
               <IonCard>
                 <IonCardHeader>
-                  <IonCardTitle>{sheet.characterName}</IonCardTitle>
+                  <IonToolbar>
+                    <IonTitle>{sheet.characterName}</IonTitle>
+                  </IonToolbar>
                 </IonCardHeader>
                 <IonCardContent>
                   <IonListHeader>人物</IonListHeader>
                   <IonList className="ion-padding-horizontal">
+                    <IonItem>
+                      <IonLabel>名前</IonLabel>
+                      {sheet.characterName}
+                    </IonItem>
                     <IonItem>
                       <IonLabel>年齢</IonLabel>
                       {sheet.age}
@@ -538,9 +544,9 @@ const MemberList: React.VFC = () => {
 
               <IonCard>
                 <IonCardHeader>
-                  <IonCardTitle>{sheet.characterName}</IonCardTitle>
-                  {info?.masterId === user.uid && (
-                    <IonToolbar>
+                  <IonToolbar>
+                    <IonTitle>{sheet.characterName}</IonTitle>
+                    {info?.masterId === user.uid && (
                       <IonButtons slot="end">
                         <IonButton
                           onClick={() => {
@@ -554,8 +560,8 @@ const MemberList: React.VFC = () => {
                           />
                         </IonButton>
                       </IonButtons>
-                    </IonToolbar>
-                  )}
+                    )}
+                  </IonToolbar>
                 </IonCardHeader>
                 <IonCardContent>
                   <IonListHeader>人物</IonListHeader>

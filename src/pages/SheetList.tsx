@@ -29,7 +29,12 @@ import { FirebaseUserSheetsData, Sheets } from "../models";
 import { routes } from "../routes";
 import { rtdbRoutes } from "../rtdbRoutes";
 
-import { trashOutline } from "ionicons/icons";
+import {
+  ellipsisVerticalCircle,
+  ellipsisVerticalCircleOutline,
+  ellipsisVerticalOutline,
+  trashOutline,
+} from "ionicons/icons";
 import { useHistory } from "react-router";
 
 const SheetList: React.VFC = () => {
@@ -172,11 +177,24 @@ const SheetList: React.VFC = () => {
           return (
             <IonCard>
               <IonCardHeader>
-                <IonCardTitle>{sheet.characterName}</IonCardTitle>
+                <IonToolbar>
+                  <IonTitle>{sheet.characterName}</IonTitle>
+                  <IonButtons slot="end">
+                    <IonButton
+                      onClick={() => setSelectedSheetId(sheet.sheetId)}
+                    >
+                      <IonIcon icon={trashOutline} slot="icon-only" />
+                    </IonButton>
+                  </IonButtons>
+                </IonToolbar>
               </IonCardHeader>
               <IonCardContent>
                 <IonListHeader>人物</IonListHeader>
                 <IonList className="ion-padding-horizontal">
+                  <IonItem>
+                    <IonLabel>名前</IonLabel>
+                    {sheet.characterName}
+                  </IonItem>
                   <IonItem>
                     <IonLabel>年齢</IonLabel>
                     {sheet.age}
