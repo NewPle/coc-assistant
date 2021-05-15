@@ -46,7 +46,7 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         {sheet.belongings.length > 0 && (
           <>
             <IonListHeader>持ち物一覧</IonListHeader>
-            <IonList className="ion-padding-horizontal">
+            <IonList>
               {sheet.belongings.map((belonging, index) => {
                 return (
                   <IonChip color="primary" key={index}>
@@ -61,7 +61,7 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         {sheet.weapons.length > 0 && (
           <>
             <IonListHeader>武器一覧</IonListHeader>
-            <IonList className="ion-padding-horizontal">
+            <IonList>
               {sheet.weapons.map((weapon, index) => {
                 return (
                   <IonChip color="primary" key={index}>
@@ -92,7 +92,7 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         {sheet.params && (
           <>
             <IonListHeader>パラメーター値</IonListHeader>
-            <IonList className="ion-padding-horizontal">
+            <IonList>
               {sheet.params.keys.map((key, index) => {
                 return (
                   <IonChip color="primary" key={index}>
@@ -108,7 +108,7 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
         {sheet.combat && (
           <>
             <IonListHeader>戦闘値</IonListHeader>
-            <IonList className="ion-padding-horizontal">
+            <IonList>
               {sheet.combat.keys.map((key, index) => {
                 return (
                   <IonChip color="primary" key={index}>
