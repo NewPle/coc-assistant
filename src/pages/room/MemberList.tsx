@@ -201,7 +201,7 @@ const MemberList: React.VFC = () => {
                       style={{ margin: "auto 0" }}
                       onClick={() => {
                         setSheet((prev: any) => {
-                          if (prev) {
+                          if (prev.belongings) {
                             return {
                               ...prev,
                               belongings: [...prev.belongings, belonging],
@@ -257,7 +257,7 @@ const MemberList: React.VFC = () => {
                       style={{ margin: "auto 0" }}
                       onClick={() => {
                         setSheet((prev: any) => {
-                          if (prev) {
+                          if (prev.weapons) {
                             return {
                               ...prev,
                               weapons: [...prev.weapons, weapon],
