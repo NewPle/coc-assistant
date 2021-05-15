@@ -172,16 +172,7 @@ const SheetList: React.VFC = () => {
           return (
             <IonCard>
               <IonCardHeader>
-                <IonToolbar>
-                  <IonCardTitle>{sheet.characterName}</IonCardTitle>
-                  <IonButtons slot="end">
-                    <IonButton
-                      onClick={() => setSelectedSheetId(sheet.sheetId)}
-                    >
-                      <IonIcon icon={trashOutline} slot="icon-only" />
-                    </IonButton>
-                  </IonButtons>
-                </IonToolbar>
+                <IonCardTitle>{sheet.characterName}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
                 <IonListHeader>人物</IonListHeader>
@@ -207,7 +198,7 @@ const SheetList: React.VFC = () => {
                 {sheet.belongings.length > 0 && (
                   <>
                     <IonListHeader>持ち物一覧</IonListHeader>
-                    <IonList className="ion-padding-horizontal">
+                    <IonList>
                       {sheet.belongings.map((belonging, index) => {
                         return (
                           <IonChip color="primary" key={index}>
@@ -222,11 +213,60 @@ const SheetList: React.VFC = () => {
                 {sheet.weapons.length > 0 && (
                   <>
                     <IonListHeader>武器一覧</IonListHeader>
-                    <IonList className="ion-padding-horizontal">
+                    <IonList>
                       {sheet.weapons.map((weapon, index) => {
                         return (
                           <IonChip color="primary" key={index}>
                             <IonLabel>{weapon}</IonLabel>
+                          </IonChip>
+                        );
+                      })}
+                    </IonList>
+                  </>
+                )}
+
+                {sheet.characteristics && (
+                  <>
+                    <IonListHeader>能力値</IonListHeader>
+                    <IonList>
+                      {sheet.characteristics.keys.map((key, index) => {
+                        return (
+                          <IonChip color="primary" key={index}>
+                            <IonLabel>
+                              {key} {sheet.characteristics[key]}
+                            </IonLabel>
+                          </IonChip>
+                        );
+                      })}
+                    </IonList>
+                  </>
+                )}
+                {sheet.params && (
+                  <>
+                    <IonListHeader>パラメーター値</IonListHeader>
+                    <IonList>
+                      {sheet.params.keys.map((key, index) => {
+                        return (
+                          <IonChip color="primary" key={index}>
+                            <IonLabel>
+                              {key} {sheet.params[key]}
+                            </IonLabel>
+                          </IonChip>
+                        );
+                      })}
+                    </IonList>
+                  </>
+                )}
+                {sheet.combat && (
+                  <>
+                    <IonListHeader>戦闘値</IonListHeader>
+                    <IonList>
+                      {sheet.combat.keys.map((key, index) => {
+                        return (
+                          <IonChip color="primary" key={index}>
+                            <IonLabel>
+                              {key} {sheet.combat[key]}
+                            </IonLabel>
                           </IonChip>
                         );
                       })}

@@ -34,11 +34,17 @@ const Component: React.VFC<ComponentProps> = ({
   if (isLoading) {
     return null;
   }
-  if (!isVerified && isSignedIn) {
-    return <Waiting />;
-  }
-  if (isVerified && isSignedIn) {
-    return <>{children}</>;
+  if (process.env.NODE_ENV === "development") {
+    if (isSignedIn) {
+      return <>{children}</>;
+    }
+  } else {
+    if (!isVerified && isSignedIn) {
+      return <Waiting />;
+    }
+    if (isVerified && isSignedIn) {
+      return <>{children}</>;
+    }
   }
   return <Redirect to={routes.signin} />;
 };
