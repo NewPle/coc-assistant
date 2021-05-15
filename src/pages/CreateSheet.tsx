@@ -131,6 +131,8 @@ const CreateSheet: React.VFC = () => {
         characterName,
         userName: "todo user name",
         age,
+        params,
+        combat,
         gender,
         occupation,
         belongings,
