@@ -20,13 +20,13 @@ import MemberList from "./MemberList";
 import Chat from "./Chat";
 import Roll from "./Roll";
 import Story from "./Story";
+import Others from "./Others";
 import { routes } from "../../routes";
 import { useEffect } from "react";
 import { useRoom } from "../../hooks/room";
 import { useAuth } from "../../hooks/auth";
 import MasterGuard from "../../components/MasterGuard";
 import { useError } from "../../hooks/error";
-import Others from "./Others";
 
 const RoomTabs: React.VFC = () => {
   const history = useHistory();
