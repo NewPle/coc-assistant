@@ -39,25 +39,49 @@ export const useAuth = () => {
     //     return false;
     //   });
     return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(async (firebaseUser) => {
-        if (firebaseUser.user) {
-          firebaseUser.user.sendEmailVerification().catch((error) => {
-            console.error(error);
-            updateError(firebaseError(error, "signup"));
-            return false;
-          });
-          firebaseUser.user.updateProfile({ displayName });
-          dispatch(signUpAction(firebaseUser.user.uid));
-          analytics.logEvent("sign_up", { method: "EmailAndPassword" });
-        }
-      })
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() =>
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .then(async (firebaseUser) => {
+            if (firebaseUser.user) {
+              firebaseUser.user.sendEmailVerification().catch((error) => {
+                console.error(error);
+                updateError(firebaseError(error, "signup"));
+                return false;
+              });
+              firebaseUser.user.updateProfile({ displayName });
+              dispatch(signUpAction(firebaseUser.user.uid));
+              analytics.logEvent("sign_up", { method: "EmailAndPassword" });
+            }
+          })
+      )
       .then(() => history.push(routes.root))
       .catch((error) => {
         console.error(error);
         updateError(firebaseError(error, "signup"));
         return false;
       });
+    // return auth
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then(async (firebaseUser) => {
+    //     if (firebaseUser.user) {
+    //       firebaseUser.user.sendEmailVerification().catch((error) => {
+    //         console.error(error);
+    //         updateError(firebaseError(error, "signup"));
+    //         return false;
+    //       });
+    //       firebaseUser.user.updateProfile({ displayName });
+    //       dispatch(signUpAction(firebaseUser.user.uid));
+    //       analytics.logEvent("sign_up", { method: "EmailAndPassword" });
+    //     }
+    //   })
+    //   .then(() => history.push(routes.root))
+    //   .catch((error) => {
+    //     console.error(error);
+    //     updateError(firebaseError(error, "signup"));
+    //     return false;
+    //   });
   };
 
   const signIn = (email: string, password: string) => {
