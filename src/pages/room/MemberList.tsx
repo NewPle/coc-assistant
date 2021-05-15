@@ -15,7 +15,7 @@ import { useRoom } from "../../hooks/room";
 import { routes } from "../../routes";
 
 const MemberList: React.VFC = () => {
-  const { sheets } = useRoom();
+  const { sheets, exitRoom } = useRoom();
   // const [selectedSheetId, setSelectedSheetId] = useState("");
 
   // const onSheetClick = useCallback((sheetId: string) => {
@@ -27,7 +27,12 @@ const MemberList: React.VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root} fill="solid" color="medium">
+            <IonButton
+              routerLink={routes.root}
+              fill="solid"
+              color="medium"
+              onClick={() => exitRoom()}
+            >
               ホームへ
             </IonButton>
           </IonButtons>

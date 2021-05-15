@@ -15,13 +15,18 @@ import { useRoom } from "../../hooks/room";
 import { routes } from "../../routes";
 
 const Story: React.VFC = () => {
-  const { story } = useRoom();
+  const { story, exitRoom } = useRoom();
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root} fill="solid" color="medium">
+            <IonButton
+              routerLink={routes.root}
+              fill="solid"
+              color="medium"
+              onClick={() => exitRoom()}
+            >
               ホームへ
             </IonButton>
           </IonButtons>

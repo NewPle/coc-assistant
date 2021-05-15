@@ -69,7 +69,7 @@ const Roll: React.VFC = () => {
   const activeColor = "danger";
   const passiveColor = "primary";
 
-  const { sheets } = useRoom();
+  const { sheets, exitRoom } = useRoom();
   const [selectedSheetId, setSelectedSheetId] = useState("");
 
   const [result, setResult] = useState({ result: "", showResult: false });
@@ -269,7 +269,12 @@ const Roll: React.VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root} fill="solid" color="medium">
+            <IonButton
+              routerLink={routes.root}
+              fill="solid"
+              color="medium"
+              onClick={() => exitRoom()}
+            >
               ホームへ
             </IonButton>
           </IonButtons>

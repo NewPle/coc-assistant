@@ -20,7 +20,7 @@ export const roomSlice = createSlice({
   initialState,
   reducers: {
     updateRoomInfo: (state, action: PayloadAction<RoomInfo>) => {
-      state.info = Object.assign({}, action.payload);
+      state.info = action.payload;
     },
     updateMessages: (state, action: PayloadAction<Messages>) => {
       state.messages = action.payload;

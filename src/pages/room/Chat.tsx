@@ -22,7 +22,7 @@ import Message from "../../components/Message";
 import { routes } from "../../routes";
 
 const Chat: React.VFC = () => {
-  const { info, messages, sheets } = useRoom();
+  const { info, messages, sheets, exitRoom } = useRoom();
   const { user } = useAuth();
   const [message, setMessage] = useState("");
   const { updateError } = useError();
@@ -82,7 +82,12 @@ const Chat: React.VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root} fill="solid" color="medium">
+            <IonButton
+              routerLink={routes.root}
+              fill="solid"
+              color="medium"
+              onClick={() => exitRoom()}
+            >
               ホームへ
             </IonButton>
           </IonButtons>
