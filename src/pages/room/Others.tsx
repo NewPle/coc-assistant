@@ -8,6 +8,7 @@ import {
   IonCardTitle,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -24,6 +25,8 @@ import { useRoom } from "../../hooks/room";
 import { rtdb } from "../../lib/firebase";
 import { routes } from "../../routes";
 import { rtdbRoutes } from "../../rtdbRoutes";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { copyOutline } from "ionicons/icons";
 
 const Others: React.VFC = () => {
   const history = useHistory();
@@ -212,23 +215,37 @@ const Others: React.VFC = () => {
             <IonLabel position="stacked">ルーム名</IonLabel>
             <p>{info?.roomName}</p>
           </IonItem>
-          <IonItem>
+          <IonItem button>
             <IonLabel position="stacked">ルームID</IonLabel>
-            <p>{info?.roomId}</p>
+            <CopyToClipboard text={String(info?.roomId)}>
+              <p>{info?.roomId}</p>
+            </CopyToClipboard>
+            <IonIcon
+              icon={copyOutline}
+              slot="end"
+              style={{ margin: "auto 0" }}
+            />
           </IonItem>
         </IonList>
         <div className="ion-padding"></div>
         <div className="ion-padding"></div>
-        {!isMaster && (
-          <IonButton onClick={() => setShowAlert(true)} color="danger">
-            ルームを退出
-          </IonButton>
-        )}
-        {isMaster && (
-          <IonButton onClick={() => setShowAlert(true)} color="danger">
-            ルームを削除する
-          </IonButton>
-        )}
+        <div className="ion-padding"></div>
+        <div className="ion-padding"></div>
+        <div className="ion-padding"></div>
+        <div className="ion-padding"></div>
+        <div className="ion-padding"></div>
+        <div className="ion-text-center">
+          {!isMaster && (
+            <IonButton onClick={() => setShowAlert(true)} color="danger">
+              ルームを退出
+            </IonButton>
+          )}
+          {isMaster && (
+            <IonButton onClick={() => setShowAlert(true)} color="danger">
+              ルームを削除する
+            </IonButton>
+          )}
+        </div>
       </IonContent>
     </IonPage>
   );
