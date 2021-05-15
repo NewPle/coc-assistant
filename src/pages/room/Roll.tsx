@@ -156,12 +156,16 @@ const Roll: React.VFC = () => {
       diceResult = randomInt(1, dice.value + 1);
     }
     diceResult += additionalValue;
-    if (diceResult === successValue) {
-      return "同値";
-    } else if (diceResult < successValue) {
-      return "成功";
+    if (dice.name === "1D100") {
+      if (diceResult === successValue) {
+        return "同値";
+      } else if (diceResult < successValue) {
+        return "成功";
+      } else {
+        return "失敗";
+      }
     } else {
-      return "失敗";
+      return `${diceResult}`;
     }
   }
 
@@ -241,6 +245,7 @@ const Roll: React.VFC = () => {
         header={"ロール結果"}
         message={result.result}
         backdropDismiss={false}
+        cssClass="align-alert-message"
         onDidDismiss={() => setResult({ showResult: false, result: "" })}
         buttons={[
           {
