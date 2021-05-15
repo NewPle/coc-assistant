@@ -37,7 +37,7 @@ const Component: React.VFC<ComponentProps> = ({
   if (!isVerified && isSignedIn) {
     return <Waiting />;
   }
-  if (isSignedIn) {
+  if (isVerified && isSignedIn) {
     return <>{children}</>;
   }
   return <Redirect to={routes.signin} />;
