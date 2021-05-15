@@ -160,7 +160,7 @@ const Others: React.VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root} fill="solid">
+            <IonButton routerLink={routes.root} fill="solid" color="medium">
               ホームへ
             </IonButton>
           </IonButtons>
