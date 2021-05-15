@@ -107,7 +107,24 @@ const Others: React.VFC = () => {
           sheet.sheetId
         );
         const userSheetRef = rtdb.ref(userSheetPath);
+
         const updatedSheet = { ...sheet, isParticipating: false };
+        // const updatedSheet = {
+        //   characterName: sheet.characterName,
+        //   userName: sheet.userName,
+        //   age: sheet.age,
+        //   gender: sheet.gender,
+        //   occupation: sheet.occupation,
+        //   belongings: sheet.belongings,
+        //   weapons: sheet.weapons,
+        //   background: sheet.background,
+        //   investigatorSkills: sheet.investigatorSkills,
+        //   characteristics: sheet.characteristics,
+        //   injury: sheet.injury,
+        //   sheetId: sheet.sheetId,
+        //   userId: sheet.userId,
+        //   isParticipating: false,
+        // };
 
         const userRoomPath = rtdbRoutes.users.user.rooms.room(
           sheet.userId,
@@ -122,6 +139,7 @@ const Others: React.VFC = () => {
           isParticipating: false,
           participatingRoomId: "",
         });
+
         sheetsSheetRef.update(updatedSheet);
         userRoomRef.remove();
       });
