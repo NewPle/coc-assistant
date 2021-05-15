@@ -104,7 +104,7 @@ const CreateSheet: React.VFC = () => {
           }
 
           if (userSheets.length > 0) {
-            updateError("通常アカウントではこれ以上シートを作成できません");
+            updateError("クローズド版ではこれ以上シートを作成できません");
             history.push(routes.root);
             return;
           }
@@ -147,7 +147,7 @@ const CreateSheet: React.VFC = () => {
       });
 
       if (userSheets && userSheets.length > 0) {
-        throw new Error("通常アカウントではこれ以上シートを作成できません");
+        throw new Error("クローズド版ではこれ以上シートを作成できません");
       }
       // to this line
 
@@ -224,7 +224,7 @@ const CreateSheet: React.VFC = () => {
         }
 
         if (userSheets.length > 0) {
-          updateError("通常アカウントではこれ以上シートを作成できません");
+          updateError("クローズド版ではこれ以上シートを作成できません");
           history.push(routes.root);
           return;
         }
