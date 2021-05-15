@@ -106,7 +106,12 @@ export const useAuth = () => {
   useEffect(() => {
     auth.onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
-        dispatch(signInAction(firebaseUser.uid));
+        dispatch(
+          signInAction({
+            uid: firebaseUser.uid,
+            emailVerified: firebaseUser.emailVerified,
+          })
+        );
         analytics.logEvent("login", { method: "EmailAndPassword" });
       } else {
         dispatch(signOutAction());

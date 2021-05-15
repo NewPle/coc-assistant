@@ -16,8 +16,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    signIn: (state, action: PayloadAction<string>) => {
-      state.uid = action.payload;
+    signIn: (
+      state,
+      action: PayloadAction<{ uid: string; emailVerified: boolean }>
+    ) => {
+      state.uid = action.payload.uid;
+      state.emailVerified = action.payload.emailVerified;
       state.loading = false;
     },
     signOut: (state) => {
