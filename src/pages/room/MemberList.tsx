@@ -27,7 +27,9 @@ const MemberList: React.VFC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton routerLink={routes.root}>ホームへ</IonButton>
+            <IonButton routerLink={routes.root} fill="solid">
+              ホームへ
+            </IonButton>
           </IonButtons>
           <IonTitle>MemberList</IonTitle>
         </IonToolbar>
