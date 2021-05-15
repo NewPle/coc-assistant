@@ -94,8 +94,10 @@ const Others: React.VFC = () => {
 
       if (!sheets) {
         masterRoomRef.remove();
-        roomsRoomRef.remove();
-        exitRoom();
+        // roomsRoomRef.remove();
+        roomsRoomRef.set({ info: "", messages: "", sheets: "", story: "" });
+
+        // exitRoom();
         history.push(routes.root);
       }
 
@@ -105,7 +107,7 @@ const Others: React.VFC = () => {
           sheet.sheetId
         );
         const userSheetRef = rtdb.ref(userSheetPath);
-        sheet.isParticipating = false;
+        const updatedSheet = { ...sheet, isParticipating: false };
 
         const userRoomPath = rtdbRoutes.users.user.rooms.room(
           sheet.userId,
@@ -120,13 +122,13 @@ const Others: React.VFC = () => {
           isParticipating: false,
           participatingRoomId: "",
         });
-        sheetsSheetRef.update(sheet);
+        sheetsSheetRef.update(updatedSheet);
         userRoomRef.remove();
       });
 
       masterRoomRef.remove();
-      roomsRoomRef.remove();
-      exitRoom();
+      roomsRoomRef.set({ info: "", messages: "", sheets: "", story: "" });
+      // exitRoom();
       history.push(routes.root);
     } catch (error) {
       console.error(error);
