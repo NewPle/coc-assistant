@@ -73,6 +73,55 @@ const SheetDetails: React.VFC<Props> = ({ sheet }) => {
           </>
         )}
 
+        {sheet.characteristics && (
+          <>
+            <IonListHeader>能力値</IonListHeader>
+            <IonList>
+              {sheet.characteristics.keys.map((key, index) => {
+                return (
+                  <IonChip color="primary" key={index}>
+                    <IonLabel>
+                      {key} {sheet.characteristics[key]}
+                    </IonLabel>
+                  </IonChip>
+                );
+              })}
+            </IonList>
+          </>
+        )}
+        {sheet.params && (
+          <>
+            <IonListHeader>パラメーター値</IonListHeader>
+            <IonList className="ion-padding-horizontal">
+              {sheet.params.keys.map((key, index) => {
+                return (
+                  <IonChip color="primary" key={index}>
+                    <IonLabel>
+                      {key} {sheet.params[key]}
+                    </IonLabel>
+                  </IonChip>
+                );
+              })}
+            </IonList>
+          </>
+        )}
+        {sheet.combat && (
+          <>
+            <IonListHeader>戦闘値</IonListHeader>
+            <IonList className="ion-padding-horizontal">
+              {sheet.combat.keys.map((key, index) => {
+                return (
+                  <IonChip color="primary" key={index}>
+                    <IonLabel>
+                      {key} {sheet.combat[key]}
+                    </IonLabel>
+                  </IonChip>
+                );
+              })}
+            </IonList>
+          </>
+        )}
+
         <IonListHeader>技能値</IonListHeader>
         <IonList>
           {sheet.investigatorSkills.map((investigatorSkill, index) => {
