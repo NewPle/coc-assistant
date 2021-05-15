@@ -53,7 +53,6 @@ const MemberList: React.VFC = () => {
   // const onSheetClick = useCallback((sheetId: string) => {
   //   setSelectedSheetId(sheetId);
   // }, []);
-  console.log(sheet);
 
   const getSheet = async (sheetId: string) => {
     try {
