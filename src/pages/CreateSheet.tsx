@@ -75,6 +75,45 @@ const CreateSheet: React.VFC = () => {
   const createSheet = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
+      const checkUserSheetsNum = async () => {
+        try {
+          if (!user.uid) {
+            throw new Error("ユーザーが見つかりません");
+          }
+
+          const userSheetsSheetPath = rtdbRoutes.users.user.sheets.root(
+            user.uid
+          );
+
+          const userSheetsRef = rtdb.ref(userSheetsSheetPath);
+
+          const userSheets = await userSheetsRef.get().then((snapshot) => {
+            if (snapshot.exists()) {
+              const userSheetsData: FirebaseUserSheetsData = snapshot.val();
+              const userSheets = Object.keys(userSheetsData).map(
+                (key) => userSheetsData[key]
+              );
+              return userSheets;
+            } else {
+              return null;
+            }
+          });
+
+          if (!userSheets) {
+            return;
+          }
+
+          if (userSheets.length > 0) {
+            updateError("通常アカウントではこれ以上シートを作成できません");
+            history.push(routes.root);
+            return;
+          }
+        } catch (error) {
+          console.error(error);
+          updateError(error.message);
+        }
+      };
+      checkUserSheetsNum();
       if (!user.uid) {
         throw new Error("ユーザーが見つかりません");
       }
