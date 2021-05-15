@@ -669,7 +669,7 @@ const Roll: React.VFC = () => {
                 {DICES.map((dice, index) => {
                   return (
                     <IonItem lines="full" key={index}>
-                      <IonRadio slot="start" value={dice} />
+                      <IonRadio slot="start" value={dice} color={normalColor} />
                       <IonLabel>{dice.name}</IonLabel>
                     </IonItem>
                   );
@@ -721,6 +721,7 @@ const Roll: React.VFC = () => {
                       <IonRadio
                         slot="start"
                         value={additionalDice}
+                        color={normalColor}
                         disabled={dice.name !== "1D100" && !isCounterRoll}
                       />
                       <IonLabel>{additionalDice.type}</IonLabel>
@@ -742,6 +743,7 @@ const Roll: React.VFC = () => {
                       <IonRadio
                         slot="start"
                         value={difficulty}
+                        color={normalColor}
                         disabled={dice.name !== "1D100" && !isCounterRoll}
                       />
                       <IonLabel>{difficulty.type}</IonLabel>
@@ -759,13 +761,7 @@ const Roll: React.VFC = () => {
                   onIonChange={(event) =>
                     setAdditionalValue(Number(event.detail.value))
                   }
-                  color={
-                    additionalValue === 0
-                      ? "dark"
-                      : additionalValue < 0
-                      ? "danger"
-                      : "primary"
-                  }
+                  color={normalColor}
                   ticks={true}
                   snaps={true}
                   step={10}
@@ -773,16 +769,7 @@ const Roll: React.VFC = () => {
                   max={100}
                 />
                 <IonLabel>
-                  <IonChip
-                    color={
-                      additionalValue === 0
-                        ? "dark"
-                        : additionalValue < 0
-                        ? "danger"
-                        : "primary"
-                    }
-                    slot="end"
-                  >
+                  <IonChip color={normalColor} slot="end">
                     {additionalValue}
                   </IonChip>
                 </IonLabel>
