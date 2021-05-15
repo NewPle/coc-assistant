@@ -40,9 +40,7 @@ const Waiting: React.VFC = () => {
         />
         <p>CoC assistantが確認用メールを送信しました。</p>
         <p>メールアドレスの確認をお願いします。</p>
-        <IonButton onClick={() => auth.currentUser?.reload()}>
-          確認しました
-        </IonButton>
+        <IonButton href={routes.root}>確認しました</IonButton>
         <div />
         <IonButton
           onClick={() =>
