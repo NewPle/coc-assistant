@@ -31,22 +31,21 @@ const Component: React.VFC<ComponentProps> = ({
   isLoading,
   isVerified,
 }) => {
-  return <Waiting />;
-  // if (isLoading) {
-  //   return null;
-  // }
-  // if (process.env.NODE_ENV === "development") {
-  //   if (isSignedIn) {
-  //     return <>{children}</>;
-  //   }
-  // } else {
-  //   if (!isVerified && isSignedIn) {
-  //   }
-  //   if (isVerified && isSignedIn) {
-  //     return <>{children}</>;
-  //   }
-  // }
-  // return <Redirect to={routes.signin} />;
+  if (isLoading) {
+    return null;
+  }
+  if (process.env.NODE_ENV === "development") {
+    if (isSignedIn) {
+      return <>{children}</>;
+    }
+  } else {
+    if (!isVerified && isSignedIn) {
+    }
+    if (isVerified && isSignedIn) {
+      return <>{children}</>;
+    }
+  }
+  return <Redirect to={routes.signin} />;
 };
 
 export default AuthGuard;
