@@ -40,6 +40,7 @@ const Component: React.VFC<ComponentProps> = ({
     }
   } else {
     if (!isVerified && isSignedIn) {
+      return <Waiting />;
     }
     if (isVerified && isSignedIn) {
       return <>{children}</>;
