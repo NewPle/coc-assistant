@@ -55,8 +55,8 @@ export const useAuth = () => {
               analytics.logEvent("sign_up", { method: "EmailAndPassword" });
             }
           })
+          .then(() => history.push(routes.root))
       )
-      .then(() => history.push(routes.root))
       .catch((error) => {
         console.error(error);
         updateError(firebaseError(error, "signup"));
@@ -87,8 +87,11 @@ export const useAuth = () => {
   const signIn = (email: string, password: string) => {
     return auth
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => auth.signInWithEmailAndPassword(email, password))
-      .then(() => history.push(routes.root))
+      .then(() =>
+        auth
+          .signInWithEmailAndPassword(email, password)
+          .then(() => history.push(routes.root))
+      )
       .catch((error) => {
         console.error(error);
         updateError(firebaseError(error, "signin"));
@@ -112,6 +115,7 @@ export const useAuth = () => {
             emailVerified: firebaseUser.emailVerified,
           })
         );
+        history.push(routes.root);
         analytics.logEvent("login", { method: "EmailAndPassword" });
       } else {
         dispatch(signOutAction());
