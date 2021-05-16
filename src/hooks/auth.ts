@@ -84,14 +84,16 @@ export const useAuth = () => {
   };
 
   const signIn = (email: string, password: string) => {
-    return auth
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => auth.signInWithEmailAndPassword(email, password))
-      .then(() => history.push(routes.root))
-      .catch((error) => {
-        console.error(error);
-        updateError(firebaseError(error, "signin"));
-      });
+    return (
+      auth
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => auth.signInWithEmailAndPassword(email, password))
+        // .then(() => history.push(routes.root))
+        .catch((error) => {
+          console.error(error);
+          updateError(firebaseError(error, "signin"));
+        })
+    );
   };
 
   const signOut = () => {
@@ -111,6 +113,7 @@ export const useAuth = () => {
             emailVerified: firebaseUser.emailVerified,
           })
         );
+        history.push(routes.root);
         analytics.logEvent("login", { method: "EmailAndPassword" });
       } else {
         dispatch(signOutAction());
