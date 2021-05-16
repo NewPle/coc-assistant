@@ -81,7 +81,7 @@ const SignIn: React.VFC = () => {
             サインイン
           </IonButton>
         </form>
-        <IonButton expand="full" href={routes.signup}>
+        <IonButton expand="full" routerLink={routes.signup}>
           新しく作る
         </IonButton>
       </IonContent>
