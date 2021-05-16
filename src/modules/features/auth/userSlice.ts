@@ -27,6 +27,7 @@ export const userSlice = createSlice({
     signOut: (state) => {
       state.uid = null;
       state.loading = false;
+      state.emailVerified = false;
     },
     signUp: (state, action: PayloadAction<string>) => {
       state.uid = action.payload;
